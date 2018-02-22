@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/CG.dir/main.cpp.o  -o CG 
