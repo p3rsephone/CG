@@ -7,7 +7,7 @@
 using namespace std;
 
 //Importante!!!
-//Compilar com o seguinte exemplo: g++ -std=c++11 -o generator main.cpp
+//Compilar com o seguinte exemplo: g++ -std=c++11 -o generator_test main.cpp
 //Apenas o C++11 contém stoi's e stod's por isso temos de limitar a versão
 
 int addToXML(){
