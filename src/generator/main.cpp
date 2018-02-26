@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <stdio.h>
 #include <string.h>
@@ -9,13 +10,32 @@ using namespace std;
 //Importante!!!
 //Compilar com o seguinte exemplo: g++ -std=c++11 -o generator_test main.cpp
 //Apenas o C++11 contém stoi's e stod's por isso temos de limitar a versão
+//TODO: Mudar os ints para floats
+
 
 int addToXML(){
 
     return 0;
 }
 
-int parsePlane(string filename){
+int parsePlane(GLint size, string filename){
+    ofstream file (filename);
+    if (size<=0) {
+        cout << "Size must be positive." << endl
+        return 1;
+    }
+
+    int height = size/2;
+
+    // Triângulo 1:
+    // h,0,h
+    // -h,0,h
+    // -h,0,-h
+    //
+    // Triângulo 2:
+    // -h,0,-h
+    // h,0,-h
+    // h,0,h
 
     return 0;
 }
@@ -54,11 +74,12 @@ int main(int argc, char* argv[]) {
 
     //*
     // Verifies if the object is a plane
-    // Example: generator plane plane.3d
+    // Example: generator plane 2 plane.3d
     if(strcmp(argv[1],"plane") == 0){
-        if(argc == 3) {
-            string filename = argv[2];
-            parsePlane(filename);
+        if(argc == 4) {
+            GLint size = (GLint) stoi(argv[2]);
+            string filename = argv[3];
+            parsePlane(size,filename);
         }
     }
 
