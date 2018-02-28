@@ -16,6 +16,6 @@ if(NOT OPENGL_FOUND)
 endif(NOT OPENGL_FOUND)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../../bin")
-add_executable(engine main.cpp)
+add_executable(engine main.cpp ../../../lib/tinyxml2.cpp)
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 target_link_libraries(engine ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
