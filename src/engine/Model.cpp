@@ -3,10 +3,10 @@
 Model::Model(){
 }
 
-void Model::addElement(Element* elem){
-  elements_vector.push_back(elem);
+void Model::addElement(Point* point){
+  point_vector.push_back(point);
 }
 
-vector<Element*> Model::addElement(Element* elem){
-  return this->elements_vector;
+vector<Point*> Model::addElement(Point* point){
+  return this->point_vector;
 }
