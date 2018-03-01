@@ -5,7 +5,7 @@ using namespace std;
 
 #include <vector>
 #include <math.h>
-#include "Point.h"
+#include "../../../lib/headers/Point.h"
 
 vector<Point*> createPlane(double size);
 vector<Point*> createBox(double x, double y, double z, int d);
