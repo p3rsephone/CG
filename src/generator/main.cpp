@@ -21,17 +21,41 @@ void usage(){
 }
 
 /**
- * Prints .3d and .xml files
+ * Adds filenames to .xml file
+ * @param  filename Name of file to add
  */
-void printfile(string filename, vector<Point*>) {
-    // TODO: Print everything
+void addToXML(string filename){
+    ofstream file;
+    string xml = "files/main.xml";
+    file.open(xml);
+    if (!file.is_open()) {
+        cout << "Error while adding file " << filename << " to xml." <<endl;
+    } else {
+        //TODO: Add stuff to xml
+        file.close();
+    }
 }
 
-int addToXML(){
-    // TODO: Check if necessary
-    return 0;
-}
+/**
+ * Makes the .3d and .xml files
+ * @param filename Filename for .3d file
+ * @param points   List of points
+ */
+void printfile(string filename, vector<Point*> points) {
+    ofstream file;
+    string fileDir = "files/" + filename;
+    file.open(fileDir, ios_base::trunc);
+    if (!file.is_open()) {
+        cout << "Error while opening file " << filename << endl;
+    } else {
+        for (vector<Point*>::iterator i = points.begin() ; i!= points.end(); i++)
+            file << (*i)->toString();
 
+        file.close();
+        addToXML(filename);
+    }
+
+}
 
 int main(int argc, char* argv[]) {
     string filename;

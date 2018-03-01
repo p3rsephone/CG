@@ -1,25 +1,24 @@
 #include "figures.h"
+#include <iostream>
 
 /**
- * [createPlane description]
+ * Creates vertice points for a square in the XZ plane
  * Usage: generator plane 2 plane.3d
- * @param  size [description]
- * @return      [description]
+ * @param  size Size of the side of the square
+ * @return      Vertice Points
  */
 
 vector<Point*> createPlane(double size){
-    int height = size/2;
+    double height = size/2;
     vector<Point*> points;
 
-    // Triângulo 1:
-    // h,0,h
-    // -h,0,h
-    // -h,0,-h
-    //
-    // Triângulo 2:
-    // -h,0,-h
-    // h,0,-h
-    // h,0,h
+    points.push_back(new Point(height,0,height));
+    points.push_back(new Point(-height,0,height));
+    points.push_back(new Point(-height,0,-height));
+
+    points.push_back(new Point(-height,0,-height));
+    points.push_back(new Point(height,0,-height));
+    points.push_back(new Point(height,0,height));
 
     return points;
 }
