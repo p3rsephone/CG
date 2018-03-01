@@ -46,11 +46,12 @@ void renderScene(void) {
     glutSwapBuffers();
 }
 
-int main(int argc, char **argv) {
 
+void initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_SINGLE);
+
 // put callback registration here
   glutInitWindowPosition(100,100);
   glutInitWindowSize(800,800);
@@ -65,9 +66,13 @@ int main(int argc, char **argv) {
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 
-
 // enter GLUT's main loop
 	glutMainLoop();
+
+}
+
+int main(int argc, char **argv) {
+  initGL(argc,argv);
 
 	return 1;
 }
