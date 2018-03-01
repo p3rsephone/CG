@@ -48,7 +48,7 @@ void usage(){
 	cout << "|                                                                |" << endl;
     cout << "| The file should be in the 'files' directory.                   |" << endl;
 	cout << "| If the file doesn't exist it will be created. If it does it    |" << endl;
-	cout << "| will be truncated.                                             |" << endl;        
+	cout << "| will be truncated.                                             |" << endl;
 	cout << "|                                                                |" << endl;
     cout << "#________________________________________________________________#" << endl;
 
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
     string filename;
     vector<Point*> points;
 
-    if (strcmp(argv[1],"plane") == 0 && (argc == 4)){
+    if (argc == 4 && (strcmp(argv[1],"plane") == 0)){
         double size = atof(argv[2]);
         if (size<=0) {
             cout << "Size must be positive." << endl;
@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
         points = createPlane(size);
     }
 
-    else if (strcmp(argv[1],"box") == 0 && (argc == 6 || argc == 7)){
+    else if ((argc == 6 || argc == 7) && (strcmp(argv[1],"box") == 0)){
         double x = atof(argv[2]);
         double y = atof(argv[3]);
         double z = atof(argv[4]);
@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
         points = createBox(x, y, z, d);
     }
 
-    else if (strcmp(argv[1],"sphere") == 0 && (argc == 6)){
+    else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
         double radius = atof(argv[2]);
         int slices = (int) stoi(argv[3]);
         int stacks = (int) stoi(argv[4]);
@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
         points = createSphere(radius, slices, stacks);
     }
 
-    else if (strcmp(argv[1],"cone") == 0 && (argc == 7)){
+    else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
         double base = atof(argv[2]);
         double height = atof(argv[3]);
         int slices = (int) stoi(argv[4]);
