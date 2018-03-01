@@ -1,12 +1,12 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
-#include "headers/Element.h"
+#include "Point.h"
   class  Model{
     private:
-      vector<Element*> elements_vector;
+      vector<Point*> point_vector;
     public:
       Model();
-      void addElement(Element*);
-      vector<Element*> model();
+      void addElement(Point*);
+      vector<Point*> model();
 };
 #endif
