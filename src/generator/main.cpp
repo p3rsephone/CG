@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "figures.h"
+#include "headers/figures.h"
 
 //TODO: Check these headers OMG
 //TODO: Figure out namespaces -- HELP
@@ -17,7 +17,7 @@
  * Shows the usage of this file.
  */
 void usage(){
-    // TODO: Write instructions
+
 }
 
 /**
