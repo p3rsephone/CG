@@ -4,10 +4,10 @@ Scene::Scene(){
 }
 
 void Scene::addModel(Model* model){
-  modelents_vector.push_back(model);
+  model_vector.push_back(model);
 }
 
-vector<Model*> Scene::addModel(Model* model){
+vector<Model*> Scene::scene(){
   return this->model_vector;
 }
 
