@@ -24,17 +24,88 @@ vector<Point*> createPlane(double size){
 }
 
 /**
- * [createBox description]
+ * Creates vertice points for a box which may have divisions
  * Usage: generator box 1 1 1 box.3d
  * Usage 2: generator box 1 1 1 3 box.3d
- * @param  x [description]
- * @param  y [description]
- * @param  z [description]
- * @param  d [description]
- * @return   [description]
+ * @param  x Size of the box in the X axis
+ * @param  y Size of the box in the Y axis
+ * @param  z Size of the box in the Z axis
+ * @param  d Amount of divisions in each axis
+ * @return   Vertice Points
  */
 vector<Point*> createBox(double x, double y, double z, int d){
     vector<Point*> points;
+
+    //Basically centers the box in the origin of the referential
+    double realX = x/2;
+    double realY = y/2;
+    double realZ = z/2;
+
+    //How much space is there between divisions
+    double shiftX = x/d;
+    double shiftY = y/d;
+    double shiftZ = z/d;
+
+    for(int i = 0; i < d ; i++){
+        for(int j = 0; j < d ; j++){
+            for(int k = 0; k < d ; k++){
+
+                //Base
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+
+                //Top
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * k));
+
+                //Front face
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+
+                //Back Face
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * k));
+
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * k));
+
+                //Left Face
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+
+                //Right Face
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * k));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ + shiftZ * (k+1)));
+                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ + shiftZ * (k+1)));
+            }
+        }
+    }
 
     return points;
 }
