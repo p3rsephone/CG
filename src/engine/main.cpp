@@ -1,6 +1,8 @@
 #include "headers/main.h"
+#include <iostream>
+using namespace std;
 
-Scene scene;
+Scene* scene;
 
 void changeSize(int w, int h) {
 
@@ -37,7 +39,7 @@ void renderScene(void) {
 	gluLookAt(0.0,0.0,5.0,
 		      0.0,0.0,-1.0,
 			  0.0f,1.0f,0.0f);
-   scene.draw();
+   scene->draw();
     glutSwapBuffers();
 }
 
@@ -69,6 +71,25 @@ void initGL(int argc, char **argv){
 int main(int argc, char **argv) {
   initGL(argc,argv);
 
-	return 1;
+  Point* p1 = new Point(7.5, 0, 7.5);
+  Point* p2 = new Point(-7.5, 0, 7.5);
+  Point* p3 = new Point(-7.5, 0, -7.5);
+  Point* p4 = new Point(-7.5, 0, -7.5);
+  Point* p5 = new Point(7.5, 0, -7.5);
+  Point* p6 = new Point(7.5, 0, 7.5);
+
+  Model* model = new Model();
+
+  model->addElement(p1);
+  model->addElement(p2);
+  model->addElement(p3);
+  model->addElement(p4);
+  model->addElement(p5);
+  model->addElement(p6);
+  cout << "hello"<< endl;
+  scene = new Scene();
+  scene->addModel(model);
+
+  return 1;
 }
 
