@@ -1,7 +1,7 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 #include <string>
-#include "Model.h"
+#include "Scene.h"
 #include <vector>
 using namespace std;
   class  Scene{
@@ -10,5 +10,6 @@ using namespace std;
       Scene();
       void addModel(Model*);
       vector<Model*> scene();
+      void draw();
 };
 #endif

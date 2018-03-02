@@ -1,11 +1,6 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include "headers/main.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+Scene scene;
 
 void changeSize(int w, int h) {
 
@@ -42,7 +37,7 @@ void renderScene(void) {
 	gluLookAt(0.0,0.0,5.0,
 		      0.0,0.0,-1.0,
 			  0.0f,1.0f,0.0f);
-
+   scene->draw();
     glutSwapBuffers();
 }
 

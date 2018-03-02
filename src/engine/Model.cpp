@@ -15,7 +15,7 @@ void Model::draw(){
 
   glBegin(GL_TRIANGLES);
   for(it = this->point_vector.begin(); it != this->point_vector.end(); it++){
-    glVertex3f(*it->x,*it->y,*it->z);
+    glVertex3f((*it)->X(),(*it)->Y(),(*it)->Z());
   }
   glEnd();
 

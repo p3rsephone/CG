@@ -17,5 +17,6 @@ using namespace std;
       Model();
       void addElement(Point*);
       vector<Point*> model();
+      void draw();
 };
 #endif
