@@ -125,15 +125,15 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
     double y;
     double z;
 
-    double fiShift = M_PI_2 / slices;
-    double thetaShift = M_PI_2 / stacks;
+    double fiShift = M_PI*2 / slices;
+    double thetaShift = M_PI*2 / stacks;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
     //y = radius * sin(theta) * sin(fi);
     //z = radius * cos(theta);
-    for(double fi = 0; fi < M_PI_2 ; fi+= fiShift){
-        for(double theta = 0; theta < M_PI_2 ; theta += thetaShift){
+    for(double fi = 0; fi < M_PI*2 ; fi+= fiShift){
+        for(double theta = 0; theta < M_PI*2 ; theta += thetaShift){
             //Triangular ends of the sphere
             if(theta == 0){
                 points.push_back(new Point(radius * sin(theta) * cos(fi) , radius * sin(theta) * sin(fi) , radius * cos(theta)));
@@ -141,7 +141,7 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
                 points.push_back(new Point(radius * sin(theta+thetaShift) * cos(fi) , radius * sin(theta+thetaShift) * sin(fi) , radius * cos(theta+thetaShift)));
             }
 
-            else if(theta == M_PI_2 - thetaShift){
+            else if(theta == M_PI*2 - thetaShift){
                 points.push_back(new Point(radius * sin(theta) * cos(fi) , radius * sin(theta) * sin(fi) , radius * cos(theta)));
                 points.push_back(new Point(radius * sin(theta) * cos(fi+fiShift) , radius * sin(theta) * sin(fi+fiShift) , radius * cos(theta)));
                 points.push_back(new Point(radius * sin(theta+thetaShift) * cos(fi+fiShift) , radius * sin(theta+thetaShift) * sin(fi+fiShift) , radius * cos(theta+thetaShift)));
