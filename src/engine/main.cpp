@@ -69,7 +69,10 @@ void initGL(int argc, char **argv){
 }
 
 int main(int argc, char **argv) {
-  initGL(argc,argv);
+
+  cerr << "hello"<< endl;
+
+  cerr << "hello"<< endl;
 
   Point* p1 = new Point(7.5, 0, 7.5);
   Point* p2 = new Point(-7.5, 0, 7.5);
@@ -86,10 +89,10 @@ int main(int argc, char **argv) {
   model->addElement(p4);
   model->addElement(p5);
   model->addElement(p6);
-  cout << "hello"<< endl;
+  cerr << "hello"<< endl;
   scene = new Scene();
   scene->addModel(model);
-
+  initGL(argc,argv);
   return 1;
 }
 
