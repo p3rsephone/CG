@@ -15,7 +15,9 @@ void Scene::draw(){
   vector <Model*>::iterator it;
 
   for(it = this->model_vector.begin(); it != this->model_vector.end(); it++){
-    (*it)->draw();
+    (*it)->test();
   }
+
+
 
 }

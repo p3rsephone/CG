@@ -1,6 +1,4 @@
 #include "headers/main.h"
-#include <iostream>
-using namespace std;
 
 Scene* scene;
 
@@ -36,10 +34,13 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(0.0,0.0,5.0,
-		      0.0,0.0,-1.0,
+	gluLookAt(30.0,30.0,0.0,
+		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
-   scene->draw();
+//    scene->draw();
+//    glutWireTeapot(1);
+      scene->draw();
+
     glutSwapBuffers();
 }
 
@@ -70,10 +71,6 @@ void initGL(int argc, char **argv){
 
 int main(int argc, char **argv) {
 
-  cerr << "hello"<< endl;
-
-  cerr << "hello"<< endl;
-
   Point* p1 = new Point(7.5, 0, 7.5);
   Point* p2 = new Point(-7.5, 0, 7.5);
   Point* p3 = new Point(-7.5, 0, -7.5);
@@ -89,7 +86,6 @@ int main(int argc, char **argv) {
   model->addElement(p4);
   model->addElement(p5);
   model->addElement(p6);
-  cerr << "hello"<< endl;
   scene = new Scene();
   scene->addModel(model);
   initGL(argc,argv);
