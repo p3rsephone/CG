@@ -24,14 +24,14 @@ vector<Point*> createPlane(double size){
 }
 
 /**
- * [createBox description]
+ * Creates vertice points for a box which may have divisions
  * Usage: generator box 1 1 1 box.3d
  * Usage 2: generator box 1 1 1 3 box.3d
- * @param  x [description]
- * @param  y [description]
- * @param  z [description]
- * @param  d [description]
- * @return   [description]
+ * @param  x Size of the box in the X axis
+ * @param  y Size of the box in the Y axis
+ * @param  z Size of the box in the Z axis
+ * @param  d Amount of divisions in each axis
+ * @return   Vertice Points
  */
 vector<Point*> createBox(double x, double y, double z, int d){
     vector<Point*> points;
