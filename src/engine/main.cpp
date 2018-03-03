@@ -1,11 +1,6 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include "headers/main.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+Scene* scene;
 
 void changeSize(int w, int h) {
 
@@ -39,18 +34,22 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(0.0,0.0,5.0,
-		      0.0,0.0,-1.0,
+	gluLookAt(30.0,30.0,0.0,
+		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
+//    scene->draw();
+//    glutWireTeapot(1);
+      scene->draw();
 
     glutSwapBuffers();
 }
 
-int main(int argc, char **argv) {
 
+void initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_SINGLE);
+
 // put callback registration here
   glutInitWindowPosition(100,100);
   glutInitWindowSize(800,800);
@@ -65,10 +64,31 @@ int main(int argc, char **argv) {
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 
-
 // enter GLUT's main loop
 	glutMainLoop();
 
-	return 1;
+}
+
+int main(int argc, char **argv) {
+
+  Point* p1 = new Point(7.5, 0, 7.5);
+  Point* p2 = new Point(-7.5, 0, 7.5);
+  Point* p3 = new Point(-7.5, 0, -7.5);
+  Point* p4 = new Point(-7.5, 0, -7.5);
+  Point* p5 = new Point(7.5, 0, -7.5);
+  Point* p6 = new Point(7.5, 0, 7.5);
+
+  Model* model = new Model();
+
+  model->addElement(p1);
+  model->addElement(p2);
+  model->addElement(p3);
+  model->addElement(p4);
+  model->addElement(p5);
+  model->addElement(p6);
+  scene = new Scene();
+  scene->addModel(model);
+  initGL(argc,argv);
+  return 1;
 }
 

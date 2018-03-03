@@ -13,12 +13,12 @@ vector<Point*> createPlane(double size){
     vector<Point*> points;
 
     points.push_back(new Point(height,0,height));
-    points.push_back(new Point(-height,0,height));
     points.push_back(new Point(-height,0,-height));
+    points.push_back(new Point(-height,0,height));
 
     points.push_back(new Point(-height,0,-height));
-    points.push_back(new Point(height,0,-height));
     points.push_back(new Point(height,0,height));
+    points.push_back(new Point(height,0,-height));
 
     return points;
 }
