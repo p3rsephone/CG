@@ -38,8 +38,8 @@ void renderScene(void) {
 		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
 //    scene->draw();
-//    glutWireTeapot(1);
-      scene->draw();
+    //glutWireTeapot(1);
+    scene->draw();
 
     glutSwapBuffers();
 }
@@ -63,6 +63,7 @@ void initGL(int argc, char **argv){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
+  glPolygonMode(GL_FRONT, GL_LINE);
 
 // enter GLUT's main loop
 	glutMainLoop();
@@ -70,24 +71,11 @@ void initGL(int argc, char **argv){
 }
 
 int main(int argc, char **argv) {
-
-  Point* p1 = new Point(7.5, 0, 7.5);
-  Point* p2 = new Point(-7.5, 0, 7.5);
-  Point* p3 = new Point(-7.5, 0, -7.5);
-  Point* p4 = new Point(-7.5, 0, -7.5);
-  Point* p5 = new Point(7.5, 0, -7.5);
-  Point* p6 = new Point(7.5, 0, 7.5);
-
-  Model* model = new Model();
-
-  model->addElement(p1);
-  model->addElement(p2);
-  model->addElement(p3);
-  model->addElement(p4);
-  model->addElement(p5);
-  model->addElement(p6);
   scene = new Scene();
-  scene->addModel(model);
+  if(argc > 1) {
+    Parser().ReadXML(scene, argv[1]);
+  }
+  //scene->addModel(model);
   initGL(argc,argv);
   return 1;
 }
