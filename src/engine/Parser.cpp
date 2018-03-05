@@ -3,7 +3,7 @@
 using namespace tinyxml2;
 using namespace std;
 
-Parser::Parser(){   
+Parser::Parser(){
 }
 
 void Parser::ReadXML(Scene* scene, char* xml){
@@ -37,14 +37,13 @@ void Parser::ReadXML(Scene* scene, char* xml){
         else{
 
             string s;
-
+            int contador = 0;
             for(;pElement; pElement=pElement->NextSiblingElement()){
 
                 if(pElement->Attribute("file")){
 
                     Model* model = new Model();
-
-                    s =pElement->Attribute("file");
+                    Triangle* t;                   s =pElement->Attribute("file");
 
                     string fileDir = "files/" + s;
                     ifstream infile(fileDir);
@@ -71,8 +70,16 @@ void Parser::ReadXML(Scene* scene, char* xml){
                             if(it==2) z=stof(*i);
                             it++;
                         }
+                        if( contador == 0 )
+                            t = new Triangle();
+
                         Point* p = new Point(x,y,z);
-                        model->addElement(p);
+                        t->addPoint(p);
+
+                        if( contador == 2 )
+                          model->addElement(t);
+
+                        contador = (contador+1) % 3;
                     }
 
                     scene->addModel(model);

@@ -7,6 +7,7 @@
 
 #include "Scene.h"
 #include "Model.h"
+#include "Triangle.h"
 #include <string>
 #include <vector>
 #include <iostream>

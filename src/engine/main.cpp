@@ -63,7 +63,7 @@ void initGL(int argc, char **argv){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
-  glPolygonMode(GL_FRONT, GL_LINE);
+  glPolygonMode(GL_FRONT, GL_FILL);
 
 // enter GLUT's main loop
 	glutMainLoop();
@@ -71,6 +71,7 @@ void initGL(int argc, char **argv){
 }
 
 int main(int argc, char **argv) {
+  srand(time(NULL));
   scene = new Scene();
   if(argc > 1) {
     Parser().ReadXML(scene, argv[1]);
