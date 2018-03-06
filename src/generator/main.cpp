@@ -130,13 +130,13 @@ int main(int argc, char* argv[]) {
     }
 
     else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
-        double base = atof(argv[2]);
+        double radius = atof(argv[2]);
         double height = atof(argv[3]);
         int slices = (int) stoi(argv[4]);
         int stacks = (int) stoi(argv[5]);
         filename = argv[6];
 
-        points = createCone(base, height, slices, stacks);
+        points = createCone(radius, height, slices, stacks);
     }
 
     else {
