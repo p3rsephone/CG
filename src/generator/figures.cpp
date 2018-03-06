@@ -165,16 +165,49 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
 }
 
 /**
- * [createCone description]
+ * Creates vertice points for a cone with a certain radius, slices and stacks
  * Usage: generator cone 1 1 20 20 cone.3d
- * @param  base     [description]
- * @param  height   [description]
- * @param  slices   [description]
- * @param  stacks   [description]
- * @return          [description]
+ * @param  r        Radius of the base
+ * @param  height   Height of the cone
+ * @param  slices   Number of slices
+ * @param  stacks   Number of stacks
+ * @return          Vertice points
  */
-vector<Point*> createCone(double base, double height, int slices, int stacks){
+vector<Point*> createCone(double r, double height, int slices, int stacks){
     vector<Point*> points;
+
+    float alpha = (2 * M_PI)/slices;
+    float h = sqrt(pow(r,2) + pow(h,2))/stacks;
+    float beta = r/slices;
+
+    for (int i = 0; i < stacks; i++) {
+        for (int j = 0; j<slices; j++) {
+
+            if (!i) {
+                // Base
+                points.push_back(new Point(0.0f,0.0f,0.0f));
+                points.push_back(new Point(r * sin(alpha * (j+1)), 0, r * cos(alpha * (j + 1))));
+                points.push_back(new Point(r * sin(alpha * j), 0, r * cos(alpha * j)));
+            }
+            // Sides
+            if (i == stacks-1) {
+                // Top
+                points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
+                points.push_back(new Point(0, (i + 1) * h, 0));
+
+            } else {
+                // Side
+                points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
+                points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * j), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * j)));
+
+                points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
+                points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
+            }
+        }
+    }
 
     return points;
 }
