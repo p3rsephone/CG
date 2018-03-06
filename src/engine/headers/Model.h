@@ -1,22 +1,16 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
 
 #include <math.h>
-
-#include <headers/Point.h>
 #include <vector>
+#include "Triangle.h"
 using namespace std;
   class  Model{
-      vector<Point*> point_vector;
+      vector<Triangle*> triangle_vector;
     public:
       Model();
-      void addElement(Point*);
-      vector<Point*> model();
+      void addElement(Triangle*);
+      vector<Triangle*> model();
       void draw();
       void test();
 };

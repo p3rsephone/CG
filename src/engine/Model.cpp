@@ -1,32 +1,24 @@
 #include "headers/Model.h"
-#include <iostream>
 using namespace std;
 
 Model::Model(){
 }
 
-void Model::addElement(Point* point){
-  point_vector.push_back(point);
+void Model::addElement(Triangle* triangle){
+  triangle_vector.push_back(triangle);
 }
 
-vector<Point*> Model::model(){
-  return this->point_vector;
+vector<Triangle*> Model::model(){
+  return this->triangle_vector;
 }
 
 void Model::draw(){
-  vector <Point*>::iterator it;
-
-  glBegin(GL_TRIANGLES);
-
-    glColor3f(1,0,0);
+  vector <Triangle*>::iterator it;
 
 
-  for(it = this->point_vector.begin(); it != this->point_vector.end(); it++){
-    cerr<< "glVertex3f("<<(*it)->X()<<","<<(*it)->Y()<<","<<(*it)->Z() << ");" << endl;
-
-    glVertex3f((*it)->X(),(*it)->Y(),(*it)->Z());
+  for(it = this->triangle_vector.begin(); it != this->triangle_vector.end(); it++){
+    (*it)->draw();
   }
-  glEnd();
 
 }
 
