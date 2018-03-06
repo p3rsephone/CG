@@ -12,3 +12,4 @@ CTestTestfile.cmake
 generator_test
 bin
 build
+files
