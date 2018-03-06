@@ -86,7 +86,7 @@ void printfile(string filename, vector<Point*> points) {
             file << (*i)->toString();
 
         file.close();
-        addToXML(filename);
+        //addToXML(filename);
     }
 
 }
