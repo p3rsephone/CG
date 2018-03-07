@@ -128,7 +128,7 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
     double fiShift = M_PI*2 / slices;
     double thetaShift = M_PI / stacks;
 
-    //Using spheri      c coordinates
+    //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
     //y = radius * sin(theta) * sin(fi);
     //z = radius * cos(theta);
