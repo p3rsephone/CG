@@ -126,7 +126,7 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
     double z;
 
     double fiShift = M_PI*2 / slices;
-    double thetaShift = M_PI*2 / stacks;
+    double thetaShift = M_PI / stacks;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
@@ -193,7 +193,7 @@ vector<Point*> createCone(double r, double height, int slices, int stacks){
                 points.push_back(new Point(r * sin(alpha * (j+1)), 0, r * cos(alpha * (j + 1))));
                 points.push_back(new Point(r * sin(alpha * j), 0, r * cos(alpha * j)));
             }
-            // Sides
+
             if (i == stacks-1) {
                 // Top
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));

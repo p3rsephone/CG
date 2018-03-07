@@ -95,11 +95,7 @@ int main(int argc, char* argv[]) {
     string filename;
     vector<Point*> points;
 
-    if(argc < 4) {
-        cout << "Command needs more arguments" <<endl;
-    }
-
-    else if ((argc == 4) && strcmp(argv[1],"plane") == 0){
+    if ((argc == 4) && strcmp(argv[1],"plane") == 0){
         double size = atof(argv[2]);
         if (size<=0) {
             cout << "Size must be positive." << endl;
