@@ -1,110 +1,145 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <stdio.h>
 #include <string.h>
-#include <GL/gl.h>
+#include <stdlib.h>
+#include "headers/figures.h"
 
-using namespace std;
+//TODO: Check these headers OMG
+//TODO: Figure out namespaces -- HELP
 
 //Importante!!!
 //Compilar com o seguinte exemplo: g++ -std=c++11 -o generator_test main.cpp
 //Apenas o C++11 contém stoi's e stod's por isso temos de limitar a versão
 
-int addToXML(){
+/**
+ * Shows the usage of this file.
+ */
+void usage(){
+    cout << "#_____________________________ HELP _____________________________# " << endl;
+	cout << "|                                                                |" << endl;
+    cout << "|   SYNOPSIS                                                     |" << endl;
+    cout << "|          ./generator {COMMAND} ... {OUTPUT FILE}               |" << endl;
+	cout << "|                      [-h]                                      |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "|   COMMANDS:                                                    |" << endl;
+	cout << "| - plane [SIZE]                                                 |" << endl;
+	cout << "|      Creates a square in the XZ plane, centred in the origin.  |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - box [SIZE X] [SIZE Y] [SIZE Z] [DIVISIONS]                   |" << endl;
+	cout << "|      Creates a box with the dimensions and divisions specified.|" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - sphere [RADIUS] [SLICE] [STACK]                              |" << endl;
+	cout << "|      Creates a sphere with the radius, number of slices and    |" << endl;
+	cout << "|      stacks given.                                             |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - cone [RADIUS] [HEIGHT] [SLICE] [STACK]                       |" << endl;
+	cout << "|      Creates a cone with the radius, height, number of slices  |" << endl;
+	cout << "|      and stacks given.                                         |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - cylinder [RADIUS] [HEIGHT] [SLICE] [STACK]                   |" << endl;
+	cout << "|      Creates a cylinder with the radius, height, number of     |" << endl;
+	cout << "|      slices and stacks given.                                  |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "|   OUTPUT FILE:                                                 |" << endl;
+	cout << "| In the file section you can specify any file in which you wish |" << endl;
+	cout << "| to save the coordinates generated with the previous commands.  |" << endl;
+	cout << "|                                                                |" << endl;
+    cout << "| The file should be in the 'files' directory.                   |" << endl;
+	cout << "| If the file doesn't exist it will be created. If it does it    |" << endl;
+	cout << "| will be truncated.                                             |" << endl;
+	cout << "|                                                                |" << endl;
+    cout << "#________________________________________________________________#" << endl;
 
-    return 0;
 }
 
-int parsePlane(string filename){
-
-    return 0;
+/**
+ * Adds filenames to .xml file
+ * @param  filename Name of file to add
+ */
+void addToXML(string filename){
+    ofstream file;
+    string xml = "files/main.xml";
+    file.open(xml);
+    if (!file.is_open()) {
+        cout << "Error while adding file " << filename << " to xml." <<endl;
+    } else {
+        //TODO: Add stuff to xml
+        file.close();
+    }
 }
 
-int parseBox(GLint x, GLint y, GLint z, string filename){
+/**
+ * Makes the .3d and .xml files
+ * @param filename Filename for .3d file
+ * @param points   List of points
+ */
+void printfile(string filename, vector<Point*> points) {
+    ofstream file;
+    string fileDir = "files/" + filename;
+    file.open(fileDir, ios_base::trunc);
+    if (!file.is_open()) {
+        cout << "Error while opening file " << filename << endl;
+    } else {
+        for (vector<Point*>::iterator i = points.begin() ; i!= points.end(); i++)
+            file << (*i)->toString();
 
-    return 0;
+        file.close();
+        //addToXML(filename);
+    }
+
 }
 
-int parseSphere(GLdouble radius, GLint slices, GLint stacks, string filename){
-    cout << "Radius: " << radius << endl
-         << "Slices: " << slices << endl
-         << "Stacks: " << stacks << endl
-         << "Filename: " << filename << endl;
-
-    return 0;
-}
-
-int parseCone(GLdouble base, GLdouble height, GLint slices, GLint stacks, string filename){
-    cout << "Base: " << base << endl
-         << "Height: " << height << endl
-         << "Slices: " << slices << endl
-         << "Stacks: " << stacks << endl
-         << "Filename: " << filename << endl;
-
-    return 0;
-}
-
-//Os tipos têm de ser GLdouble e GLint (definidos na library GL/gl.h)
-//para serem universais e n dependerem do SO
 int main(int argc, char* argv[]) {
+    string filename;
+    vector<Point*> points;
 
-    if(argc <= 1){
-        cout << "Command needs more arguments" << endl;
-    }
-
-    //*
-    // Verifies if the object is a plane
-    // Example: generator plane plane.3d
-    if(strcmp(argv[1],"plane") == 0){
-        if(argc == 3) {
-            string filename = argv[2];
-            parsePlane(filename);
+    if ((argc == 4) && strcmp(argv[1],"plane") == 0){
+        double size = atof(argv[2]);
+        if (size<=0) {
+            cout << "Size must be positive." << endl;
+            return 1;
         }
+        filename = argv[3];
+
+        points = createPlane(size);
     }
 
-    //*
-    // Verifies if the object is a box
-    // Example: generator box 1 1 1 box.3d
-    if(strcmp(argv[1],"box") == 0){
-        if(argc == 6) {
-            GLint x = (GLint) stoi(argv[2]);
-            GLint y = (GLint) stoi(argv[3]);
-            GLint z = (GLint) stoi(argv[4]);
-            string filename = argv[5];
+    else if ((argc == 6 || argc == 7) && (strcmp(argv[1],"box") == 0)){
+        double x = atof(argv[2]);
+        double y = atof(argv[3]);
+        double z = atof(argv[4]);
+        int d = (argc == 7) ? stoi(argv[5]) : 1;
+        filename = (argc == 7) ? argv[6] : argv[5];
 
-            parseBox(x, y, z, filename);
-        }
+        points = createBox(x, y, z, d);
     }
 
-    //*
-    // Verifies if the object is a sphere
-    // Example: generator sphere 1 20 20 sphere.3d
-    if(strcmp(argv[1],"sphere") == 0){
-        if(argc == 6){
+    else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
+        double radius = atof(argv[2]);
+        int slices = (int) stoi(argv[3]);
+        int stacks = (int) stoi(argv[4]);
+        filename = argv[5];
 
-            GLdouble radius = (GLdouble)stod(argv[2]);
-            GLint slices = (GLint)stoi(argv[3]);
-            GLint stacks = (GLint)stoi(argv[4]);
-            string filename = argv[5];
-
-            parseSphere(radius, slices, stacks, filename);
-        }
+        points = createSphere(radius, slices, stacks);
     }
 
-    //*
-    // Verifies if the object is a cone
-    // Example: generator cone 1 1 20 20 cone.3d
-    if(strcmp(argv[1],"cone") == 0){
-        if(argc == 7){
-            GLdouble base = (GLdouble)stod(argv[2]);
-            GLdouble height = (GLdouble)stod(argv[3]);
-            GLint slices = (GLint)stoi(argv[4]);
-            GLint stacks = (GLint)stoi(argv[5]);
-            string filename = argv[6];
+    else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
+        double radius = atof(argv[2]);
+        double height = atof(argv[3]);
+        int slices = (int) stoi(argv[4]);
+        int stacks = (int) stoi(argv[5]);
+        filename = argv[6];
 
-            parseCone(base, height, slices, stacks, filename);
-        }
+        points = createCone(radius, height, slices, stacks);
     }
 
+    else {
+        usage();
+        return 0;
+    }
+
+    printfile(filename, points);
     return 0;
 }

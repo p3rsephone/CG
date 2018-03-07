@@ -1,11 +1,11 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include "headers/main.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+Scene* scene;
+
+float raio = 30;
+float beta = 1;
+float alfa = 1;
+int camera = 0;
 
 void changeSize(int w, int h) {
 
@@ -32,6 +32,52 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void axis_system(){
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glBegin(GL_LINES);
+		glColor3f(1.0,0.0,0.0);
+		glVertex3f(0,0,0);
+		glVertex3f(30,0,0);
+
+		glColor3f(0.0,1.0,0.0);
+		glVertex3f(0,0,0);
+		glVertex3f(0,30,0);
+
+		glColor3f(0.0,1.0,1.0);
+		glVertex3f(0,0,0);
+		glVertex3f(0,0,30);
+	glEnd();
+}
+
+void processKeys(unsigned char key, int xx, int yy) {
+	switch(key){
+		case('a'):
+			alfa-=0.1;
+			break;
+		case('d'):
+			alfa+=0.1;
+			break;
+		case('w'):
+			if(beta < 1.5) beta+=0.1;
+			break;
+		case('s'):
+			if(beta > -1.5) beta-=0.1;
+			break;
+		case('+'):
+			raio+=0.2;
+			break;
+		case('-'):
+			raio-=0.2;
+			break;
+		case('c'):
+			camera++;
+			break;
+		default:
+			break;
+	}
+	glutPostRedisplay();
+}
+
 void renderScene(void) {
 
 	// clear buffers
@@ -39,18 +85,30 @@ void renderScene(void) {
 
 	// set the camera
 	glLoadIdentity();
-	gluLookAt(0.0,0.0,5.0,
-		      0.0,0.0,-1.0,
+	if(camera%2==0){
+		gluLookAt(raio*cos(beta)*sin(alfa),raio*sin(beta),raio*cos(beta)*cos(alfa), 
+		      0.0,0.0,0.0,
 			  0.0f,1.0f,0.0f);
+	}
+	else{
+		gluLookAt(5,5,5, 
+			  raio*cos(beta)*sin(alfa),raio*sin(beta),raio*cos(beta)*cos(alfa),
+			  0.0f,1.0f,0.0f);
+	}
+//    scene->draw();
+    //glutWireTeapot(1);
+    scene->draw();
+		axis_system();
 
     glutSwapBuffers();
 }
 
-int main(int argc, char **argv) {
 
+void initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_SINGLE);
+
 // put callback registration here
   glutInitWindowPosition(100,100);
   glutInitWindowSize(800,800);
@@ -60,15 +118,27 @@ int main(int argc, char **argv) {
   glutReshapeFunc(changeSize);
   glutIdleFunc(renderScene);
 
+// event handler
+	glutKeyboardFunc(processKeys);
 // OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
-
+  glPolygonMode(GL_FRONT, GL_FILL);
 
 // enter GLUT's main loop
 	glutMainLoop();
 
-	return 1;
+}
+
+int main(int argc, char **argv) {
+  srand(time(NULL));
+  scene = new Scene();
+  if(argc > 1) {
+    Parser().ReadXML(scene, argv[1]);
+  }
+  //scene->addModel(model);
+  initGL(argc,argv);
+  return 1;
 }
 
