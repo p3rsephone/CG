@@ -135,6 +135,16 @@ int main(int argc, char* argv[]) {
         points = createCone(radius, height, slices, stacks);
     }
 
+    else if (argc == 7 && (strcmp(argv[1],"cylinder") == 0)){
+        double radius = atof(argv[2]);
+        double height = atof(argv[3]);
+        int slices = (int) stoi(argv[4]);
+        int stacks = (int) stoi(argv[5]);
+        filename = argv[6];
+
+        points = createCylinder(radius, height, slices, stacks);
+    }
+
     else {
         usage();
         return 0;

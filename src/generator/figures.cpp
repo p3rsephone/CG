@@ -215,3 +215,45 @@ vector<Point*> createCone(double r, double height, int slices, int stacks){
 
     return points;
 }
+
+/**
+ * Creates vertice points for a cylinder with a certain radius, slices and stacks
+ * Usage: generator cylinder 1 1 20 20 cylinder.3d
+ * @param  r        Radius of the base
+ * @param  height   Height of the cylinder
+ * @param  slices   Number of slices
+ * @param  stacks   Number of stacks
+ * @return          Vertice points
+ */
+vector<Point*> createCylinder(double r, double height, int slices, int stacks){
+    vector<Point*> points;
+
+    float theta = (2 * M_PI)/slices;
+    float heightShift = height/stacks;
+
+    for(int i = 0; i < slices; i++){
+        for(int j = 0; j < stacks; j++){
+            //Lateral surface
+            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+
+            //Lower base
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
+            points.push_back(new Point(0.0f,0.0f,0.0f));
+
+            //Upper base
+            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
+            points.push_back(new Point(0.0f,height,0.0f));
+        }
+    }
+
+    return points;
+}
+
