@@ -86,6 +86,15 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 		case('c'):
 			camera++;
 			break;
+    case('j'):
+			glPolygonMode(GL_FRONT, GL_POINT);
+      break;
+    case('l'):
+			glPolygonMode(GL_FRONT, GL_FILL);
+      break;
+    case('k'):
+			glPolygonMode(GL_FRONT, GL_LINE);
+      break;
 		default:
 			break;
 	}
