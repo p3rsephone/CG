@@ -95,11 +95,7 @@ int main(int argc, char* argv[]) {
     string filename;
     vector<Point*> points;
 
-    if(argc < 4) {
-        cout << "Command needs more arguments" <<endl;
-    }
-
-    else if ((argc == 4) && strcmp(argv[1],"plane") == 0){
+    if ((argc == 4) && strcmp(argv[1],"plane") == 0){
         double size = atof(argv[2]);
         if (size<=0) {
             cout << "Size must be positive." << endl;
@@ -137,6 +133,16 @@ int main(int argc, char* argv[]) {
         filename = argv[6];
 
         points = createCone(radius, height, slices, stacks);
+    }
+
+    else if (argc == 7 && (strcmp(argv[1],"cylinder") == 0)){
+        double radius = atof(argv[2]);
+        double height = atof(argv[3]);
+        int slices = (int) stoi(argv[4]);
+        int stacks = (int) stoi(argv[5]);
+        filename = argv[6];
+
+        points = createCylinder(radius, height, slices, stacks);
     }
 
     else {
