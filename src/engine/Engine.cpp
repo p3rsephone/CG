@@ -64,31 +64,40 @@ void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
   e->processKeys(key,xx,yy);
 }
 void Engine::processKeys(unsigned char key, int xx, int yy) {
-		switch(key){
-			case('a'):
-				alfa-=0.1;
-				break;
-			case('d'):
-				alfa+=0.1;
-				break;
-			case('w'):
-				if(beta < 1.5) beta+=0.1;
-				break;
-			case('s'):
-				if(beta > -1.5) beta-=0.1;
-				break;
-			case('+'):
-				raio+=0.2;
-				break;
-			case('-'):
-				raio-=0.2;
-				break;
-			case('c'):
-				camera++;
-				break;
-			default:
-				break;
-		}
+	switch(key){
+		case('a'):
+			alfa-=0.1;
+			break;
+		case('d'):
+			alfa+=0.1;
+			break;
+		case('w'):
+			if(beta < 1.5) beta+=0.1;
+			break;
+		case('s'):
+			if(beta > -1.5) beta-=0.1;
+			break;
+		case('+'):
+			raio+=0.2;
+			break;
+		case('-'):
+			raio-=0.2;
+			break;
+		case('c'):
+			camera++;
+			break;
+    case('j'):
+			glPolygonMode(GL_FRONT, GL_POINT);
+      break;
+    case('l'):
+			glPolygonMode(GL_FRONT, GL_FILL);
+      break;
+    case('k'):
+			glPolygonMode(GL_FRONT, GL_LINE);
+      break;
+		default:
+			break;
+	}
 	glutPostRedisplay();
 }
 
