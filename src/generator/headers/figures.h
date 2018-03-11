@@ -1,11 +1,11 @@
 #ifndef __FIGURES_H__
 #define __FIGURES_H__
 
-using namespace std;
-
 #include <vector>
 #include <math.h>
 #include <headers/Point.h>
+
+using namespace std;
 
 vector<Point*> createPlane(double size);
 vector<Point*> createBox(double x, double y, double z, int d);

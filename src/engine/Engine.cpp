@@ -202,3 +202,44 @@ void Engine::parse(int argc, char **argv){
   //scene->addModel(model);
   initGL(argc,argv);
 }
+
+/**
+ * Shows the usage of this file.
+ */
+void Engine::usage(){
+    cout << "#_____________________________ HELP _____________________________# " << endl;
+	cout << "|                                                                |" << endl;
+    cout << "|   SYNOPSIS                                                     |" << endl;
+    cout << "|          ./generator {COMMAND} ... {OUTPUT FILE}               |" << endl;
+	cout << "|                      [-h]                                      |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "|   COMMANDS:                                                    |" << endl;
+	cout << "| - plane [SIZE]                                                 |" << endl;
+	cout << "|      Creates a square in the XZ plane, centred in the origin.  |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - box [SIZE X] [SIZE Y] [SIZE Z] [DIVISIONS]                   |" << endl;
+	cout << "|      Creates a box with the dimensions and divisions specified.|" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - sphere [RADIUS] [SLICE] [STACK]                              |" << endl;
+	cout << "|      Creates a sphere with the radius, number of slices and    |" << endl;
+	cout << "|      stacks given.                                             |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - cone [RADIUS] [HEIGHT] [SLICE] [STACK]                       |" << endl;
+	cout << "|      Creates a cone with the radius, height, number of slices  |" << endl;
+	cout << "|      and stacks given.                                         |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "| - cylinder [RADIUS] [HEIGHT] [SLICE] [STACK]                   |" << endl;
+	cout << "|      Creates a cylinder with the radius, height, number of     |" << endl;
+	cout << "|      slices and stacks given.                                  |" << endl;
+	cout << "|                                                                |" << endl;
+	cout << "|   OUTPUT FILE:                                                 |" << endl;
+	cout << "| In the file section you can specify any file in which you wish |" << endl;
+	cout << "| to save the coordinates generated with the previous commands.  |" << endl;
+	cout << "|                                                                |" << endl;
+    cout << "| The file should be in the 'files' directory.                   |" << endl;
+	cout << "| If the file doesn't exist it will be created. If it does it    |" << endl;
+	cout << "| will be truncated.                                             |" << endl;
+	cout << "|                                                                |" << endl;
+    cout << "#________________________________________________________________#" << endl;
+
+}
