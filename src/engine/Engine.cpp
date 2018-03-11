@@ -77,10 +77,10 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 		case('s'):
 			if(beta > -1.5) beta-=0.1;
 			break;
-		case('+'):
+		case('-'):
 			raio+=0.2;
 			break;
-		case('-'):
+		case('+'):
 			raio-=0.2;
 			break;
 		case('c'):

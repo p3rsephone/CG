@@ -140,25 +140,25 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
 
             //Triangular ends of the sphere
             if(theta == 0){
-                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi+fiShift) , radius * sin(rtheta+thetaShift) * sin(rfi+fiShift) , radius * cos(theta+thetaShift)));
+                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi) , radius * sin(rtheta+thetaShift) * sin(rfi) , radius * cos(rtheta+thetaShift)));
             }
 
             else if(theta == stacks - 1){
-                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta) * cos(rfi+fiShift) , radius * sin(rtheta) * sin(rfi+fiShift) , radius * cos(rtheta)));
+                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi+fiShift) , radius * sin(rtheta+thetaShift) * sin(rfi+fiShift) , radius * cos(rtheta+thetaShift)));
             }
 
             //Rectangles within the sphere
             else {
-                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi+fiShift) , radius * sin(rtheta+thetaShift) * sin(rfi+fiShift) , radius * cos(rtheta+thetaShift)));
+                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi) , radius * sin(rtheta+thetaShift) * sin(rfi) , radius * cos(rtheta+thetaShift)));
 
-                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta) * cos(rfi+fiShift) , radius * sin(rtheta) * sin(rfi+fiShift) , radius * cos(rtheta)));
+                points.push_back(new Point(radius * sin(rtheta) * cos(rfi) , radius * sin(rtheta) * sin(rfi) , radius * cos(rtheta)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * cos(rfi+fiShift) , radius * sin(rtheta+thetaShift) * sin(rfi+fiShift) , radius * cos(rtheta+thetaShift)));
             }
 
