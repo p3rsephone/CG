@@ -41,6 +41,7 @@ class Engine{
     static void renderSceneWrapper(void);
     void renderScene(void);
     static void initGL(int argc, char **argv);
+    static void usage();
   public:
     static Engine* getInstance();
     void parse(int argc, char **argv);
