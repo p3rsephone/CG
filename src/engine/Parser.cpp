@@ -43,7 +43,8 @@ void Parser::ReadXML(Scene* scene, char* xml){
                 if(pElement->Attribute("file")){
 
                     Model* model = new Model();
-                    Triangle* t;                   s =pElement->Attribute("file");
+                    Triangle* t;                   
+                    s =pElement->Attribute("file");
 
                     string fileDir = "files/" + s;
                     ifstream infile(fileDir);

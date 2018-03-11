@@ -101,6 +101,40 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 	glutPostRedisplay();
 }
 
+void Engine::specialKeysWrapper(int key, int xx, int yy) {
+  Engine* e = Engine::getInstance();
+  e->specialKeys(key,xx,yy);
+}
+
+void Engine::specialKeys(int key, int xx, int yy)
+{
+		float fraction = 1.0f;
+
+			switch(key){
+				case GLUT_KEY_LEFT :
+					angle -= 0.1f;
+					lx = sin(angle);
+					lz = -cos(angle);
+					break;
+				case GLUT_KEY_RIGHT :
+					angle += 0.1f;
+					lx = sin(angle);
+					lz = -cos(angle);
+					break;
+				case GLUT_KEY_UP :
+					x += lx * fraction;
+					z += lz * fraction;
+					break;
+				case GLUT_KEY_DOWN :
+					x -= lx * fraction;
+					z -= lz * fraction;
+					break;
+				default:
+					break;
+			}
+		glutPostRedisplay();
+}
+
 void Engine::renderSceneWrapper(void) {
   Engine* e = Engine::getInstance();
   e->renderScene();
@@ -119,9 +153,9 @@ void Engine::renderScene(void) {
 			  0.0f,1.0f,0.0f);
 	}
 	else{
-		gluLookAt(5,5,5,
-			  raio*cos(beta)*sin(alfa),raio*sin(beta),raio*cos(beta)*cos(alfa),
-			  0.0f,1.0f,0.0f);
+		gluLookAt(	x, 1.0f, z,
+			x+lx, 1.0f,  z+lz,
+			0.0f, 1.0f,  0.0f);
 	}
 //    scene->draw();
     //glutWireTeapot(1);
@@ -148,6 +182,7 @@ void Engine::initGL(int argc, char **argv){
 
 // event handler
 	glutKeyboardFunc(processKeysWrapper);
+	glutSpecialFunc(specialKeysWrapper);
 // OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
