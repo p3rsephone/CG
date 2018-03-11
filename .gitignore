@@ -12,4 +12,5 @@ CTestTestfile.cmake
 generator_test
 bin
 build
-files
+files/*
+!files/main.xml
