@@ -112,6 +112,7 @@ class Engine{
  */
     void processKeys(unsigned char key, int xx, int yy);
 
+
 /**
  *@brief Wrapper for renderScene method
  *
@@ -133,6 +134,7 @@ class Engine{
  *
  * @return void
  */
+
     static void initGL(int argc, char **argv);
 
 /**

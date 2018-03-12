@@ -1,17 +1,16 @@
-#include "headers/figures.h"
-#include <iostream>
+#include "headers/Figure.h"
+
+Figure::Figure(){
+}
 
 /**
- * Creates vertice points for a square in the XZ plane
+ * @brief Creates vertice points for a square in the XZ plane
  * Usage: generator plane 2 plane.3d
  * @param  size Size of the side of the square
- * @return      Vertice Points
  */
 
-vector<Point*> createPlane(double size){
+void Figure::createPlane(double size){
     double height = size/2;
-    vector<Point*> points;
-
     points.push_back(new Point(height,0,height));
     points.push_back(new Point(-height,0,-height));
     points.push_back(new Point(-height,0,height));
@@ -19,23 +18,18 @@ vector<Point*> createPlane(double size){
     points.push_back(new Point(-height,0,-height));
     points.push_back(new Point(height,0,height));
     points.push_back(new Point(height,0,-height));
-
-    return points;
 }
 
 /**
- * Creates vertice points for a box which may have divisions
+ * @brief Creates vertice points for a box which may have divisions
  * Usage: generator box 1 1 1 box.3d
  * Usage 2: generator box 1 1 1 3 box.3d
  * @param  x Size of the box in the X axis
  * @param  y Size of the box in the Y axis
  * @param  z Size of the box in the Z axis
  * @param  d Amount of divisions in each axis
- * @return   Vertice Points
  */
-vector<Point*> createBox(double x, double y, double z, int d){
-    vector<Point*> points;
-
+void Figure::createBox(double x, double y, double z, int d){
     //Basically centers the box in the origin of the referential
     double realX = x/2;
     double realY = y/2;
@@ -106,20 +100,16 @@ vector<Point*> createBox(double x, double y, double z, int d){
                 points.push_back(new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1)));
         }
     }
-
-    return points;
 }
 
 /**
- * Creates vertice points for a sphere with a certain radius, slices and stacks
+ * @brief Creates vertice points for a sphere with a certain radius, slices and stacks
  * Usage: generator sphere 1 20 20 sphere.3d
  * @param  radius   Radius of the sphere
  * @param  slices   Number of slices in the sphere
  * @param  stacks   Number of stacks in the sphere
- * @return      Vertice Points
  */
-vector<Point*> createSphere(double radius, int slices, int stacks){
-    vector<Point*> points;
+void Figure::createSphere(double radius, int slices, int stacks){
 
     double x;
     double y;
@@ -164,21 +154,17 @@ vector<Point*> createSphere(double radius, int slices, int stacks){
 
         }
     }
-
-    return points;
 }
 
 /**
- * Creates vertice points for a cone with a certain radius, slices and stacks
+ * @brief Creates vertice points for a cone with a certain radius, slices and stacks
  * Usage: generator cone 1 1 20 20 cone.3d
  * @param  r        Radius of the base
  * @param  height   Height of the cone
  * @param  slices   Number of slices
  * @param  stacks   Number of stacks
- * @return          Vertice points
  */
-vector<Point*> createCone(double r, double height, int slices, int stacks){
-    vector<Point*> points;
+void Figure::createCone(double r, double height, int slices, int stacks){
 
     float alpha = (2 * M_PI)/slices;
     float h = sqrt(pow(r,2) + pow(h,2))/stacks;
@@ -212,21 +198,17 @@ vector<Point*> createCone(double r, double height, int slices, int stacks){
             }
         }
     }
-
-    return points;
 }
 
 /**
- * Creates vertice points for a cylinder with a certain radius, slices and stacks
+ * @brief Creates vertice points for a cylinder with a certain radius, slices and stacks
  * Usage: generator cylinder 1 1 20 20 cylinder.3d
  * @param  r        Radius of the base
  * @param  height   Height of the cylinder
  * @param  slices   Number of slices
  * @param  stacks   Number of stacks
- * @return          Vertice points
  */
-vector<Point*> createCylinder(double r, double height, int slices, int stacks){
-    vector<Point*> points;
+void Figure::createCylinder(double r, double height, int slices, int stacks){
 
     float theta = (2 * M_PI)/slices;
     float heightShift = height/stacks;
@@ -253,7 +235,4 @@ vector<Point*> createCylinder(double r, double height, int slices, int stacks){
             points.push_back(new Point(0.0f,height,0.0f));
         }
     }
-
-    return points;
 }
-
