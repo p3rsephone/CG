@@ -221,14 +221,18 @@ void Figure::createCylinder(double r, double height, int slices, int stacks){
             points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
 
             //Lower base
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
-            points.push_back(new Point(0.0f,0.0f,0.0f));
+            if(!j){
+                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+                points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
+                points.push_back(new Point(0.0f, 0.0f, 0.0f));
+            }
 
             //Upper base
-            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
-            points.push_back(new Point(0.0f,height,0.0f));
+            if(j == stacks -1) {
+                points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
+                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
+                points.push_back(new Point(0.0f, height, 0.0f));
+            }
         }
     }
 }
