@@ -85,15 +85,10 @@ class Engine{
  */
     static void specialKeysWrapper(int key, int xx, int yy);
 /**
- *@brief Method for Handling special keys
- *
- * @param key
- *
- * @param xx
- *
- * @param yy
- *
- * @return void
+ * @brief Handles special keys events (UP, DOWN, F1, ...)
+ * @param key Key pressed
+ * @param xx Mouse x coordinate
+ * @param yy Mouse y coordinate
  */
     void specialKeys(int key, int xx, int yy);
 
@@ -110,15 +105,10 @@ class Engine{
  */
     static void processKeysWrapper(unsigned char key, int xx, int yy);
 /**
- *@brief Method for Handling keys
- *
- * @param key
- *
- * @param xx
- *
- * @param yy
- *
- * @return void
+ * @brief Handles normal keys events (q, w, e, r, ...)
+ * @param key Key pressed
+ * @param xx Mouse x coordinate
+ * @param yy Mouse y coordinate
  */
     void processKeys(unsigned char key, int xx, int yy);
 
