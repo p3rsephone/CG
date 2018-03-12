@@ -1,5 +1,8 @@
 #include "headers/Engine.h"
 
+/*
+*Creates a new Engine structure
+*/
 Engine::Engine(){
   srand(time(NULL));
   this->scene = new Scene();
@@ -42,6 +45,9 @@ void Engine::changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/*
+*Draws an axys system
+*/
 void Engine::axis_system(){
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glBegin(GL_LINES);
@@ -63,6 +69,13 @@ void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
   Engine* e = Engine::getInstance();
   e->processKeys(key,xx,yy);
 }
+
+/**
+ * Handles normal keys events (q, w, e, r, ...)
+ * @param key Key pressed
+ * @param xx Mouse x coordinate
+ * @param yy Mouse y coordinate
+ */
 void Engine::processKeys(unsigned char key, int xx, int yy) {
 	switch(key){
 		case('a'):
@@ -106,6 +119,12 @@ void Engine::specialKeysWrapper(int key, int xx, int yy) {
   e->specialKeys(key,xx,yy);
 }
 
+/**
+ * Handles special keys events (UP, DOWN, F1, ...)
+ * @param key Key pressed
+ * @param xx Mouse x coordinate
+ * @param yy Mouse y coordinate
+ */
 void Engine::specialKeys(int key, int xx, int yy)
 {
 		float fraction = 1.0f;
@@ -139,7 +158,9 @@ void Engine::renderSceneWrapper(void) {
   Engine* e = Engine::getInstance();
   e->renderScene();
 }
-
+/*
+	*Draws the Scene
+	*/
 void Engine::renderScene(void) {
 
 	// clear buffers
