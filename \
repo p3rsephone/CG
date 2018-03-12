@@ -196,7 +196,8 @@ void Engine::initGL(int argc, char **argv){
 
 
 void Engine::parse(int argc, char **argv){
-  if(argc == 2 && (strcmp(argv[1],"-h"))) {
+  cout << argc == 2 && !(strcmp(argv[1],"-h")) << endl;
+  if(argc == 2 && !(strcmp(argv[1],"-h"))) {
     Parser().ReadXML(scene, argv[1]);
     initGL(argc,argv);
   }else{

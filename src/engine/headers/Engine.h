@@ -6,10 +6,12 @@
 
 #include <math.h>
 #include<vector>
+#include<iostream>
 #include "tinyxml2.h"
 #include "Scene.h"
 #include "Parser.h"
-
+#include "string.h"
+using namespace std;
 class Engine{
   private:
     Scene* scene;
