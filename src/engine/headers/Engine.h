@@ -5,7 +5,7 @@
 #endif
 
 #include <math.h>
-#include<vector>
+#include <vector>
 #include "tinyxml2.h"
 #include "Scene.h"
 #include "Parser.h"
@@ -38,8 +38,8 @@ class Engine{
     static void processKeysWrapper(unsigned char key, int xx, int yy);
     void processKeys(unsigned char key, int xx, int yy);
 
-    static void renderSceneWrapper(void);
-    void renderScene(void);
+    static void renderSceneWrapper();
+    void renderScene();
     static void initGL(int argc, char **argv);
     static void usage();
   public:
