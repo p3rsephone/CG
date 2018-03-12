@@ -226,8 +226,6 @@ void Engine::usage(){
 	cout << "| -> j,l,k                                                       |" << endl;
 	cout << "|      Change glPolygonMode {Point,Fill,Line}                    |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "| -> +, -                                                        |" << endl;
-	cout << "|      Zoom in, out                                              |" << endl;
   cout << "#________________________________________________________________#" << endl;
 
 }
