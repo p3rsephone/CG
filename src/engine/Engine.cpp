@@ -1,8 +1,5 @@
 #include "headers/Engine.h"
 
-/*
-*Creates a new Engine structure
-*/
 Engine::Engine(){
   srand(time(NULL));
   this->scene = new Scene();
@@ -45,9 +42,6 @@ void Engine::changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-/*
-*Draws an axys system
-*/
 void Engine::axis_system(){
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glBegin(GL_LINES);
@@ -70,12 +64,6 @@ void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
   e->processKeys(key,xx,yy);
 }
 
-/**
- * Handles normal keys events (q, w, e, r, ...)
- * @param key Key pressed
- * @param xx Mouse x coordinate
- * @param yy Mouse y coordinate
- */
 void Engine::processKeys(unsigned char key, int xx, int yy) {
 	switch(key){
 		case('a'):
@@ -119,12 +107,6 @@ void Engine::specialKeysWrapper(int key, int xx, int yy) {
   e->specialKeys(key,xx,yy);
 }
 
-/**
- * Handles special keys events (UP, DOWN, F1, ...)
- * @param key Key pressed
- * @param xx Mouse x coordinate
- * @param yy Mouse y coordinate
- */
 void Engine::specialKeys(int key, int xx, int yy)
 {
 		float fraction = 1.0f;
@@ -158,9 +140,7 @@ void Engine::renderSceneWrapper(void) {
   Engine* e = Engine::getInstance();
   e->renderScene();
 }
-/*
-	*Draws the Scene
-	*/
+
 void Engine::renderScene(void) {
 
 	// clear buffers
@@ -178,8 +158,6 @@ void Engine::renderScene(void) {
 			x+lx, 1.0f,  z+lz,
 			0.0f, 1.0f,  0.0f);
 	}
-//    scene->draw();
-    //glutWireTeapot(1);
     scene->draw();
 		axis_system();
 
@@ -217,50 +195,37 @@ void Engine::initGL(int argc, char **argv){
 
 
 void Engine::parse(int argc, char **argv){
-  if(argc > 1) {
+  if(argc == 2 && (strcmp(argv[1],"-h"))) {
     Parser().ReadXML(scene, argv[1]);
+    initGL(argc,argv);
+  }else{
+    usage();
   }
-  //scene->addModel(model);
-  initGL(argc,argv);
 }
 
-/**
- * Shows the usage of this file.
- */
 void Engine::usage(){
-    cout << "#_____________________________ HELP _____________________________# " << endl;
+  cout << "#_____________________________ HELP _____________________________# " << endl;
 	cout << "|                                                                |" << endl;
-    cout << "|   SYNOPSIS                                                     |" << endl;
-    cout << "|          ./generator {COMMAND} ... {OUTPUT FILE}               |" << endl;
+  cout << "|   SYNOPSIS                                                     |" << endl;
+  cout << "|          ./engine {XML FILE}                                   |" << endl;
 	cout << "|                      [-h]                                      |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "|   COMMANDS:                                                    |" << endl;
-	cout << "| - plane [SIZE]                                                 |" << endl;
-	cout << "|      Creates a square in the XZ plane, centred in the origin.  |" << endl;
+	cout << "|   COMMANDS INSIDE ENGINE:                                      |" << endl;
+	cout << "| -> a, b, w, s                                                  |" << endl;
+	cout << "|      Normal camera movement                                    |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "| - box [SIZE X] [SIZE Y] [SIZE Z] [DIVISIONS]                   |" << endl;
-	cout << "|      Creates a box with the dimensions and divisions specified.|" << endl;
+	cout << "| -> Arrow UP, DOWN, LEFT, RIGHT                                 |" << endl;
+	cout << "|      FPS camera movement                                       |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "| - sphere [RADIUS] [SLICE] [STACK]                              |" << endl;
-	cout << "|      Creates a sphere with the radius, number of slices and    |" << endl;
-	cout << "|      stacks given.                                             |" << endl;
+	cout << "| -> c                                                           |" << endl;
+	cout << "|      Change camera mode                                        |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "| - cone [RADIUS] [HEIGHT] [SLICE] [STACK]                       |" << endl;
-	cout << "|      Creates a cone with the radius, height, number of slices  |" << endl;
-	cout << "|      and stacks given.                                         |" << endl;
+	cout << "| -> +, -                                                        |" << endl;
+	cout << "|      Zoom in, out                                              |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "| - cylinder [RADIUS] [HEIGHT] [SLICE] [STACK]                   |" << endl;
-	cout << "|      Creates a cylinder with the radius, height, number of     |" << endl;
-	cout << "|      slices and stacks given.                                  |" << endl;
+	cout << "| -> j,l,k                                                       |" << endl;
+	cout << "|      Change glPolygonMode {Point,Fill,Line}                    |" << endl;
 	cout << "|                                                                |" << endl;
-	cout << "|   OUTPUT FILE:                                                 |" << endl;
-	cout << "| In the file section you can specify any file in which you wish |" << endl;
-	cout << "| to save the coordinates generated with the previous commands.  |" << endl;
-	cout << "|                                                                |" << endl;
-    cout << "| The file should be in the 'files' directory.                   |" << endl;
-	cout << "| If the file doesn't exist it will be created. If it does it    |" << endl;
-	cout << "| will be truncated.                                             |" << endl;
-	cout << "|                                                                |" << endl;
-    cout << "#________________________________________________________________#" << endl;
+  cout << "#________________________________________________________________#" << endl;
 
 }
