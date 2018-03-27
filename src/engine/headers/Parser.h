@@ -23,6 +23,7 @@ using namespace tinyxml2;
     class Parser{
         public:
             Parser();
+            void ParseRow(XMLNode*, Scene*);
             void ReadXML(Scene*, char*);
 };
 #endif
