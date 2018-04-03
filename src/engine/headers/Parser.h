@@ -17,12 +17,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include "tinyxml2.h"
+#include "Transformation.h"
 
 
 using namespace tinyxml2;
     class Parser{
         public:
             Parser();
+            void ParseRow(XMLNode*, Scene*, vector<Transformation*>);
             void ReadXML(Scene*, char*);
 };
 #endif
