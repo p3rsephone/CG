@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Model.h"
 #include "Triangle.h"
+#include "Group.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -24,7 +25,7 @@ using namespace tinyxml2;
     class Parser{
         public:
             Parser();
-            void ParseRow(XMLNode*, Scene*, vector<Transformation*>);
-            void ReadXML(Scene*, char*);
+            void ParseRow(XMLNode*, Group*);
+            void ReadXML(Group*, char*);
 };
 #endif
