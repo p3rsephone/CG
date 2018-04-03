@@ -1,3 +1,14 @@
 <scene>
-    <model file="sphere1.3d"></model>
+<group>
+    <translate X="10" />
+    <models>
+        <model file="sphere1.3d" />
+    </models>
+    <group>
+        <translate Y="10" />
+        <models>
+            <model file="sphere1.3d" />
+        </models>
+    </group>
+</group>
 </scene>

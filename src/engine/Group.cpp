@@ -32,7 +32,7 @@ void Group::draw(){
   vector <Transformation*>::iterator it;
 
   for(it = this->transformations.begin(); it != this->transformations.end(); it++){
-    this->transformations(*it)
+    this->transformation(*it);
   }
 
   vector <Model*>::iterator tIt;
@@ -50,22 +50,11 @@ void Group::draw(){
 }
 
 void Group::transformation(Transformation* t){
-  int value = t->getType();
-  double x = t->getX();
-  double y = t->getY();
-  double z = t->getZ();
-
- switch(value){
-  case(1):
-    glTranslatef(x,y,z);
-    break;
-  case(2):
-    glRotatef(((Rotate*) t)->getAngle(),x,y,z);
-    break;
-  case(3):
-    glScalef(x,y,z);
-    break;
-  default:
-    break;
- }
+    if(Translate* tr = dynamic_cast<Translate*>(t)){
+        glTranslatef(tr->getX(),tr->getY(),tr->getZ());
+    } else if(Rotate* r = dynamic_cast<Rotate*>(t)){
+        glRotatef(r->getAngle(),r->getX(),r->getY(),r->getZ());
+    } else if(Scale* s = dynamic_cast<Scale*>(t)) {
+        glTranslatef(s->getX(), s->getY(), s->getZ());
+    }
 }
