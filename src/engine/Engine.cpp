@@ -2,7 +2,7 @@
 
 Engine::Engine(){
   srand(time(NULL));
-  this->scene = new Scene();
+  this->group = new Group();
 }
 
 Engine* Engine::getInstance(){
@@ -136,12 +136,12 @@ void Engine::specialKeys(int key, int xx, int yy)
 		glutPostRedisplay();
 }
 
-void Engine::renderSceneWrapper(void) {
+void Engine::renderGroupWrapper(void) {
   Engine* e = Engine::getInstance();
-  e->renderScene();
+  e->renderGroup();
 }
 
-void Engine::renderScene(void) {
+void Engine::renderGroup(void) {
 
 	// clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -158,7 +158,7 @@ void Engine::renderScene(void) {
 			x+lx, 1.0f,  z+lz,
 			0.0f, 1.0f,  0.0f);
 	}
-    scene->draw();
+    group->draw();
 		axis_system();
 
     glutSwapBuffers();
@@ -175,9 +175,9 @@ void Engine::initGL(int argc, char **argv){
   glutInitWindowSize(800,800);
   glutCreateWindow("Hello World !");
 
-  glutDisplayFunc(renderSceneWrapper);
+  glutDisplayFunc(renderGroupWrapper);
   glutReshapeFunc(changeSizeWrapper);
-  glutIdleFunc(renderSceneWrapper);
+  glutIdleFunc(renderGroupWrapper);
 
 // event handler
 	glutKeyboardFunc(processKeysWrapper);
@@ -196,7 +196,7 @@ void Engine::initGL(int argc, char **argv){
 
 void Engine::parse(int argc, char **argv){
   if(argc == 2 && (strcmp(argv[1],"-h"))) {
-    Parser().ReadXML(scene, argv[1]);
+    Parser().ReadXML(group, argv[1]);
     initGL(argc,argv);
   }else{
     usage();

@@ -4,6 +4,12 @@
 class Transformation {
 public:
     virtual int getType() = 0;
+
+    virtual int getX() = 0;
+
+    virtual int getY() = 0;
+
+    virtual int getZ() = 0;
 };
 
 class Rotate: public Transformation {
@@ -131,4 +137,4 @@ private:
     double y;
     double z;
 };
-
+#endif

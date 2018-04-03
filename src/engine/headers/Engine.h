@@ -8,7 +8,7 @@
 #include<vector>
 #include<iostream>
 #include "tinyxml2.h"
-#include "Scene.h"
+#include "Group.h"
 #include "Parser.h"
 #include "string.h"
 using namespace std;
@@ -18,7 +18,7 @@ using namespace std;
  */
 class Engine{
   private:
-    Scene* scene;
+    Group* group;
     // angle of rotation for the camera direction
     float angle=0.0;
     // actual vector representing the camera's direction
@@ -114,17 +114,17 @@ class Engine{
 
 
 /**
- *@brief Wrapper for renderScene method
+ *@brief Wrapper for renderGroup method
  *
  * @return void
  */
-    static void renderSceneWrapper(void);
+    static void renderGroupWrapper(void);
 /**
- *@brief Method that calls scene draw method
+ *@brief Method that calls group draw method
  *
  * @return void
  */
-    void renderScene(void);
+    void renderGroup(void);
 /**
  *@brief Method that initializes Glut
  *
@@ -152,7 +152,7 @@ class Engine{
  */
     static Engine* getInstance();
 /**
- *@brief Method that parses the xml file and cretes the Scene object
+ *@brief Method that parses the xml file and cretes the Group object
  *
  * @param argc
  *
