@@ -32,7 +32,7 @@ void Group::draw(){
   vector <Transformation*>::iterator it;
 
   for(it = this->transformations.begin(); it != this->transformations.end(); it++){
-    this->transformations(*it)
+    this->transformation(*it);
   }
 
   vector <Model*>::iterator tIt;
