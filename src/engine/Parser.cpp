@@ -150,6 +150,11 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                 ParseRow(pNode,g);
 
                 group->addGroup(g);
+            } else
+
+            if(strcmp(pElement->Name(),"models") == 0){
+
+                ParseRow(pNode,group);
             }
         }
     }
