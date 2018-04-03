@@ -17,6 +17,6 @@ endif(NOT OPENGL_FOUND)
 
 include_directories(${globalProject_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../../bin")
-add_executable(engine main.cpp   Model.cpp Scene.cpp tinyxml2.cpp Parser.cpp Triangle.cpp Engine.cpp Transformation.cpp Group.cpp headers/Group.h)
+add_executable(engine main.cpp Model.cpp Scene.cpp tinyxml2.cpp Parser.cpp Triangle.cpp Engine.cpp Transformation.cpp Group.cpp)
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 target_link_libraries(engine  lib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )

@@ -1,3 +1,6 @@
+#ifndef __TRANSFORMATION_H__
+#define __TRANSFORMATION_H__
+
 class Transformation {
 public:
     virtual int getType() = 0;
