@@ -20,7 +20,13 @@ public:
     void addModel(Model* m);
 
     void addGroup(Group* g);
+
+    vector<Transformation*> getTransformations();
+
+    vector<Model*> getModels();
+
+    vector<Group*> getGroups();
 };
 
 
-#endif //GLOBALPROJECT_GROUP_H
+#endif
