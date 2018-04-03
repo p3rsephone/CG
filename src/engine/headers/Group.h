@@ -21,12 +21,14 @@ public:
 
     void addGroup(Group* g);
 
+    void draw();
+
+    void transformation(Transformation* t);
+
     vector<Transformation*> getTransformations();
 
     vector<Model*> getModels();
 
     vector<Group*> getGroups();
 };
-
-
 #endif
