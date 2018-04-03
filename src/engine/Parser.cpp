@@ -9,7 +9,7 @@ using namespace std;
 Parser::Parser(){
 }
 
-void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> trans){
+void Parser::ParseRow(XMLNode* pRoot, Group* group){
     XMLNode * pNode = pRoot->FirstChild();
     if (pNode == nullptr){
 
@@ -25,7 +25,6 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
 
             XMLElement* pElement = pNode->ToElement();
 
-            //TODO apply transformations to point
             if(strcmp(pElement->Name(),"model") == 0){
 
                 if(pElement->Attribute("file")){
@@ -70,7 +69,7 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
                             contador = (contador+1) % 3;
                         }
 
-                        scene->addModel(model);
+                        group->addModel(model);
                     }
                 }
             } else
@@ -93,7 +92,7 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
 
                 Translate* t = new Translate(x,y,z);
 
-                trans.push_back(t);
+                group->addTransformation(t);
 
             } else
 
@@ -119,7 +118,7 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
 
                 Rotate* r = new Rotate(angle,axisx,axisy,axisz);
 
-                trans.push_back(r);
+                group->addTransformation(r);
 
             } else
 
@@ -141,16 +140,16 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
 
                 Scale* s = new Scale(x,y,z);
 
-                trans.push_back(s);
+                group->addTransformation(s);
 
             } else
 
             if(strcmp(pElement->Name(),"group") == 0) {
-                vector<Transformation*> copy;
+                Group* g = new Group();
 
-                copy = trans;
+                ParseRow(pNode,g);
 
-                ParseRow(pNode,scene,copy);
+                group->addGroup(g);
             }
         }
     }
@@ -162,7 +161,7 @@ void Parser::ParseRow(XMLNode* pRoot, Scene* scene, vector<Transformation*> tran
  @param scene Where models will be placed
  @param xml Name of the XML file
  */
-void Parser::ReadXML(Scene* scene, char* xml){
+void Parser::ReadXML(Group* group, char* xml){
     XMLDocument xmlDoc;
 
     char xmlDir[80];
@@ -182,10 +181,6 @@ void Parser::ReadXML(Scene* scene, char* xml){
 
     }
     else{
-
-        vector<Transformation*> trans;
-
-        ParseRow(pRoot,scene,trans);
-
+        ParseRow(pRoot,group);
     }
 }
