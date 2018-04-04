@@ -29,15 +29,15 @@ vector<Group*> Group::getGroups(){
 
 void Group::draw(){
 
-  vector <Transformation*>::iterator it;
+  vector <Transformation*>::iterator tIt;
 
-  for(it = this->transformations.begin(); it != this->transformations.end(); it++){
-    this->transformation(*it);
+  for(tIt = this->transformations.begin(); tIt != this->transformations.end(); tIt++){
+    this->transformation(*tIt);
   }
 
-  vector <Model*>::iterator tIt;
-  for(tIt = this->models.begin(); tIt != this->models.end(); tIt++){
-    (*tIt)->draw();
+  vector <Model*>::iterator mIt;
+  for(mIt = this->models.begin(); mIt != this->models.end(); mIt++){
+    (*mIt)->draw();
   }
 
 
