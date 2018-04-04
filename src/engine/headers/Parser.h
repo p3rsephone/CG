@@ -5,7 +5,6 @@
 #define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); }
 #endif
 
-#include "Scene.h"
 #include "Model.h"
 #include "Triangle.h"
 #include "Group.h"

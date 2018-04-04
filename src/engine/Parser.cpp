@@ -145,6 +145,7 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
             } else
 
             if(strcmp(pElement->Name(),"group") == 0) {
+
                 Group* g = new Group();
 
                 ParseRow(pNode,g);
