@@ -1,0 +1,91 @@
+<scene>
+  <group>
+    <!-- Sun -->
+    <group>
+      <models>
+        <model file="sun.3d"/>
+      </models>
+    </group>
+
+    <!-- Mercury -->
+    <group>
+        <translate x="20" y="0" z="0"/>
+        <models>
+            <model file="mercury.3d"/>
+        </models>
+    </group>
+
+    <!-- Venus -->
+    <group>
+        <translate x="25" y="0" z="0"/>
+        <models>
+            <model file="venus.3d"/>
+        </models>
+    </group>
+
+    <!-- Earth -->
+    <group>
+        <translate x="32" y="0" z="0"/>
+        <models>
+            <model file="earth.3d"/>
+        </models>
+
+        <!-- Moon -->
+        <group>
+          <translate x="5" y="0" z="0"/>
+          <models>
+            <model file="moon.3d"/>
+          </models>
+        </group>
+    </group>
+
+    <!-- Mars -->
+    <group>
+        <translate x="40" y="0" z="0"/>
+        <models>
+            <model file="mars.3d"/>
+        </models>
+    </group>
+
+    <!-- Jupiter -->
+    <group>
+        <translate x="55" y="0" z="0"/>
+        <models>
+            <model file="jupiter.3d"/>
+        </models>
+    </group>
+
+    <!-- Saturn -->
+    <group>
+        <translate x="70" y="0" z="0"/>
+        <models>
+            <model file="saturn.3d"/>
+        </models>
+        <!-- Ring -->
+    </group>
+
+    <!-- Uranus -->
+    <group>
+        <translate x="85" y="0" z="0"/>
+        <models>
+            <model file="uranus.3d"/>
+        </models>
+    </group>
+
+    <!-- Neptune -->
+    <group>
+        <translate x="105" y="0" z="0"/>
+        <models>
+            <model file="neptune.3d"/>
+        </models>
+    </group>
+
+    <!-- Pluto-->
+    <group>
+        <translate x="125" y="0" z="0"/>
+        <models>
+            <model file="pluto.3d"/>
+        </models>
+    </group>
+  </group>
+</scene>

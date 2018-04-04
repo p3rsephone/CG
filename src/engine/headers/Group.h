@@ -2,6 +2,9 @@
 #define __GROUP_H__
 
 #include <vector>
+#include <iostream>
+#include <typeinfo>
+#include <string>
 #include "Transformation.h"
 #include "Model.h"
 
