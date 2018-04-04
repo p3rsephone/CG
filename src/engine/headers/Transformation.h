@@ -5,28 +5,28 @@ class Transformation {
 public:
     virtual int getType() = 0;
 
-    virtual int getX() = 0;
+    virtual double getX() = 0;
 
-    virtual int getY() = 0;
+    virtual double getY() = 0;
 
-    virtual int getZ() = 0;
+    virtual double getZ() = 0;
 };
 
 class Rotate: public Transformation {
 public:
-    int getAngle() {
+    double getAngle() {
         return this->angle;
     }
 
-    int getX() {
+    double getX() {
         return this->x;
     }
 
-    int getY() {
+    double getY() {
         return this->y;
     }
 
-    int getZ() {
+    double getZ() {
         return this->z;
     }
 
@@ -62,15 +62,15 @@ private:
 
 class Scale: public Transformation {
 public:
-    int getX() {
+    double getX() {
         return this->x;
     }
 
-    int getY() {
+    double getY() {
         return this->y;
     }
 
-    int getZ() {
+    double getZ() {
         return this->z;
     }
 
@@ -101,15 +101,15 @@ private:
 
 class Translate: public Transformation {
 public:
-    int getX(){
+    double getX(){
         return this->x;
     }
 
-    int getY(){
+    double getY(){
         return this->y;
     }
 
-    int getZ(){
+    double getZ(){
         return this->z;
     }
 
