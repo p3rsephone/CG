@@ -35,6 +35,8 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                     string fileDir = "files/" + s;
                     ifstream infile(fileDir);
 
+                    cout << s << endl;
+
                     if(!infile) {
                         cout << "Cannot open input file.\n";
                     }
@@ -145,6 +147,7 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
             } else
 
             if(strcmp(pElement->Name(),"group") == 0) {
+
                 Group* g = new Group();
 
                 ParseRow(pNode,g);
