@@ -13,4 +13,14 @@ generator_test
 bin
 build
 files/*
-!files/main.xml
+!files/earth.3d
+!files/jupiter.3d
+!files/mars.3d
+!files/mercury.3d
+!files/moon.3d
+!files/pluto.3d
+!files/saturn.3d
+!files/sun.3d
+!files/uranus.3d
+!files/venus.3d
+!files/solar-system.xml
