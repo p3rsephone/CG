@@ -4,7 +4,12 @@ using namespace std;
 Model::Model(){
 }
 
+Model::Model(string name){
+  this->name = name;
+}
+
 void Model::addElement(Triangle* triangle){
+  triangle->addName(this->name);
   triangle_vector.push_back(triangle);
 }
 

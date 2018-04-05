@@ -5,9 +5,13 @@
 #else
 #include <GL/glut.h>
 #endif
+#include <string>
+#include <string.h>
 #include <math.h>
 #include <time.h>
 #include <headers/Point.h>
+
+using namespace std;
 
 /**
  *@brief Class that defines a triangle in GLUT
@@ -16,6 +20,8 @@ class Triangle {
   private:
     // Points a,b,c
     Point a,b,c;
+    // Name of the model
+    string name;
     // Color 1
     int color1;
     // Color 2
@@ -49,6 +55,14 @@ class Triangle {
  *@return void
  */
     void addPoint(Point*);
+/**
+ *@brief Method that adds name to a given Triangle
+ *
+ * @param Name of the model
+ *
+ *@return void
+ */
+    void addName(string);
 /**
  *@brief Method that draws a triangle in GLUT
  *

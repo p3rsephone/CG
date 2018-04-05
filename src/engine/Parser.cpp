@@ -28,9 +28,9 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
             if(strcmp(pElement->Name(),"model") == 0){
 
                 if(pElement->Attribute("file")){
-                    Model* model = new Model();
                     Triangle* t;
                     s =pElement->Attribute("file");
+                    Model* model = new Model(s);
 
                     string fileDir = "files/" + s;
                     ifstream infile(fileDir);
