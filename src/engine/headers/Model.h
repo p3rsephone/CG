@@ -11,15 +11,23 @@ using namespace std;
  *       figure composed of triangles
  */
   class  Model{
+      //Name of the object
+      string name;
     //vector of triangles that compose a Model
       vector<Triangle*> triangle_vector;
     public:
 /**
- *@brief Contructor of empty triangle
+ *@brief Contructor of empty model with no name
  *
  *@return void
  */
       Model();
+/**
+ *@brief Contructor of empty model with name
+ *
+ *@return void
+ */
+      Model(string name);
 /**
  *@brief Method that add a Triangle to a Model
  *
