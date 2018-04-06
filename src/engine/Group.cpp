@@ -51,10 +51,13 @@ void Group::draw(){
 
 void Group::transformation(Transformation* t){
     if(Translate* tr = dynamic_cast<Translate*>(t)){
+        //cout << "translate " << tr->getX() << " " << tr->getY() << " " << tr->getZ() << endl;
         glTranslatef(tr->getX(),tr->getY(),tr->getZ());
     } else if(Rotate* r = dynamic_cast<Rotate*>(t)){
+        //cout << "rotate " << r->getAngle() << " " << r->getX() << " " << r->getY() << " " << r->getZ() << endl;
         glRotatef(r->getAngle(),r->getX(),r->getY(),r->getZ());
     } else if(Scale* s = dynamic_cast<Scale*>(t)) {
-        glTranslatef(s->getX(), s->getY(), s->getZ());
+        //cout << "scale " << s->getX() << " " << s->getY() << " " << s->getZ() << endl;
+        glScalef(s->getX(), s->getY(), s->getZ());
     }
 }

@@ -75,27 +75,27 @@ void Triangle::addName(string name){
  *@return void
  */
 void Triangle::draw(){
-  if(strcmp(this->name.c_str(),"sun.3d")){
+  if(!strcmp(this->name.c_str(),"sun.3d")){
     glColor3ub(255,140,0);
-  }else if(strcmp(this->name.c_str(),"mercury.3d")){
+  }else if(!strcmp(this->name.c_str(),"mercury.3d")){
       glColor3ub(139,0,0);
-  }else if(strcmp(this->name.c_str(),"venus.3d")){
+  }else if(!strcmp(this->name.c_str(),"venus.3d")){
       glColor3ub(249,194,26);
-  }else if(strcmp(this->name.c_str(),"earth.3d")){
+  }else if(!strcmp(this->name.c_str(),"earth.3d")){
       glColor3ub(30,144,255);
-  }else if(strcmp(this->name.c_str(),"moon.3d")){
+  }else if(!strcmp(this->name.c_str(),"moon.3d")){
       glColor3ub(176,196,222);
-  }else if(strcmp(this->name.c_str(),"mars.3d")){
+  }else if(!strcmp(this->name.c_str(),"mars.3d")){
       glColor3ub(205,92,92);
-  }else if(strcmp(this->name.c_str(),"jupiter.3d")){
+  }else if(!strcmp(this->name.c_str(),"jupiter.3d")){
       glColor3ub(227,220,203);
-  }else if(strcmp(this->name.c_str(),"saturn.3d")){
+  }else if(!strcmp(this->name.c_str(),"saturn.3d")){
       glColor3ub(216,202,157);
-  }else if(strcmp(this->name.c_str(),"neptune.3d")){
+  }else if(!strcmp(this->name.c_str(),"neptune.3d")){
       glColor3ub(65,105,225);
-  }else if(strcmp(this->name.c_str(),"uranus.3d")){
+  }else if(!strcmp(this->name.c_str(),"uranus.3d")){
       glColor3ub(100,149,237);
-  }else if(strcmp(this->name.c_str(),"pluto.3d")){
+  }else if(!strcmp(this->name.c_str(),"pluto.3d")){
       glColor3ub(245,245,220);
   }else{
     glColor3ub(this->color1, this->color2, this->color3);

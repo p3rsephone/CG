@@ -19,6 +19,7 @@ class Figure {
         void createSphere(double radius, int slices, int stacks);
         void createCone(double base, double height, int slices, int stacks);
         void createCylinder(double r, double height, int slices, int stacks);
+        void createCircumference(double r, double divisions);
 };
 
 #endif

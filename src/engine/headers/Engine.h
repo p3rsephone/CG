@@ -26,7 +26,7 @@ class Engine{
     // XZ position of the camera
     float x=0.0f,z=5.0f;
     // Radius of camera to 0.0
-    float raio = 500;
+    float raio = 100;
     // angle that controls y axis default camera
     float alfa = 1;
     // angle that controls x axis default camera

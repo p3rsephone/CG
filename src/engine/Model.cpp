@@ -4,8 +4,9 @@ using namespace std;
 Model::Model(){
 }
 
-Model::Model(string name){
+Model::Model(string name, int type){
   this->name = name;
+  this->type = type;
 }
 
 void Model::addElement(Triangle* triangle){
@@ -18,8 +19,8 @@ vector<Triangle*> Model::model(){
 }
 
 void Model::draw(){
-  vector <Triangle*>::iterator it;
 
+  vector <Triangle*>::iterator it;
 
   for(it = this->triangle_vector.begin(); it != this->triangle_vector.end(); it++){
     (*it)->draw();

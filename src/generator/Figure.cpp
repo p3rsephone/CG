@@ -236,3 +236,44 @@ void Figure::createCylinder(double r, double height, int slices, int stacks){
         }
     }
 }
+
+/**
+ * @brief Creates vertice points for a cylinder with a certain radius, slices and stacks
+ * Usage: generator circumference 1 20 circumference.3d
+ * @param  r         Radius of the cylinder
+ * @param  divisions Number of divisions
+ */
+//TODO build circumference
+
+
+void Figure::createCircumference(double r, double divisions){
+/*
+    float theta = (2 * M_PI)/divisions;
+
+    for(int i = 0; i < divisions; i++){
+            //Lateral surface
+            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
+            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+
+            //Lower base
+            if(!j){
+                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+                points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
+                points.push_back(new Point(0.0f, 0.0f, 0.0f));
+            }
+
+            //Upper base
+            if(j == stacks -1) {
+                points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
+                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
+                points.push_back(new Point(0.0f, height, 0.0f));
+            }
+        }
+    }
+    */
+}

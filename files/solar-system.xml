@@ -7,27 +7,30 @@
     </group>
 
     <group>
-        <translate x="20" y="0" z="0"/>
+        <rotate angle="50" axisY="1"/>
+        <translate X="20" Y="0" Z="0"/>
         <models>
             <model file="mercury.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="25" y="0" z="0"/>
+        <rotate angle="80" axisY="1"/>
+        <translate X="25" Y="0" Z="0"/>
         <models>
             <model file="venus.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="32" y="0" z="0"/>
+        <rotate angle="250" axisY="1"/>
+        <translate X="32" Y="0" Z="0"/>
         <models>
             <model file="earth.3d"/>
         </models>
 
         <group>
-          <translate x="5" y="0" z="0"/>
+          <translate X="5" Y="0" Z="0"/>
           <models>
             <model file="moon.3d"/>
           </models>
@@ -35,42 +38,48 @@
     </group>
 
     <group>
-        <translate x="40" y="0" z="0"/>
+        <rotate angle="150" axisY="1"/>
+        <translate X="40" Y="0" Z="0"/>
         <models>
             <model file="mars.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="55" y="0" z="0"/>
+        <rotate angle="10" axisY="1"/>
+        <translate X="55" Y="0" Z="0"/>
         <models>
             <model file="jupiter.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="70" y="0" z="0"/>
+        <rotate angle="290" axisY="1"/>
+        <translate X="70" Y="0" Z="0"/>
         <models>
             <model file="saturn.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="85" y="0" z="0"/>
+        <rotate angle="120" axisY="1"/>
+        <translate X="85" Y="0" Z="0"/>
         <models>
             <model file="uranus.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="105" y="0" z="0"/>
+        <rotate angle="90" axisY="1"/>
+        <translate X="105" Y="0" Z="0"/>
         <models>
             <model file="neptune.3d"/>
         </models>
     </group>
 
     <group>
-        <translate x="125" y="0" z="0"/>
+        <rotate angle="30" axisY="1"/>
+        <translate X="125" Y="0" Z="0"/>
         <models>
             <model file="pluto.3d"/>
         </models>
