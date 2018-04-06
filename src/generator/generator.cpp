@@ -4,7 +4,7 @@
  * @brief Shows the usage of this file.
  */
 void usage(){
-    cout << "#_____________________________ HELP _____________________________# " << endl;
+    cout << "#_____________________________ HELP _____________________________#" << endl;
 	cout << "|                                                                |" << endl;
     cout << "|   SYNOPSIS                                                     |" << endl;
     cout << "|          ./generator {COMMAND} ... {OUTPUT FILE}               |" << endl;
@@ -130,6 +130,14 @@ int main(int argc, char* argv[]) {
         filename = argv[6];
 
         f->createCylinder(radius, height, slices, stacks);
+    }
+
+    else if (argc == 7 && (strcmp(argv[1],"circumference") == 0)){
+        double radius = atof(argv[2]);
+        int divisions = (int) stoi(argv[3]);
+        filename = argv[4];
+
+        f->createCircumference(radius,divisions);
     }
 
     else {

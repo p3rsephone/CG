@@ -36,12 +36,13 @@ void Engine::changeSize(int w, int h) {
     glViewport(0, 0, w, h);
 
 	// Set perspective
-	gluPerspective(45.0f ,ratio, 1.0f ,1000.0f);
+	gluPerspective(45.0f,ratio,1.0f,1000.0f);
 
-	// return to the model view matrix mode
+	// Return to the model view matrix mode
 	glMatrixMode(GL_MODELVIEW);
 }
 
+/*
 void Engine::axis_system(){
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glBegin(GL_LINES);
@@ -58,6 +59,7 @@ void Engine::axis_system(){
 		glVertex3f(0,0,30);
 	glEnd();
 }
+ */
 
 void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
   Engine* e = Engine::getInstance();
@@ -79,10 +81,10 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 			if(beta > -1.5) beta-=0.1;
 			break;
 		case('-'):
-			raio+=0.2;
+			raio+=5;
 			break;
 		case('+'):
-			raio-=0.2;
+			raio-=5;
 			break;
 		case('c'):
 			camera++;
@@ -159,7 +161,7 @@ void Engine::renderGroup(void) {
 			0.0f, 1.0f,  0.0f);
 	}
     group->draw();
-		axis_system();
+		//axis_system();
 
     glutSwapBuffers();
 }
@@ -168,19 +170,19 @@ void Engine::renderGroup(void) {
 void Engine::initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
-  glutInitDisplayMode(GLUT_SINGLE);
+  glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGB);
 
 // put callback registration here
   glutInitWindowPosition(100,100);
-  glutInitWindowSize(800,800);
-  glutCreateWindow("Hello World !");
+  glutInitWindowSize(1400,1000);
+  glutCreateWindow("Grupo 28");
 
   glutDisplayFunc(renderGroupWrapper);
   glutReshapeFunc(changeSizeWrapper);
   glutIdleFunc(renderGroupWrapper);
 
 // event handler
-	glutKeyboardFunc(processKeysWrapper);
+    glutKeyboardFunc(processKeysWrapper);
 	glutSpecialFunc(specialKeysWrapper);
 // OpenGL settings
 	glEnable(GL_DEPTH_TEST);
@@ -204,10 +206,10 @@ void Engine::parse(int argc, char **argv){
 }
 
 void Engine::usage(){
-  cout << "#_____________________________ HELP _____________________________# " << endl;
+    cout << "#_____________________________ HELP _____________________________#" << endl;
 	cout << "|                                                                |" << endl;
-  cout << "|   SYNOPSIS                                                     |" << endl;
-  cout << "|          ./engine {XML FILE}                                   |" << endl;
+    cout << "|   SYNOPSIS                                                     |" << endl;
+    cout << "|          ./engine {XML FILE}                                   |" << endl;
 	cout << "|                      [-h]                                      |" << endl;
 	cout << "|                                                                |" << endl;
 	cout << "|   COMMANDS INSIDE ENGINE:                                      |" << endl;
@@ -226,6 +228,5 @@ void Engine::usage(){
 	cout << "| -> j,l,k                                                       |" << endl;
 	cout << "|      Change glPolygonMode {Point,Fill,Line}                    |" << endl;
 	cout << "|                                                                |" << endl;
-  cout << "#________________________________________________________________#" << endl;
-
+    cout << "#________________________________________________________________#" << endl;
 }
