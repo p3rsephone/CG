@@ -245,10 +245,9 @@ void Figure::createCylinder(double r, double height, int slices, int stacks){
  */
 //TODO build circumference
 
-/*
 
 void Figure::createCircumference(double r, double divisions){
-
+/*
     float theta = (2 * M_PI)/divisions;
 
     for(int i = 0; i < divisions; i++){
@@ -276,5 +275,5 @@ void Figure::createCircumference(double r, double divisions){
             }
         }
     }
+    */
 }
-*/
