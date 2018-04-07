@@ -171,8 +171,6 @@ void Engine::renderGroup(void) {
     group->draw();
     //axis_system();
 
-
-
     glutSwapBuffers();
 }
 

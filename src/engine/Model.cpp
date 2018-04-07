@@ -4,8 +4,9 @@ using namespace std;
 Model::Model(){
 }
 
-Model::Model(string name){
+Model::Model(string name, int type){
   this->name = name;
+  this->type = type;
 }
 
 void Model::addElement(Triangle* triangle){

@@ -13,6 +13,8 @@ using namespace std;
   class  Model{
       //Name of the object
       string name;
+      //Type of the object
+      int type;
     //vector of triangles that compose a Model
       vector<Triangle*> triangle_vector;
     public:
@@ -27,7 +29,7 @@ using namespace std;
  *
  *@return void
  */
-      Model(string name);
+      Model(string name,int type);
 /**
  *@brief Method that add a Triangle to a Model
  *

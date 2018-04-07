@@ -14,6 +14,7 @@
         </models>
     </group>
 
+
     <group speed="1.6">
         <rotate angle="80" axisY="1"/>
         <translate X="25" Y="0" Z="0"/>
@@ -28,6 +29,7 @@
         <models>
             <model file="earth.3d"/>
         </models>
+
 
         <group speed="0.4">
             <rotate angle="50" axisY="1"/>
