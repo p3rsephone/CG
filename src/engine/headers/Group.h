@@ -15,8 +15,12 @@ private:
     vector<Transformation*> transformations;
     vector<Model*> models;
     vector<Group*> groups;
+    float speed;
+    float position;
 public:
     Group();
+
+    Group(float speed);
 
     void addTransformation(Transformation* t);
 

@@ -20,6 +20,7 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
     else{
 
         string s;
+        float speed = 0;
         int contador = 0;
         for(;pNode; pNode=pNode->NextSibling()){
 
@@ -146,7 +147,13 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
 
             if(strcmp(pElement->Name(),"group") == 0) {
 
-                Group* g = new Group();
+                float speed = 0;
+
+                if(pElement->Attribute("speed")) {
+                    speed = stof(pElement->Attribute("speed"));
+                }
+
+                Group* g = new Group(speed);
 
                 ParseRow(pNode,g);
 

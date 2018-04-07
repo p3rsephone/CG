@@ -98,6 +98,14 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
     case('k'):
 			glPolygonMode(GL_FRONT, GL_LINE);
       break;
+        case(' '):
+            if(pause%2==0){
+                glutIdleFunc(NULL);
+            }else {
+                glutIdleFunc(renderGroupWrapper);
+            }
+            pause++;
+            break;
 		default:
 			break;
 	}
@@ -161,7 +169,7 @@ void Engine::renderGroup(void) {
 			0.0f, 1.0f,  0.0f);
 	}
     group->draw();
-		//axis_system();
+    //axis_system();
 
     glutSwapBuffers();
 }

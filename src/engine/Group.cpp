@@ -1,6 +1,13 @@
 #include "headers/Group.h"
 
 Group::Group(){
+    this->speed = 0;
+    this->position = 0;
+}
+
+Group::Group(float speed){
+    this->speed = speed;
+    this->position = 0;
 }
 
 void Group::addTransformation(Transformation* t){
@@ -45,8 +52,11 @@ void Group::draw(){
   for(gIt = this->groups.begin(); gIt != this->groups.end(); gIt++){
     glPushMatrix();
     (*gIt)->draw();
+
     glPopMatrix();
   }
+
+    position += speed;
 }
 
 void Group::transformation(Transformation* t){
@@ -55,7 +65,7 @@ void Group::transformation(Transformation* t){
         glTranslatef(tr->getX(),tr->getY(),tr->getZ());
     } else if(Rotate* r = dynamic_cast<Rotate*>(t)){
         //cout << "rotate " << r->getAngle() << " " << r->getX() << " " << r->getY() << " " << r->getZ() << endl;
-        glRotatef(r->getAngle(),r->getX(),r->getY(),r->getZ());
+        glRotatef(r->getAngle()+position,r->getX(),r->getY(),r->getZ());
     } else if(Scale* s = dynamic_cast<Scale*>(t)) {
         //cout << "scale " << s->getX() << " " << s->getY() << " " << s->getZ() << endl;
         glScalef(s->getX(), s->getY(), s->getZ());
