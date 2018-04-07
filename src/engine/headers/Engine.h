@@ -33,6 +33,8 @@ class Engine{
     float beta = 1;
     // Variable to switch camera
     int camera = 0;
+    // Variable to pause/unpause
+    int pause = 0;
     // Engine variable for the singleton
     static Engine *engine;
 

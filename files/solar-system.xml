@@ -6,7 +6,7 @@
       </models>
     </group>
 
-    <group>
+    <group speed="2">
         <rotate angle="50" axisY="1"/>
         <translate X="20" Y="0" Z="0"/>
         <models>
@@ -14,7 +14,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="1.6">
         <rotate angle="80" axisY="1"/>
         <translate X="25" Y="0" Z="0"/>
         <models>
@@ -22,14 +22,15 @@
         </models>
     </group>
 
-    <group>
+    <group speed="1">
         <rotate angle="250" axisY="1"/>
         <translate X="32" Y="0" Z="0"/>
         <models>
             <model file="earth.3d"/>
         </models>
 
-        <group>
+        <group speed="0.4">
+            <rotate angle="50" axisY="1"/>
           <translate X="5" Y="0" Z="0"/>
           <models>
             <model file="moon.3d"/>
@@ -37,7 +38,7 @@
         </group>
     </group>
 
-    <group>
+    <group speed="0.8">
         <rotate angle="150" axisY="1"/>
         <translate X="40" Y="0" Z="0"/>
         <models>
@@ -45,7 +46,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="0.5">
         <rotate angle="10" axisY="1"/>
         <translate X="55" Y="0" Z="0"/>
         <models>
@@ -53,7 +54,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="0.3">
         <rotate angle="290" axisY="1"/>
         <translate X="70" Y="0" Z="0"/>
         <models>
@@ -61,7 +62,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="0.2">
         <rotate angle="120" axisY="1"/>
         <translate X="85" Y="0" Z="0"/>
         <models>
@@ -69,7 +70,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="0.15">
         <rotate angle="90" axisY="1"/>
         <translate X="105" Y="0" Z="0"/>
         <models>
@@ -77,7 +78,7 @@
         </models>
     </group>
 
-    <group>
+    <group speed="0.1">
         <rotate angle="30" axisY="1"/>
         <translate X="125" Y="0" Z="0"/>
         <models>
