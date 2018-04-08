@@ -47,7 +47,6 @@ void Group::draw(){
     (*mIt)->draw();
   }
 
-
   vector <Group*>::iterator gIt;
   for(gIt = this->groups.begin(); gIt != this->groups.end(); gIt++){
     glPushMatrix();
