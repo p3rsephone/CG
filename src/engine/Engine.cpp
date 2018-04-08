@@ -81,10 +81,10 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 			if(beta > -1.5) beta-=0.1;
 			break;
 		case('-'):
-			raio+=5;
+			raio+=1;
 			break;
 		case('+'):
-			raio-=5;
+			raio-=1;
 			break;
 		case('c'):
 			camera++;
@@ -178,7 +178,13 @@ void Engine::renderGroup(void) {
 void Engine::initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
-  glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGB);
+  glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGB| GLUT_MULTISAMPLE);
+  glEnable(GL_MULTISAMPLE);
+    glEnable( GL_LINE_SMOOTH );
+    glEnable( GL_POLYGON_SMOOTH );
+    glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
+    glHint( GL_POLYGON_SMOOTH_HINT, GL_NICEST );
+
 
 // put callback registration here
   glutInitWindowPosition(100,100);
