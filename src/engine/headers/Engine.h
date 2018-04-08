@@ -22,9 +22,9 @@ class Engine{
     // angle of rotation for the camera direction
     float angle=0.0;
     // actual vector representing the camera's direction
-    float lx=0.0f,lz=-1.0f;
+    float lx=0.0f,lz=-1.0f,ly=0.0f;
     // XZ position of the camera
-    float x=0.0f,z=5.0f;
+    float x=0.0f,z=5.0f, y=0.2f;
     // Radius of camera to 0.0
     float raio = 100;
     // angle that controls y axis default camera
