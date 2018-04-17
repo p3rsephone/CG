@@ -60,7 +60,6 @@ void Engine::axis_system(){
 	glEnd();
 }
  */
-
 void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
   Engine* e = Engine::getInstance();
   e->processKeys(key,xx,yy);
@@ -68,6 +67,12 @@ void Engine::processKeysWrapper(unsigned char key, int xx, int yy) {
 
 void Engine::processKeys(unsigned char key, int xx, int yy) {
 	switch(key){
+		case('q'):
+			ly+= 0.1f;
+			break;
+		case('e'):
+			ly-= 0.1f;
+			break;	
 		case('a'):
 			alfa-=0.1;
 			break;
@@ -135,10 +140,12 @@ void Engine::specialKeys(int key, int xx, int yy)
 				case GLUT_KEY_UP :
 					x += lx * fraction;
 					z += lz * fraction;
+					y += ly * fraction;
 					break;
 				case GLUT_KEY_DOWN :
 					x -= lx * fraction;
 					z -= lz * fraction;
+					y -= ly * fraction;
 					break;
 				default:
 					break;
@@ -164,8 +171,8 @@ void Engine::renderGroup(void) {
 			  0.0f,1.0f,0.0f);
 	}
 	else{
-		gluLookAt(	x, 1.0f, z,
-			x+lx, 1.0f,  z+lz,
+		gluLookAt(	x, y, z,
+			x+lx, y+ly ,  z+lz,
 			0.0f, 1.0f,  0.0f);
 	}
     group->draw();
