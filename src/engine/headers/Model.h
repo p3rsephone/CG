@@ -1,9 +1,14 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
-
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 #include <math.h>
 #include <vector>
 #include "Triangle.h"
+
 using namespace std;
 
 /**
@@ -14,7 +19,8 @@ using namespace std;
       //Name of the object
       string name;
     //vector of triangles that compose a Model
-      vector<Triangle*> triangle_vector;
+      float *point_array;
+      int state;
     public:
 /**
  *@brief Contructor of empty model with no name
@@ -27,7 +33,7 @@ using namespace std;
  *
  *@return void
  */
-      Model(string name);
+      Model(string name, int size);
 /**
  *@brief Method that add a Triangle to a Model
  *
@@ -35,13 +41,13 @@ using namespace std;
  *
  *@return void
  */
-      void addElement(Triangle*);
+      void addElement(float point);
 /**
  *@brief Method that returns the vector triangle_vector
  *
  *@return vector of Triangles that compose Model
  */
-      vector<Triangle*> model();
+      float* model();
 /**
  *@brief Method that draws a model
  *
