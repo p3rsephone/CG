@@ -21,7 +21,6 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
 
         string s;
         float speed = 0;
-        int contador = 0;
         for(;pNode; pNode=pNode->NextSibling()){
 
             XMLElement* pElement = pNode->ToElement();
@@ -31,7 +30,6 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                 if(pElement->Attribute("file")){
                     Triangle* t;
                     s =pElement->Attribute("file");
-                    Model* model = new Model(s);
 
                     string fileDir = "files/" + s;
                     ifstream infile(fileDir);
@@ -41,6 +39,11 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                     }
                     else {
                         string line;
+
+                        getline(infile, line);
+                        int size = stof(line);
+
+                        Model* model = new Model(s, size);
 
                         while (getline(infile, line))
                         {
@@ -58,16 +61,10 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                                 if(it==2) z=stof(*i);
                                 it++;
                             }
-                            if( contador == 0 )
-                                t = new Triangle();
 
-                            Point* p = new Point(x,y,z);
-                            t->addPoint(p);
-
-                            if( contador == 2 )
-                                model->addElement(t);
-
-                            contador = (contador+1) % 3;
+                            model->addElement(x);
+                            model->addElement(y);
+                            model->addElement(z);
                         }
 
                         group->addModel(model);
