@@ -11,6 +11,11 @@ Figure::Figure(){
 
 void Figure::createPlane(double size){
     double height = size/2;
+
+    //npoints = 4;
+
+    npoints = 6;
+
     points.push_back(new Point(height,0,height));
     points.push_back(new Point(-height,0,-height));
     points.push_back(new Point(-height,0,height));
@@ -30,6 +35,9 @@ void Figure::createPlane(double size){
  * @param  d Amount of divisions in each axis
  */
 void Figure::createBox(double x, double y, double z, int d){
+
+    //npoints = 8+6*(d^2)+12*d;
+
     //Basically centers the box in the origin of the referential
     double realX = x/2;
     double realY = y/2;
@@ -40,8 +48,12 @@ void Figure::createBox(double x, double y, double z, int d){
     double shiftY = y/d;
     double shiftZ = z/d;
 
+
+
     for(int i = 0; i < d ; i++){
         for(int j = 0; j < d ; j++){
+
+                npoints += 36;
 
                 //Base
                 points.push_back(new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j));
@@ -111,6 +123,8 @@ void Figure::createBox(double x, double y, double z, int d){
  */
 void Figure::createSphere(double radius, int slices, int stacks){
 
+    //npoints = 2 + slices * stacks;
+
     double fiShift = M_PI*2 / slices;
     double thetaShift = M_PI / stacks;
 
@@ -126,12 +140,14 @@ void Figure::createSphere(double radius, int slices, int stacks){
 
             //Triangular ends of the sphere
             if(theta == 0){
+                npoints += 3;
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(theta+thetaShift) ,radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
                 points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi)));
             }
 
             else if(theta == stacks - 1){
+                npoints += 3;
                 points.push_back(new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift)));
                 points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
@@ -139,6 +155,7 @@ void Figure::createSphere(double radius, int slices, int stacks){
 
             //Rectangles within the sphere
             else {
+                npoints += 6;
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
                 points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
                 points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi)));
@@ -162,6 +179,8 @@ void Figure::createSphere(double radius, int slices, int stacks){
  */
 void Figure::createCone(double r, double height, int slices, int stacks){
 
+    //npoints = 2 * slices * stacks;
+
     float alpha = (2 * M_PI)/slices;
     float h = sqrt(pow(r,2) + pow(h,2))/stacks;
     float beta = r/slices;
@@ -170,6 +189,7 @@ void Figure::createCone(double r, double height, int slices, int stacks){
         for (int j = 0; j<slices; j++) {
 
             if (!i) {
+                npoints += 3;
                 // Base
                 points.push_back(new Point(0.0f,0.0f,0.0f));
                 points.push_back(new Point(r * sin(alpha * (j+1)), 0, r * cos(alpha * (j + 1))));
@@ -177,12 +197,14 @@ void Figure::createCone(double r, double height, int slices, int stacks){
             }
 
             if (i == stacks-1) {
+                npoints += 3;
                 // Top
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
                 points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
                 points.push_back(new Point(0, (i + 1) * h, 0));
 
             } else {
+                npoints += 6;
                 // Side
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
@@ -204,76 +226,41 @@ void Figure::createCone(double r, double height, int slices, int stacks){
  * @param  slices   Number of slices
  * @param  stacks   Number of stacks
  */
-void Figure::createCylinder(double r, double height, int slices, int stacks){
+void Figure::createCylinder(double r, double height, int slices, int stacks) {
 
-    float theta = (2 * M_PI)/slices;
-    float heightShift = height/stacks;
+    npoints = 2 * slices * stacks;
 
-    for(int i = 0; i < slices; i++){
-        for(int j = 0; j < stacks; j++){
+    float theta = (2 * M_PI) / slices;
+    float heightShift = height / stacks;
+
+    for (int i = 0; i < slices; i++) {
+        for (int j = 0; j < stacks; j++) {
+            npoints += 6;
+
             //Lateral surface
-            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+            points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
 
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
+            points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+            points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
+            points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
 
             //Lower base
-            if(!j){
+            if (!j) {
+                npoints += 3;
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
                 points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
                 points.push_back(new Point(0.0f, 0.0f, 0.0f));
             }
 
             //Upper base
-            if(j == stacks -1) {
+            if (j == stacks - 1) {
+                npoints += 3;
                 points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
                 points.push_back(new Point(0.0f, height, 0.0f));
             }
         }
     }
-}
-
-/**
- * @brief Creates vertice points for a cylinder with a certain radius, slices and stacks
- * Usage: generator circumference 1 20 circumference.3d
- * @param  r         Radius of the cylinder
- * @param  divisions Number of divisions
- */
-//TODO build circumference
-
-
-void Figure::createCircumference(double r, double divisions){
-/*
-    float theta = (2 * M_PI)/divisions;
-
-    for(int i = 0; i < divisions; i++){
-            //Lateral surface
-            points.push_back(new Point(r * sin(theta * i),heightShift * j,r * cos(theta * i)));
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
-
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * j,r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * (i+1)),heightShift * (j+1),r * cos(theta * (i+1))));
-            points.push_back(new Point(r * sin(theta * i),heightShift * (j+1),r * cos(theta * i)));
-
-            //Lower base
-            if(!j){
-                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
-                points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
-                points.push_back(new Point(0.0f, 0.0f, 0.0f));
-            }
-
-            //Upper base
-            if(j == stacks -1) {
-                points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
-                points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
-                points.push_back(new Point(0.0f, height, 0.0f));
-            }
-        }
-    }
-    */
 }
