@@ -1,14 +1,17 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
+
+#include <GL/glew.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
+
+#include <string>
 #include <string.h>
 #include <math.h>
 using namespace std;
-
 /**
  *@brief Class that defines a geometric
  *       figure composed of triangles
@@ -18,6 +21,7 @@ using namespace std;
       string name;
       GLuint *buffer;
     //vector of triangles that compose a Model
+      int size;
       float *point_array;
       int state;
     public:

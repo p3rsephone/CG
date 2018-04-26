@@ -1,6 +1,4 @@
 #include "headers/Model.h"
-using namespace std;
-
 Model::Model(){
 }
 
@@ -43,11 +41,11 @@ void Model::draw(){
   }else if(!strcmp(this->name.c_str(),"pluto.3d")){
       glColor3ub(245,245,220);
   }else{
-    glColor3ub(this->color1, this->color2, this->color3);
+    glColor3ub(0,0,0);
   }
   glGenBuffers(1,this->buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, this->buffer);
-  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array.GL_STATI_DRAW);
-  glDrawArray(GL_TRIANGLES,0,this->size);
+  glBindBuffer(GL_ARRAY_BUFFER, *(this)->buffer);
+  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array,GL_STATIC_DRAW);
+  glDrawArrays(GL_TRIANGLES,0,this->size);
 }
 

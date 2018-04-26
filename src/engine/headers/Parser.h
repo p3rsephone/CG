@@ -6,7 +6,6 @@
 #endif
 
 #include "Model.h"
-#include "Triangle.h"
 #include "Group.h"
 #include <string>
 #include <vector>

@@ -1,6 +1,9 @@
+#ifndef __ENGINE_H_
+#define __ENGINE_H_
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
+#include <GL/glew.h>
 #include <GL/glut.h>
 #endif
 
@@ -164,3 +167,4 @@ class Engine{
  */
     void parse(int argc, char **argv);
 };
+#endif
