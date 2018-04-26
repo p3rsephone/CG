@@ -4,10 +4,7 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
-#ifndef __POINT_H__
-#define __POINT_H__
 #include "../../../lib/headers/Point.h"
-#endif
 
 using namespace std;
 
