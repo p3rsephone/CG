@@ -5,10 +5,8 @@
 #else
 #include <GL/glut.h>
 #endif
+#include <string.h>
 #include <math.h>
-#include <vector>
-#include "Triangle.h"
-
 using namespace std;
 
 /**
@@ -18,6 +16,7 @@ using namespace std;
   class  Model{
       //Name of the object
       string name;
+      GLuint *buffer;
     //vector of triangles that compose a Model
       float *point_array;
       int state;

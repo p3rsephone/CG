@@ -45,8 +45,9 @@ void Model::draw(){
   }else{
     glColor3ub(this->color1, this->color2, this->color3);
   }
-  glBindBuffer(GL_ARRAY_BUFFER, this->point_array);
-  glBufferData(GL_ARRAY_BUFFER,this->size,this->point_array.GL_STATI_DRAW);
+  glGenBuffers(1,this->buffer);
+  glBindBuffer(GL_ARRAY_BUFFER, this->buffer);
+  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array.GL_STATI_DRAW);
   glDrawArray(GL_TRIANGLES,0,this->size);
 }
 
