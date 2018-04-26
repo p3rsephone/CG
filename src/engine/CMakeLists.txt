@@ -1,3 +1,12 @@
+
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+link_libraries(${GLEW_LIBRARIES})
+if(NOT GLEW_FOUND)
+    message(ERROR " OPENGL not found!")
+endif(NOT GLEW_FOUND)
+
+
 find_package(GLUT REQUIRED)
 include_directories(${GLUT_INCLUDE_DIR})
 link_directories(${GLUT_LIBRARY_DIRS})
@@ -15,8 +24,9 @@ if(NOT OPENGL_FOUND)
     message(ERROR " OPENGL not found!")
 endif(NOT OPENGL_FOUND)
 
+
 include_directories(${globalProject_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../../bin")
-add_executable(engine main.cpp Model.cpp tinyxml2.cpp Parser.cpp Triangle.cpp Engine.cpp Transformation.cpp Group.cpp)
+add_executable(engine main.cpp Model.cpp tinyxml2.cpp Parser.cpp  Engine.cpp Transformation.cpp Group.cpp)
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 target_link_libraries(engine  lib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )

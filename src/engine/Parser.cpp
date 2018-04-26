@@ -28,7 +28,6 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
             if(strcmp(pElement->Name(),"model") == 0){
 
                 if(pElement->Attribute("file")){
-                    Triangle* t;
                     s =pElement->Attribute("file");
 
                     string fileDir = "files/" + s;

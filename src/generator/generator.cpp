@@ -132,14 +132,6 @@ int main(int argc, char* argv[]) {
         f->createCylinder(radius, height, slices, stacks);
     }
 
-    else if (argc == 7 && (strcmp(argv[1],"circumference") == 0)){
-        double radius = atof(argv[2]);
-        int divisions = (int) stoi(argv[3]);
-        filename = argv[4];
-
-        f->createCircumference(radius,divisions);
-    }
-
     else {
         usage();
         return 0;
