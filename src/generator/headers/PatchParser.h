@@ -11,13 +11,15 @@ using namespace std;
 
 class PatchParser {
     private:
-        int tesselation;
+        int tessellation;
         string filename;
         string patchfile;
         vector<Patch*> patches;
-        void printfile();
-        void renderBezier();
-        string lineNo(int, int, string);
+        void printfile(vector<Point*>);
+        vector<Point*> applyTessellation();
+        Point* getBezierPoint(double, double, vector<Point*>);
+        Point* bezierForm(double, Point*, Point*, Point*, Point*);
+        string lineNo(int, string);
     public:
         PatchParser(string, string, int);
         void parsePatch();
