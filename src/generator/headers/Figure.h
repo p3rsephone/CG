@@ -4,7 +4,10 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#ifndef __POINT_H__
+#define __POINT_H__
 #include "../../../lib/headers/Point.h"
+#endif
 
 using namespace std;
 
@@ -14,6 +17,7 @@ class Figure {
         vector<Point*> points;
     public:
         Figure();
+        Figure(vector<Point*>);
         long getNPoints(){ return npoints; };
         vector<Point*> getPoints(){ return points; };
         void createPlane(double size);
