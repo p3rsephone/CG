@@ -1,4 +1,4 @@
-cmake -H. -Bbuild
+cmake -H.  -Bbuild
 cd build/
 make
 cd ..

@@ -72,7 +72,7 @@ void Engine::processKeys(unsigned char key, int xx, int yy) {
 			break;
 		case('e'):
 			ly-= 0.1f;
-			break;	
+			break;
 		case('a'):
 			alfa-=0.1;
 			break;
@@ -183,6 +183,7 @@ void Engine::renderGroup(void) {
 
 
 void Engine::initGL(int argc, char **argv){
+
 // put GLUT init here
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGB| GLUT_MULTISAMPLE);
@@ -191,7 +192,6 @@ void Engine::initGL(int argc, char **argv){
     glEnable( GL_POLYGON_SMOOTH );
     glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
     glHint( GL_POLYGON_SMOOTH_HINT, GL_NICEST );
-
 
 // put callback registration here
   glutInitWindowPosition(100,100);
@@ -203,13 +203,19 @@ void Engine::initGL(int argc, char **argv){
   glutIdleFunc(renderGroupWrapper);
 
 // event handler
-    glutKeyboardFunc(processKeysWrapper);
+  glutKeyboardFunc(processKeysWrapper);
 	glutSpecialFunc(specialKeysWrapper);
-// OpenGL settings
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+#ifndef _APPLE_
+	glewInit();
+#endif
+
+//  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
-  glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_FRONT, GL_LINE);
 
 // enter GLUT's main loop
 	glutMainLoop();
