@@ -28,6 +28,8 @@ public:
 
     void addGroup(Group* g);
 
+    void prepare();
+
     void draw();
 
     void transformation(Transformation* t);

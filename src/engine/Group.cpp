@@ -34,6 +34,20 @@ vector<Group*> Group::getGroups(){
     return groups;
 }
 
+
+void Group::prepare(){
+  vector <Model*>::iterator mIt;
+  for(mIt = this->models.begin(); mIt != this->models.end(); mIt++){
+    (*mIt)->prepare();
+  }
+
+  vector <Group*>::iterator gIt;
+  for(gIt = this->groups.begin(); gIt != this->groups.end(); gIt++){
+    (*gIt)->prepare();
+  }
+}
+
+
 void Group::draw(){
 
   vector <Transformation*>::iterator tIt;
