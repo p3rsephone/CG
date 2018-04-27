@@ -5,6 +5,7 @@ Model::Model(){
 Model::Model(string name, int size){
   this->name = name;
   this->point_array = new float[size];
+  this->buffer = new GLuint[1];
   this->state = 0;
   this->size = size;
 }

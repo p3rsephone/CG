@@ -175,19 +175,10 @@ void Engine::renderGroup(void) {
 			x+lx, y+ly ,  z+lz,
 			0.0f, 1.0f,  0.0f);
 	}
-  group->draw();
+    group->draw();
     //axis_system();
 
     glutSwapBuffers();
-}
-
-void  Engine::prepareWrapper(){
-  Engine* e =  Engine::getInstance();
-  e->prepare();
-}
-
-void Engine::prepare(){
-  group->prepare();
 }
 
 void Engine::initGL(int argc, char **argv){
@@ -224,8 +215,7 @@ void Engine::initGL(int argc, char **argv){
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
 	glPolygonMode(GL_FRONT, GL_LINE);
-
-  prepareWrapper();
+  this->group->prepare();
 // enter GLUT's main loop
 	glutMainLoop();
 
