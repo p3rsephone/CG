@@ -29,6 +29,10 @@ void usage(){
 	cout << "|      Creates a cylinder with the radius, height, number of     |" << endl;
 	cout << "|      slices and stacks given.                                  |" << endl;
 	cout << "|                                                                |" << endl;
+	cout << "| - patch [INPUT FILE] [TESSELLATION]                            |" << endl;
+	cout << "|      Creates a new model using the given input file with the   |" << endl;
+	cout << "|      tesselation specified, based on Bezier patches.           |" << endl;
+	cout << "|                                                                |" << endl;
 	cout << "|   OUTPUT FILE:                                                 |" << endl;
 	cout << "| In the file section you can specify any file in which you wish |" << endl;
 	cout << "| to save the coordinates generated with the previous commands.  |" << endl;
@@ -39,22 +43,6 @@ void usage(){
 	cout << "|                                                                |" << endl;
     cout << "#________________________________________________________________#" << endl;
 
-}
-
-/**
- * @brief Adds filenames to .xml file
- * @param  filename Name of file to add
- */
-void addToXML(string filename){
-    ofstream file;
-    string xml = "files/main.xml";
-    file.open(xml);
-    if (!file.is_open()) {
-        cout << "Error while adding file " << filename << " to xml." <<endl;
-    } else {
-        //TODO: Add stuff to xml
-        file.close();
-    }
 }
 
 /**
@@ -69,13 +57,11 @@ void printfile(string filename, vector<Point*> points) {
     if (!file.is_open()) {
         cout << "Error while opening file " << filename << endl;
     } else {
-        for (vector<Point*>::iterator i = points.begin() ; i!= points.end(); i++)
+        for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
             file << (*i)->toString();
 
         file.close();
-        //addToXML(filename);
     }
-
 }
 
 int main(int argc, char* argv[]) {
@@ -130,6 +116,17 @@ int main(int argc, char* argv[]) {
         filename = argv[6];
 
         f->createCylinder(radius, height, slices, stacks);
+    }
+
+    else if ((argc == 5) && strcmp(argv[1],"patch") == 0){
+        int tesselation = atoi(argv[3]);
+        if (tesselation <=0) {
+            cout << "Tesselation must be positive." << endl;
+            return 1;
+        }
+        PatchParser *p = new PatchParser(argv[4],argv[2], tesselation);
+        p->parsePatch();
+        return 0;
     }
 
     else {

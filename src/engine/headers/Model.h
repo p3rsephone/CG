@@ -1,12 +1,13 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-#include <GL/glew.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
+#include <GL/glew.h>
 #include <GL/glut.h>
 #endif
+
 #include <string>
 #include <string.h>
 #include <math.h>

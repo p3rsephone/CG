@@ -1,3 +1,5 @@
+#ifndef __POINT_H__
+#define __POINT_H__
 #include <string>
 #include <sstream>
 
@@ -12,3 +14,4 @@ class Point {
     double Y(){ return y; }
     double Z(){ return z; }
 };
+#endif

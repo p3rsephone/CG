@@ -54,8 +54,6 @@ class Engine{
  * @param width
  *
  * @param height
- *
- * @return void
  */
     static void changeSizeWrapper(int w, int h);
 
@@ -105,8 +103,6 @@ class Engine{
  * @param xx
  *
  * @param yy
- *
- * @return void
  */
     static void processKeysWrapper(unsigned char key, int xx, int yy);
 /**

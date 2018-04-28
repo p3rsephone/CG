@@ -14,6 +14,7 @@ class Figure {
         vector<Point*> points;
     public:
         Figure();
+        Figure(vector<Point*>);
         long getNPoints(){ return npoints; };
         vector<Point*> getPoints(){ return points; };
         void createPlane(double size);
