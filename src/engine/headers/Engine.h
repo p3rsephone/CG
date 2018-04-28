@@ -21,6 +21,11 @@ using namespace std;
  */
 class Engine{
   private:
+    float Y[3] = { 0, 1, 0 };
+    float gtTeapot = 0;
+    #define POINT_COUNT 5
+    // Points that make up the loop for catmull-rom interpolation
+    float p[POINT_COUNT][3] = {{-50,-50,-20},{-50,50,-50},{50,50,-20},{-20,-20,-20},{50,-50,-20}};
     Group* group;
     // angle of rotation for the camera direction
     float angle=0.0;
@@ -166,5 +171,23 @@ class Engine{
     static void prepareWrapper();
 
     void prepare();
+
+    void buildRotMatrix(float *x, float *y, float *z, float *m);
+
+    void cross(float *a, float *b, float *res);
+
+    void normalize(float *a);
+
+    float length(float *v);
+
+    void multMatrixVector(float *m, float *v, float *res);
+
+    void getCatmullRomPoint(float t, float *p0, float *p1, float *p2, float *p3, float *pos, float *deriv);
+
+    void getGlobalCatmullRomPoint(float gt, float *pos, float *deriv);
+
+    void renderCatmullRomCurve();
+
+    void translateRotateTeapot();
 };
 #endif
