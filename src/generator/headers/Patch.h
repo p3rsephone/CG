@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <math.h>
-#include "../../../lib/headers/Point.h"
+#include <headers/Point.h>
 
 using namespace std;
 
