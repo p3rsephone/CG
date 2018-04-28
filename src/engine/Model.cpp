@@ -5,7 +5,9 @@ Model::Model(){
 Model::Model(string name, int size){
   this->name = name;
   this->point_array = new float[size];
+  this->buffer = new GLuint[1];
   this->state = 0;
+  this->size = size;
 }
 
 void Model::addElement(float point){
@@ -17,7 +19,17 @@ float* Model::model(){
   return this->point_array;
 }
 
+
+void Model::prepare(){
+  glGenBuffers(1,(this)->buffer);
+  glBindBuffer(GL_ARRAY_BUFFER, *(this)->buffer);
+  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array,GL_STATIC_DRAW);
+}
+
 void Model::draw(){
+  glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
   if(!strcmp(this->name.c_str(),"sun.3d")){
     glColor3ub(255,140,0);
   }else if(!strcmp(this->name.c_str(),"mercury.3d")){
@@ -43,9 +55,7 @@ void Model::draw(){
   }else{
     glColor3ub(0,0,0);
   }
-  glGenBuffers(1,this->buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, *(this)->buffer);
-  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array,GL_STATIC_DRAW);
-  glDrawArrays(GL_TRIANGLES,0,this->size);
+
+  glDrawArrays(GL_TRIANGLES,0,(this->size)-1);
 }
 

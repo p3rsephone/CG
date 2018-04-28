@@ -162,5 +162,9 @@ class Engine{
  * @return void
  */
     void parse(int argc, char **argv);
+
+    static void prepareWrapper();
+
+    void prepare();
 };
 #endif

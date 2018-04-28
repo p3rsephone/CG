@@ -8,7 +8,6 @@
 #include <GL/glut.h>
 #endif
 
-
 #include <string>
 #include <string.h>
 #include <math.h>
@@ -23,7 +22,7 @@ using namespace std;
       GLuint *buffer;
     //vector of triangles that compose a Model
       int size;
-      float *point_array;
+      float* point_array;
       int state;
     public:
 /**
@@ -64,5 +63,7 @@ using namespace std;
  *@return void
  */
       void test();
+
+      void prepare();
 };
 #endif
