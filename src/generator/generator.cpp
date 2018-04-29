@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     Figure* f = new Figure();
 
     if ((argc == 4) && strcmp(argv[1],"plane") == 0){
-        double size = atof(argv[2]);
+        float size = atof(argv[2]);
         if (size<=0) {
             cout << "Size must be positive." << endl;
             return 1;
@@ -80,9 +80,9 @@ int main(int argc, char* argv[]) {
     }
 
     else if ((argc == 6 || argc == 7) && (strcmp(argv[1],"box") == 0)){
-        double x = atof(argv[2]);
-        double y = atof(argv[3]);
-        double z = atof(argv[4]);
+        float x = atof(argv[2]);
+        float y = atof(argv[3]);
+        float z = atof(argv[4]);
         int d = (argc == 7) ? stoi(argv[5]) : 1;
         filename = (argc == 7) ? argv[6] : argv[5];
 
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
     }
 
     else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
-        double radius = atof(argv[2]);
+        float radius = atof(argv[2]);
         int slices = (int) stoi(argv[3]);
         int stacks = (int) stoi(argv[4]);
         filename = argv[5];
@@ -99,8 +99,8 @@ int main(int argc, char* argv[]) {
     }
 
     else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
-        double radius = atof(argv[2]);
-        double height = atof(argv[3]);
+        float radius = atof(argv[2]);
+        float height = atof(argv[3]);
         int slices = (int) stoi(argv[4]);
         int stacks = (int) stoi(argv[5]);
         filename = argv[6];
@@ -109,8 +109,8 @@ int main(int argc, char* argv[]) {
     }
 
     else if (argc == 7 && (strcmp(argv[1],"cylinder") == 0)){
-        double radius = atof(argv[2]);
-        double height = atof(argv[3]);
+        float radius = atof(argv[2]);
+        float height = atof(argv[3]);
         int slices = (int) stoi(argv[4]);
         int stacks = (int) stoi(argv[5]);
         filename = argv[6];
