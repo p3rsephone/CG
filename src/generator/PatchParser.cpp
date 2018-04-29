@@ -60,7 +60,7 @@ void PatchParser::printfile(vector<Point*> points) {
   if (!file.is_open()) {
     cout << "Error while opening file " << filename << endl;
   } else {
-    file << points.size() << endl;
+    file << points.size()*3 << endl;
     for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
         file << (*i)->toString();
     
