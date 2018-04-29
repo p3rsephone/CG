@@ -10,8 +10,8 @@ Figure::Figure(vector<Point*> v) : points(v) {}
  * @param  size Size of the side of the square
  */
 
-void Figure::createPlane(double size){
-    double height = size/2;
+void Figure::createPlane(float size){
+    float height = size/2;
 
     //npoints = 4;
 
@@ -35,19 +35,19 @@ void Figure::createPlane(double size){
  * @param  z Size of the box in the Z axis
  * @param  d Amount of divisions in each axis
  */
-void Figure::createBox(double x, double y, double z, int d){
+void Figure::createBox(float x, float y, float z, int d){
 
     //npoints = 8+6*(d^2)+12*d;
 
     //Basically centers the box in the origin of the referential
-    double realX = x/2;
-    double realY = y/2;
-    double realZ = z/2;
+    float realX = x/2;
+    float realY = y/2;
+    float realZ = z/2;
 
     //How much space is there between divisions
-    double shiftX = x/d;
-    double shiftY = y/d;
-    double shiftZ = z/d;
+    float shiftX = x/d;
+    float shiftY = y/d;
+    float shiftZ = z/d;
 
 
 
@@ -122,22 +122,22 @@ void Figure::createBox(double x, double y, double z, int d){
  * @param  slices   Number of slices in the sphere
  * @param  stacks   Number of stacks in the sphere
  */
-void Figure::createSphere(double radius, int slices, int stacks){
+void Figure::createSphere(float radius, int slices, int stacks){
 
     //npoints = 2 + slices * stacks;
 
-    double fiShift = M_PI*2 / slices;
-    double thetaShift = M_PI / stacks;
+    float fiShift = M_PI*2 / slices;
+    float thetaShift = M_PI / stacks;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
     //y = radius * sin(theta) * sin(fi);
     //z = radius * cos(theta);
-    for(double fi = 0; fi < slices ; fi++){
-        for(double theta = 0; theta < stacks ; theta ++){
+    for(float fi = 0; fi < slices ; fi++){
+        for(float theta = 0; theta < stacks ; theta ++){
 
-            double rtheta = theta * thetaShift;
-            double rfi = fi * fiShift;
+            float rtheta = theta * thetaShift;
+            float rfi = fi * fiShift;
 
             //Triangular ends of the sphere
             if(theta == 0){
@@ -178,7 +178,7 @@ void Figure::createSphere(double radius, int slices, int stacks){
  * @param  slices   Number of slices
  * @param  stacks   Number of stacks
  */
-void Figure::createCone(double r, double height, int slices, int stacks){
+void Figure::createCone(float r, float height, int slices, int stacks){
 
     //npoints = 2 * slices * stacks;
 
@@ -227,7 +227,7 @@ void Figure::createCone(double r, double height, int slices, int stacks){
  * @param  slices   Number of slices
  * @param  stacks   Number of stacks
  */
-void Figure::createCylinder(double r, double height, int slices, int stacks) {
+void Figure::createCylinder(float r, float height, int slices, int stacks) {
 
     npoints = 2 * slices * stacks;
 

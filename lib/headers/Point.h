@@ -5,13 +5,13 @@
 
 class Point {
   private:
-    double x,y,z;
+    float x,y,z;
   public:
     Point();
-    Point(double, double, double);
+    Point(float, float, float);
     std::string toString();
-    double X(){ return x; }
-    double Y(){ return y; }
-    double Z(){ return z; }
+    float X(){ return x; }
+    float Y(){ return y; }
+    float Z(){ return z; }
 };
 #endif
