@@ -118,7 +118,7 @@ Point* PatchParser::getBezierPoint(float u, float v, vector<Point*> cPoints) {
   float matrixUV[4][3];  // Matrixes with the transformations for U and V respectivelly
   int j=0;
   Point* p0,*p1,*p2,*p3;
-  for (int i=0;i<16;) {
+  for (int i=0;i<16;j++) {
     p0 = new Point(cPoints[i]->X(), cPoints[i]->Y(), cPoints[i]->Z());
     p1 = new Point(cPoints[++i]->X(), cPoints[i]->Y(), cPoints[i]->Z());
     p2 = new Point(cPoints[++i]->X(), cPoints[i]->Y(), cPoints[i]->Z());
@@ -145,10 +145,10 @@ Point* PatchParser::getBezierPoint(float u, float v, vector<Point*> cPoints) {
  * @return Point from Bezier Curve
  */
 Point* PatchParser::bezierForm(float t, Point* p0, Point* p1, Point* p2, Point* p3) {
-  float b0 = pow((1.0-t),3);
-  float b1 = 3 * t * pow((1.0-t),2);
-  float b2 = 3 * pow(t,2) * (1.0-t);
-  float b3 = pow(t,3);
+  float b0 = powf((1.0-t),3);
+  float b1 = 3 * t * powf((1.0-t),2);
+  float b2 = 3 * powf(t,2) * (1.0-t);
+  float b3 = powf(t,3);
 
   float x = b3 * p3->X() + b2 * p2->X() + b1 * p1->X() + b0 * p0->X();
   float y = b3 * p3->Y() + b2 * p2->Y() + b1 * p1->Y() + b0 * p0->Y();
