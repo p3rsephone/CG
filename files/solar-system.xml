@@ -87,13 +87,5 @@
             <model file="pluto.3d"/>
         </models>
     </group>
-    <group speed="0">
-        <rotate angle="0" axisY="0"/>
-        <translate X="0" Y="0" Z="0"/>
-        <models>
-            <model file="teapot.3d"/>
-        </models>
-    </group>
-    </group>
   </group>
 </scene>
