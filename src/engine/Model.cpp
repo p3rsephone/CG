@@ -53,7 +53,7 @@ void Model::draw(){
   }else if(!strcmp(this->name.c_str(),"pluto.3d")){
       glColor3ub(245,245,220);
   }else{
-    glColor3ub(0,0,0);
+    glColor3ub(102,255,102);
   }
 
   glDrawArrays(GL_TRIANGLES,0,(this->size)-1);
