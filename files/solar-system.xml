@@ -6,8 +6,8 @@
       </models>
     </group>
 
-    <group speed="2">
-        <rotate angle="50" axisY="1"/>
+    <group>
+        <rotate angle="50" time="100" axisY="1"/>
         <translate time="60"> 
 			<point X="29.8775" Y="0" Z="0"/>
  			<point X="21.1266" Y="0" Z="21.1266"/>
@@ -24,8 +24,8 @@
     </group>
 
 
-    <group speed="1.6">
-        <rotate angle="80" axisY="1"/>
+    <group>
+        <rotate angle="80" time="150" axisY="1"/>
         <translate time="90"> 
   			<point X="33.9233" Y="0" Z="0"/>
   			<point X="23.98740" Y="0" Z="23.98740"/>
@@ -41,8 +41,8 @@
         </models>
     </group>
 
-    <group speed="1">
-        <rotate angle="250" axisY="1"/>
+    <group>
+        <rotate angle="250" time="35" axisY="1"/>
         <translate time="120">
 			<point X="44.8061" Y="0" Z="0"/>
  			<point X="31.68270" Y="0" Z="31.68270"/>
@@ -57,17 +57,22 @@
             <model file="earth.3d"/>
         </models>
 
-        <group speed="0.4">
-          <rotate angle="50" axisY="1"/>
-          <translate time="616"/>
+        <group>
+          <rotate angle="50" time="10" axisY="1"/>
+          <translate time="6">
+			<point X="-3" Y="1" Z="3" />
+        	<point X="3" Y="1" Z="3" />
+			<point X="3" Y="1" Z="-3" />
+        	<point X="-3" Y="1" Z="-3" />
+          </translate>
           <models>
             <model file="moon.3d"/>
           </models>
         </group>
     </group>
 
-    <group speed="0.8">
-        <rotate angle="150" axisY="1"/>
+    <group>
+        <rotate angle="150" time="40" axisY="1"/>
         <translate time="170"> 
 			<point X="60.9523" Y="0" Z="0"/>
  			<point X="44.51400" Y="0" Z="44.51400"/>
@@ -83,8 +88,8 @@
         </models>
     </group>
 
-    <group speed="0.5">
-        <rotate angle="10" axisY="1"/>
+    <group>
+        <rotate angle="10" time="20" axisY="1"/>
         <translate time="240"> 
 			<point X="88.12987" Y="0" Z="0"/>
     		<point X="62.31723" Y="0" Z="62.31723"/>
@@ -100,8 +105,8 @@
         </models>
     </group>
 
-    <group speed="0.3">
-        <rotate angle="290" axisY="1"/>
+    <group>
+        <rotate angle="290" time="25" axisY="1"/>
         <translate time="300"> 
 			<point X="120.5005" Y="0" Z="0"/>
  			<point X="85.20672" Y="0" Z="85.20672"/>
@@ -117,8 +122,8 @@
         </models>
     </group>
 
-    <group speed="0.2">
-        <rotate angle="120" axisY="1"/>
+    <group>
+        <rotate angle="120" time="15" axisY="1"/>
         <translate time="375"> 
 			<point X="158.0747" Y="0" Z="0"/>
 			<point X="111.77569" Y="0" Z="111.77569"/>
@@ -134,8 +139,8 @@
         </models>
     </group>
 
-    <group speed="0.15">
-        <rotate angle="90" axisY="1"/>
+    <group>
+        <rotate angle="90" time="10" axisY="1"/>
         <translate time="450">
 			<point X="201.35529" Y="0" Z="0"/>
 			<point X="142.37969" Y="0" Z="142.37969"/>
@@ -151,8 +156,8 @@
         </models>
     </group>
 
-    <group speed="0.1">
-        <rotate angle="30" axisY="1"/>
+    <group>
+        <rotate angle="30" time="5" axisY="1"/>
         <translate time="450">
 				<point X="220.35529" Y="0" Z="0"/>
 				<point X="160.37969" Y="0" Z="160.37969"/>

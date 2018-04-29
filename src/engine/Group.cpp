@@ -1,7 +1,6 @@
 #include "headers/Group.h"
 
 Group::Group(){
-    this->position = 0;
 }
 
 void Group::addTransformation(Transformation* t){
@@ -67,11 +66,10 @@ void Group::draw(){
 void Group::transformation(Transformation* t){
     if(Translate* tr = dynamic_cast<Translate*>(t)){
         //cout << "translate " << tr->getX() << " " << tr->getY() << " " << tr->getZ() << endl;
-        tr->renderCatmullRomCurve();
         tr->apply();
     } else if(Rotate* r = dynamic_cast<Rotate*>(t)){
         //cout << "rotate " << r->getAngle() << " " << r->getX() << " " << r->getY() << " " << r->getZ() << endl;
-        glRotatef(r->getAngle()+position,r->getX(),r->getY(),r->getZ());
+        r->apply();
     } else if(Scale* s = dynamic_cast<Scale*>(t)) {
         //cout << "scale " << s->getX() << " " << s->getY() << " " << s->getZ() << endl;
         glScalef(s->getX(), s->getY(), s->getZ());

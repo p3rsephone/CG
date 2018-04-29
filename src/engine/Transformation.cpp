@@ -2,7 +2,7 @@
 
 Rotate::Rotate(): angle(0), x(0), y(0), z(0){}
 
-Rotate::Rotate(double angle, double x,double y,double z) : angle(angle), x(x), y(y), z(z){}
+Rotate::Rotate(double angle, double time, double x,double y,double z) : angle(angle), time(time), x(x), y(y), z(z){}
 
 Translate::Translate(float t){
         this->time=t;
