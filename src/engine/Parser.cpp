@@ -51,9 +51,9 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                             for(string word; buf >> word; )
                                 v.push_back(word);
                             int it = 0;
-                            double x;
-                            double y;
-                            double z;
+                            float x;
+                            float y;
+                            float z;
                             for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
                                 if(it==0) x=stof(*i);
                                 if(it==1) y=stof(*i);
@@ -116,10 +116,16 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                 double axisx = 0;
                 double axisy = 0;
                 double axisz = 0;
+                double time = 0;
 
                 if(pElement->Attribute("angle")) {
                     angle = stod(pElement->Attribute("angle"));
                 }
+
+                if(pElement->Attribute("time")) {
+                    time = stod(pElement->Attribute("time"));
+                }
+
                 if(pElement->Attribute("axisX")) {
                     axisx = stod(pElement->Attribute("axisX"));
                 }
@@ -130,7 +136,7 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                     axisz = stod(pElement->Attribute("axisZ"));
                 }
 
-                Rotate* r = new Rotate(angle,axisx,axisy,axisz);
+                Rotate* r = new Rotate(angle,time,axisx,axisy,axisz);
 
                 group->addTransformation(r);
 

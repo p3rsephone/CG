@@ -49,9 +49,17 @@ public:
     }
 
     Rotate();
-    Rotate(double, double, double, double);
+    Rotate(double, double, double, double, double);
 
-    void apply(){};
+    void apply(){
+        double t;
+        if(time!=0){
+            t = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
+            rodar = t / (time * 1000);
+            glRotatef(rodar,getX(),getY(),getZ());
+        }
+        glRotatef(getAngle(),getX(),getY(),getZ());
+    };
 
     int getType(){
         return 2;
@@ -59,6 +67,8 @@ public:
 
 private:
     double angle;
+    double time;
+    double rodar=0;
     double x;
     double y;
     double z;
@@ -218,29 +228,45 @@ public:
 
     void apply() {
         
-        float M[16];
+        float A[16];
         float pos[3];
         float deriv[3];
-        float Z[3];
+        float V[3];
+        float t;
 
-        rodar += 0.001;
-        if (rodar > 1) rodar - 1;
+        if(time!=0){
+            t = glutGet(GLUT_ELAPSED_TIME) % (int)(time * 1000);
+            rodar = t / (time * 1000);
+            getGlobalCatmullRomPoint(rodar, pos, deriv);
+            glTranslatef(pos[0], pos[1], pos[2]);
 
-        getGlobalCatmullRomPoint(rodar, pos, deriv);
-        glTranslatef(pos[0], pos[1], pos[2]);
-
-        cross(deriv, Y, Z);
-        cross(Z,deriv, Y);
-        normalize(deriv);
-        normalize(Z);
-        normalize(Y);
-        buildRotMatrix(deriv, Y, Z, M);
-        glMultMatrixf(M);
+            cross(deriv, Y, V);
+            cross(V,deriv, Y);
+            normalize(deriv);
+            normalize(V);
+            normalize(Y);
+            buildRotMatrix(deriv, Y, V, A);
+            glMultMatrixf(A);
+        }
     }
 
     void addElement(Point* ponto){
+        float pontos[this->POINT_COUNT][3];
+        for(int i=0; i<POINT_COUNT; i++){
+            for(int j=0; j<3; j++){
+                pontos[i][j]=p[i][j];
+            }
+        }
+
         (this->p) = (float **)malloc((this->POINT_COUNT+1) * sizeof(float*));
         for(int i = 0; i < (this->POINT_COUNT+1); i++) (this->p)[i] = (float *)malloc(3 * sizeof(float));
+
+        for(int i=0; i<POINT_COUNT; i++){
+            for(int j=0; j<3; j++){
+                p[i][j]=pontos[i][j];
+            }
+        }
+
         this->p[this->POINT_COUNT][0]= (*ponto).X();
         this->p[this->POINT_COUNT][1]= (*ponto).Y();
         this->p[this->POINT_COUNT][2]= (*ponto).Z();
