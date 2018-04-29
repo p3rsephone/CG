@@ -215,7 +215,7 @@ void Engine::initGL(int argc, char **argv){
 	glutSpecialFunc(specialKeysWrapper);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-#ifndef _APPLE_
+#ifndef __APPLE__
 	glewInit();
 #endif
 

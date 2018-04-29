@@ -11,7 +11,7 @@ void PatchParser::parsePatch() {
   int pPL; // Position in string pointLine
   int index;  // Index
   int nPoints;  // Number of Points
-  double pointCr[3]; // Point coordenates
+  float pointCr[3]; // Point coordenates
   string line;  // Line of indexes currently being examined
   string pointLine;  // Line of points currently being examined
 
@@ -75,8 +75,8 @@ void PatchParser::printfile(vector<Point*> points) {
 vector<Point*> PatchParser::applyTessellation(){
   vector<Point*> tPoints;  // Tesselated points
   vector<Point*> ctrl;  // Control Points
-  double u,v,uNext,vNext;  // U and V for the Bezier Curve
-  double shift = 1.0/tessellation;
+  float u,v,uNext,vNext;  // U and V for the Bezier Curve
+  float shift = 1.0/tessellation;
 
   for (vector<Patch*>::iterator it = patches.begin();it!=patches.end();it++){
     ctrl = (*it)->getControlPoints();
@@ -114,8 +114,8 @@ vector<Point*> PatchParser::applyTessellation(){
  * @param points Control cPoints
  * @return Point
  */
-Point* PatchParser::getBezierPoint(double u, double v, vector<Point*> cPoints) {
-  double matrixUV[4][3];  // Matrixes with the transformations for U and V respectivelly
+Point* PatchParser::getBezierPoint(float u, float v, vector<Point*> cPoints) {
+  float matrixUV[4][3];  // Matrixes with the transformations for U and V respectivelly
   int j=0;
   Point* p0,*p1,*p2,*p3;
   for (int i=0;i<16;) {
@@ -144,15 +144,15 @@ Point* PatchParser::getBezierPoint(double u, double v, vector<Point*> cPoints) {
  * @param p0 Point 3
  * @return Point from Bezier Curve
  */
-Point* PatchParser::bezierForm(double t, Point* p0, Point* p1, Point* p2, Point* p3) {
-  double b0 = pow((1.0-t),3);
-  double b1 = 3 * t * pow((1.0-t),2);
-  double b2 = 3 * pow(t,2) * (1.0-t);
-  double b3 = pow(t,3);
+Point* PatchParser::bezierForm(float t, Point* p0, Point* p1, Point* p2, Point* p3) {
+  float b0 = pow((1.0-t),3);
+  float b1 = 3 * t * pow((1.0-t),2);
+  float b2 = 3 * pow(t,2) * (1.0-t);
+  float b3 = pow(t,3);
 
-  double x = b3 * p3->X() + b2 * p2->X() + b1 * p1->X() + b0 * p0->X();
-  double y = b3 * p3->Y() + b2 * p2->Y() + b1 * p1->Y() + b0 * p0->Y();
-  double z = b3 * p3->Z() + b2 * p2->Z() + b1 * p1->Z() + b0 * p0->Z();
+  float x = b3 * p3->X() + b2 * p2->X() + b1 * p1->X() + b0 * p0->X();
+  float y = b3 * p3->Y() + b2 * p2->Y() + b1 * p1->Y() + b0 * p0->Y();
+  float z = b3 * p3->Z() + b2 * p2->Z() + b1 * p1->Z() + b0 * p0->Z();
 
   return (new Point(x,y,z));
 }

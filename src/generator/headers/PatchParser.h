@@ -17,8 +17,8 @@ class PatchParser {
         vector<Patch*> patches;
         void printfile(vector<Point*>);
         vector<Point*> applyTessellation();
-        Point* getBezierPoint(double, double, vector<Point*>);
-        Point* bezierForm(double, Point*, Point*, Point*, Point*);
+        Point* getBezierPoint(float, float, vector<Point*>);
+        Point* bezierForm(float, Point*, Point*, Point*, Point*);
         string lineNo(int, string);
     public:
         PatchParser(string, string, int);
