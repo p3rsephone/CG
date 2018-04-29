@@ -1,7 +1,11 @@
 #ifndef __TRANSFORMATION_H__
 #define __TRANSFORMATION_H__
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glew.h>
 #include <GL/glut.h>
+#endif
 #include <math.h>
 #include <vector>
 #include <headers/Point.h>
@@ -177,13 +181,13 @@ public:
         multMatrixVector(*m, z, Az);
         
         // Compute pos = T * A
-        float T[4] = {pow((double)t,3), pow((double)t,2), t, 1};
+        float T[4] = {powf(t,3), powf(t,2), t, 1};
         pos[0] = T[0] * Ax[0] + T[1] * Ax[1] + T[2] * Ax[2] + T[3] * Ax[3];
         pos[1] = T[0] * Ay[0] + T[1] * Ay[1] + T[2] * Ay[2] + T[3] * Ay[3];
         pos[2] = T[0] * Az[0] + T[1] * Az[1] + T[2] * Az[2] + T[3] * Az[3];
         
         // compute deriv = T' * A
-        float T_d[4] = {3*pow((double)t,2), 2*t, 1, 0};
+        float T_d[4] = {3*powf(t,2), 2*t, 1, 0};
         deriv[0] = T_d[0] * Ax[0] + T_d[1] * Ax[1] + T_d[2] * Ax[2] + T_d[3] * Ax[3];
         deriv[1] = T_d[0] * Ay[0] + T_d[1] * Ay[1] + T_d[2] * Ay[2] + T_d[3] * Ay[3];
         deriv[2] = T_d[0] * Az[0] + T_d[1] * Az[1] + T_d[2] * Az[2] + T_d[3] * Az[3];
