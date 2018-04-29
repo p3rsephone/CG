@@ -12,139 +12,6 @@ Engine* Engine::getInstance(){
   return engine;
 }
 
-void Engine::buildRotMatrix(float *x, float *y, float *z, float *m) {
-
-	m[0] = x[0]; m[1] = x[1]; m[2] = x[2]; m[3] = 0;
-	m[4] = y[0]; m[5] = y[1]; m[6] = y[2]; m[7] = 0;
-	m[8] = z[0]; m[9] = z[1]; m[10] = z[2]; m[11] = 0;
-	m[12] = 0; m[13] = 0; m[14] = 0; m[15] = 1;
-}
-
-
-void Engine::cross(float *a, float *b, float *res) {
-
-	res[0] = a[1]*b[2] - a[2]*b[1];
-	res[1] = a[2]*b[0] - a[0]*b[2];
-	res[2] = a[0]*b[1] - a[1]*b[0];
-}
-
-
-void Engine::normalize(float *a) {
-
-	float l = sqrt(a[0]*a[0] + a[1] * a[1] + a[2] * a[2]);
-	a[0] = a[0]/l;
-	a[1] = a[1]/l;
-	a[2] = a[2]/l;
-}
-
-
-float Engine::length(float *v) {
-
-	float res = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
-	return res;
-
-}
-
-void Engine::multMatrixVector(float *m, float *v, float *res) {
-
-	for (int j = 0; j < 4; ++j) {
-		res[j] = 0;
-		for (int k = 0; k < 4; ++k) {
-			res[j] += v[k] * m[j * 4 + k];
-		}
-	}
-
-}
-
-void Engine::getCatmullRomPoint(float t, float *p0, float *p1, float *p2, float *p3, float *pos, float *deriv) {
-
-	// catmull-rom matrix
-	float m[4][4] = {	{-0.5f,  1.5f, -1.5f,  0.5f},
-						{ 1.0f, -2.5f,  2.0f, -0.5f},
-						{-0.5f,  0.0f,  0.5f,  0.0f},
-						{ 0.0f,  1.0f,  0.0f,  0.0f}};
-	
-	// Compute A = M * P
-	float x[4] = {p0[0], p1[0], p2[0], p3[0]};
-	float y[4] = {p0[1], p1[1], p2[1], p3[1]};
-	float z[4] = {p0[2], p1[2], p2[2], p3[2]};
-	
-	float Ax[4], Ay[4], Az[4];
-	multMatrixVector(*m, x, Ax);
-	multMatrixVector(*m, y, Ay);
-	multMatrixVector(*m, z, Az);
-	
-	// Compute pos = T * A
-	float T[4] = {pow((double)t,3), pow((double)t,2), t, 1};
-	pos[0] = T[0] * Ax[0] + T[1] * Ax[1] + T[2] * Ax[2] + T[3] * Ax[3];
-	pos[1] = T[0] * Ay[0] + T[1] * Ay[1] + T[2] * Ay[2] + T[3] * Ay[3];
-	pos[2] = T[0] * Az[0] + T[1] * Az[1] + T[2] * Az[2] + T[3] * Az[3];
-	
-	// compute deriv = T' * A
-	float T_d[4] = {3*pow((double)t,2), 2*t, 1, 0};
-	deriv[0] = T_d[0] * Ax[0] + T_d[1] * Ax[1] + T_d[2] * Ax[2] + T_d[3] * Ax[3];
-	deriv[1] = T_d[0] * Ay[0] + T_d[1] * Ay[1] + T_d[2] * Ay[2] + T_d[3] * Ay[3];
-	deriv[2] = T_d[0] * Az[0] + T_d[1] * Az[1] + T_d[2] * Az[2] + T_d[3] * Az[3];
-	
-}
-
-
-// given  global t, returns the point in the curve
-void Engine::getGlobalCatmullRomPoint(float gt, float *pos, float *deriv) {
-
-	float t = gt * POINT_COUNT; // this is the real global t
-	int index = floor(t);  // which segment
-	t = t - index; // where within  the segment
-
-	// indices store the points
-	int indices[4]; 
-	indices[0] = (index + POINT_COUNT-1)%POINT_COUNT;	
-	indices[1] = (indices[0]+1)%POINT_COUNT;
-	indices[2] = (indices[1]+1)%POINT_COUNT; 
-	indices[3] = (indices[2]+1)%POINT_COUNT;
-
-	getCatmullRomPoint(t, p[indices[0]], p[indices[1]], p[indices[2]], p[indices[3]], pos, deriv);
-}
-
-void Engine::renderCatmullRomCurve() {
-// desenhar a curva usando segmentos de reta - GL_LINE_LOOP
-    int i = 0;
-
-    glColor3f(1, 1, 1);
-    glBegin(GL_LINE_LOOP);
-
-    for(i=0;i<100;i++)
-    {
-      float pos[3];
-			float deriv[3];
-			getGlobalCatmullRomPoint(i/100.f,pos,deriv);
-			glVertex3f(pos[0],pos[1],pos[2]);
-    }
-    glEnd();
-}
-
-void Engine::translateRotateTeapot() {
-	
-	float M[16];
-	float pos[3];
-	float deriv[3];
-	float Z[3];
-
-	gtTeapot += 0.001;
-	if (gtTeapot > 1) gtTeapot - 1;
-
-	getGlobalCatmullRomPoint(gtTeapot, pos, deriv);
-	glTranslatef(pos[0], pos[1], pos[2]);
-
-	cross(deriv, Y, Z);
-	cross(Z,deriv, Y);
-	normalize(deriv);
-	normalize(Z);
-	normalize(Y);
-	buildRotMatrix(deriv, Y, Z, M);
-	glMultMatrixf(M);
-}
-
 void Engine::changeSizeWrapper(int w, int h) {
   Engine* e = Engine::getInstance();
   e->changeSize(w,h);
@@ -309,10 +176,6 @@ void Engine::renderGroup(void) {
 			0.0f, 1.0f,  0.0f);
 	}
   group->draw();
-	glPushMatrix();
-		translateRotateTeapot();
-		glutWireTeapot(1);
-	glPopMatrix();
     //axis_system();
 
     glutSwapBuffers();
@@ -325,7 +188,6 @@ void  Engine::prepareWrapper(){
 
 void Engine::prepare(){
   group->prepare();
-	renderCatmullRomCurve();
 }
 
 void Engine::initGL(int argc, char **argv){

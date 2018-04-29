@@ -72,22 +72,39 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
             } else
 
             if(strcmp(pElement->Name(),"translate") == 0){
-
-                double x = 0;
-                double y = 0;
-                double z = 0;
-
-                if(pElement->Attribute("X")) {
-                    x = stod(pElement->Attribute("X"));
-                }
-                if(pElement->Attribute("Y")) {
-                    y = stod(pElement->Attribute("Y"));
-                }
-                if(pElement->Attribute("Z")){
-                    z = stod(pElement->Attribute("Z"));
+                float ti=10;
+                if(pElement->Attribute("time")) {
+                    ti = atoi(pElement->Attribute("time"));
                 }
 
-                Translate* t = new Translate(x,y,z);
+                XMLNode * pNode1 = pNode->FirstChild();
+                vector<Point*> pontos;
+                float x=0;
+                float y=0;
+                float z=0;
+
+                Translate* t = new Translate(ti);
+
+                for(;pNode1; pNode1 = pNode1->NextSibling()){
+
+                    XMLElement* pElement1 = pNode1->ToElement();
+                    
+                    if(strcmp(pElement1->Name(),"point") == 0){
+
+                        if(pElement1->Attribute("X")) {
+                            x = stof(pElement1->Attribute("X"));
+                        }
+                        if(pElement1->Attribute("Y")) {
+                            y = stof(pElement1->Attribute("Y"));
+                        }
+                        if(pElement1->Attribute("Z")){
+                            z = stof(pElement1->Attribute("Z"));
+                        }
+
+                        t->addElement(new Point(x,y,z));
+                    }
+
+                }
 
                 group->addTransformation(t);
 
@@ -149,7 +166,7 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                     speed = stof(pElement->Attribute("speed"));
                 }
 
-                Group* g = new Group(speed);
+                Group* g = new Group();
 
                 ParseRow(pNode,g);
 

@@ -21,11 +21,6 @@ using namespace std;
  */
 class Engine{
   private:
-    float Y[3] = { 0, 1, 0 };
-    float gtTeapot = 0;
-    #define POINT_COUNT 5
-    // Points that make up the loop for catmull-rom interpolation
-    float p[POINT_COUNT][3] = {{-50,-50,-20},{-50,50,-50},{50,50,-20},{-20,-20,-20},{50,-50,-20}};
     Group* group;
     // angle of rotation for the camera direction
     float angle=0.0;
