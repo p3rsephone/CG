@@ -3,7 +3,7 @@
 Figure::Figure(){
 }
 
-Figure::Figure(vector<Point*> v) : points(v) {}
+Figure::Figure(vector<Point*> v,vector<Point*> t,vector<Point*> n) : points(v), textures(t), normals(n) {};
 /**
  * @brief Creates vertice points for a square in the XZ plane
  * Usage: generator plane 2 plane.3d
