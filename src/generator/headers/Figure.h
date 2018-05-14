@@ -12,11 +12,15 @@ class Figure {
     private:
         long npoints;
         vector<Point*> points;
+        vector<Point*> textures;
+        vector<Point*> normals;
     public:
         Figure();
-        Figure(vector<Point*>);
+        Figure(vector<Point*>,vector<Point*>,vector<Point*>);
         long getNPoints(){ return npoints; };
         vector<Point*> getPoints(){ return points; };
+        vector<Point*> getTextures(){ return textures; };
+        vector<Point*> getNormals(){ return normals; };
         void createPlane(float size);
         void createBox(float x, float y, float z, int d);
         void createSphere(float radius, int slices, int stacks);

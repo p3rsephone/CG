@@ -50,7 +50,7 @@ void usage(){
  * @param filename Filename for .3d file
  * @param points   List of points
  */
-void printfile(string filename, vector<Point*> points) {
+void printfile(string filename, vector<Point*> points, vector<Point*> textures, vector<Point*> normals) {
     ofstream file;
     string fileDir = "files/" + filename;
     file.open(fileDir, ios_base::trunc);
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
         usage();
         return 0;
     }
-
-    printfile(filename, f->getPoints());
+    
+    printfile(filename, f->getPoints(), f->getTextures(), f->getNormals());
     return 0;
 }
