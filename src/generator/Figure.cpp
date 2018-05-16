@@ -13,8 +13,6 @@ Figure::Figure(vector<Point*> v,vector<Point*> t,vector<Point*> n) : points(v), 
 void Figure::createPlane(float size){
     float height = size/2;
 
-    //npoints = 4;
-
     npoints = 6;
 
     points.push_back(new Point(height,0,height));
@@ -183,37 +181,50 @@ void Figure::createCone(float r, float height, int slices, int stacks){
     //npoints = 2 * slices * stacks;
 
     float alpha = (2 * M_PI)/slices;
-    float h = sqrt(pow(r,2) + pow(h,2))/stacks;
+    float h = sqrt(pow(r,2) + pow(height,2))/stacks;
     float beta = r/slices;
 
     for (int i = 0; i < stacks; i++) {
         for (int j = 0; j<slices; j++) {
 
             if (!i) {
-                npoints += 3;
+                
                 // Base
                 points.push_back(new Point(0.0f,0.0f,0.0f));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point(r * sin(alpha * (j+1)), 0, r * cos(alpha * (j + 1))));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point(r * sin(alpha * j), 0, r * cos(alpha * j)));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
             }
 
             if (i == stacks-1) {
-                npoints += 3;
+                
                 // Top
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point(0, (i + 1) * h, 0));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
 
             } else {
-                npoints += 6;
+                
                 // Side
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
+                normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * j), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * j)));
+                normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
+
 
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
+                normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
                 points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
+                normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
+                normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
             }
         }
     }
@@ -240,27 +251,39 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
 
             //Lateral surface
             points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
+            normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
+            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
 
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+            normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
+            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
+            normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
 
             //Lower base
             if (!j) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
                 points.push_back(new Point(0.0f, 0.0f, 0.0f));
+                normals.push_back(new Point(0.0f,-1.0f,0.0f));
             }
 
             //Upper base
             if (j == stacks - 1) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
                 points.push_back(new Point(0.0f, height, 0.0f));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
             }
         }
     }
