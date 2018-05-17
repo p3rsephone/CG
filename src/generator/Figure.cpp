@@ -16,12 +16,30 @@ void Figure::createPlane(float size){
     npoints = 6;
 
     points.push_back(new Point(height,0,height));
-    points.push_back(new Point(-height,0,-height));
-    points.push_back(new Point(-height,0,height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(1,1,0));
 
     points.push_back(new Point(-height,0,-height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(1,0,0));
+
+    points.push_back(new Point(-height,0,height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(0,1,0));
+
+
+    points.push_back(new Point(-height,0,-height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(0,0,0));
+
     points.push_back(new Point(height,0,height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(1,1,0));
+
     points.push_back(new Point(height,0,-height));
+    normals.push_back(new Point(0,1,0));
+    textures.push_back(new Point(1,0,0));
+
 }
 
 /**
@@ -252,27 +270,43 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
             //Lateral surface
             points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
             normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
+            textures.push_back(new Point());
+
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
             normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
+            textures.push_back(new Point());
+
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
             normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
+            textures.push_back(new Point());
+
 
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
             normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
+            textures.push_back(new Point());
+
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
             normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
+            textures.push_back(new Point());
+
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
             normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
+            textures.push_back(new Point());
 
             //Lower base
             if (!j) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point());
+
                 points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point());
+
                 points.push_back(new Point(0.0f, 0.0f, 0.0f));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point());
             }
 
             //Upper base
@@ -280,8 +314,12 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point());
+
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point());
+                
                 points.push_back(new Point(0.0f, height, 0.0f));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
             }
