@@ -22,3 +22,15 @@ std::string Point::toString() {
     sstream << x << ' ' << y << ' ' << z << '\n';
     return sstream.str();
 }
+
+Point* Point::normalizeBox(){
+    float radius = sqrt(pow(this->x,2)+pow(this->y,2)+pow(this->z,2));
+
+    return this->normalizeSphere(radius);
+}
+
+Point* Point::normalizeSphere(float radius){
+    Point* p = new Point(this->x/radius,this->y/radius,this->z/radius);
+
+    return p;
+}

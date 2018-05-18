@@ -35,9 +35,11 @@ void Figure::createPlane(float size){
  * @param  z Size of the box in the Z axis
  * @param  d Amount of divisions in each axis
  */
-void Figure::createBox(float x, float y, float z, int d){
+void Figure::createBox(float x, float y, float z, int d, int imageHeight, int imageWidth){
 
     //npoints = 8+6*(d^2)+12*d;
+
+    Point* p = NULL;
 
     //Basically centers the box in the origin of the referential
     float realX = x/2;
@@ -54,63 +56,97 @@ void Figure::createBox(float x, float y, float z, int d){
     for(int i = 0; i < d ; i++){
         for(int j = 0; j < d ; j++){
 
-                npoints += 36;
+            npoints += 36;
 
-                //Base
-                points.push_back(new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * (j+1)));
+            //Base
+            p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
 
-                points.push_back(new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1)));
+            p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
 
-                //Top
-                points.push_back(new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX + shiftX * i, realY, -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1)));
+            //Top
+            p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
 
-                points.push_back(new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * j));
+            p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * j);
+            points.push_back(p);
 
-                //Front face
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, realZ));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ));
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ));
+            //Front face
+            p = new Point(-realX + shiftX * i, -realY + shiftY * j, realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ);
+            points.push_back(p);
 
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ);
+            points.push_back(p);
 
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), realZ));
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ));
+            //Back Face
+            p = new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ);
+            points.push_back(p);
 
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ);
+            points.push_back(p);
+            p = new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ);
+            points.push_back(p);
 
-                //Back Face
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ));
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ));
+            //Left Face
+            p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
+            points.push_back(p);
 
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ));
-                points.push_back(new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ));
-                points.push_back(new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ));
+            p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1));
+            points.push_back(p);
 
-                //Left Face
-                points.push_back(new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * j));
-                points.push_back(new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j));
+            //Right Face
+            p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
+            points.push_back(p);
 
-                points.push_back(new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j));
-                points.push_back(new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1)));
-
-                //Right Face
-                points.push_back(new Point(realX, -realY + shiftY * i, -realZ + shiftZ * j));
-                points.push_back(new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j));
-                points.push_back(new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1)));
-
-                points.push_back(new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j));
-                points.push_back(new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1)));
-                points.push_back(new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1)));
+            p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
+            points.push_back(p);
+            p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1));
+            points.push_back(p);
+            p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
+            points.push_back(p);
         }
     }
 }
@@ -122,12 +158,17 @@ void Figure::createBox(float x, float y, float z, int d){
  * @param  slices   Number of slices in the sphere
  * @param  stacks   Number of stacks in the sphere
  */
-void Figure::createSphere(float radius, int slices, int stacks){
+void Figure::createSphere(float radius, int slices, int stacks, int imageHeight, int imageWidth){
 
     //npoints = 2 + slices * stacks;
 
+    Point* p = NULL;
+
     float fiShift = M_PI*2 / slices;
     float thetaShift = M_PI / stacks;
+
+    float uShift = imageHeight/stacks;
+    float vShift = imageWidth/slices;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
@@ -142,32 +183,84 @@ void Figure::createSphere(float radius, int slices, int stacks){
             //Triangular ends of the sphere
             if(theta == 0){
                 npoints += 3;
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(theta+thetaShift) ,radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi)));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(theta+thetaShift) ,radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point((fi+0.5)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+
             }
 
             else if(theta == stacks - 1){
                 npoints += 3;
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift)));
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
+                p = new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+0.5)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
             }
 
             //Rectangles within the sphere
             else {
                 npoints += 6;
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi)));
 
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift)));
-                points.push_back(new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi)));
-                points.push_back(new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift)));
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeSphere(radius));
+
             }
 
         }
     }
+
+
+
 }
 
 /**

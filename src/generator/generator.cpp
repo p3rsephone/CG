@@ -66,8 +66,10 @@ void printfile(string filename, vector<Point*> points, vector<Point*> textures, 
 }
 
 int main(int argc, char* argv[]) {
-    string filename;
+    char* filename;
     Figure* f = new Figure();
+    //unsigned int ima[0];
+
 
     if ((argc == 4) && strcmp(argv[1],"plane") == 0){
         float size = atof(argv[2]);
@@ -86,17 +88,42 @@ int main(int argc, char* argv[]) {
         float z = atof(argv[4]);
         int d = (argc == 7) ? stoi(argv[5]) : 1;
         filename = (argc == 7) ? argv[6] : argv[5];
+        int imageHeight, imageWidth;
+        imageHeight = imageWidth = 0;
 
-        f->createBox(x, y, z, d);
+        f->createBox(x, y, z, d, imageHeight, imageWidth);
     }
 
-    else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
+    else if ((argc == 6 || argc == 7) && (strcmp(argv[1],"sphere") == 0)){
         float radius = atof(argv[2]);
         int slices = (int) stoi(argv[3]);
         int stacks = (int) stoi(argv[4]);
-        filename = argv[5];
+        string image = "";
+        int imageHeight, imageWidth;
+        imageHeight = imageWidth = 0;
 
-        f->createSphere(radius, slices, stacks);
+        if(argc == 7){
+            image = argv[5];
+            filename = argv[6];
+
+            // setup – done once
+            //ilInit();
+            //ilEnable(IL_ORIGIN_SET);
+            //ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+            // for each image …
+            //ilGenImages(1,ima); // unsigned int ima[...]
+            //ilBindImage(ima[0]);
+            //ilLoadImage((ILstring)filename); // char *filename
+            //ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+            //int imageWidth = ilGetInteger(IL_IMAGE_WIDTH);
+            //int imageHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+            //TODO get imageHeight e imageWidth
+
+        } else {
+            filename = argv[5];
+        }
+
+        f->createSphere(radius, slices, stacks, imageHeight, imageWidth);
     }
 
     else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
