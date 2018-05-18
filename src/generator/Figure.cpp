@@ -262,6 +262,7 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
 
     float theta = (2 * M_PI) / slices;
     float heightShift = height / stacks;
+    float heightAux = 0.625/stacks;
 
     for (int i = 0; i < slices; i++) {
         for (int j = 0; j < stacks; j++) {
@@ -270,43 +271,43 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
             //Lateral surface
             points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
             normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
-            textures.push_back(new Point());
+            textures.push_back(new Point(float(i+1)/float(slices), float(j) * heightAux + 0.375f, 0));
 
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
-            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
-            textures.push_back(new Point());
+            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * i)));
+            textures.push_back(new Point(float(i+1)/float(slices), float(j) * heightAux + 0.375f, 0));
 
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
-            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
-            textures.push_back(new Point());
+            normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
+            textures.push_back(new Point(float(i)/float(slices), float(j+1) * heightAux + 0.375f, 0));
 
 
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
-            normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
-            textures.push_back(new Point());
+            normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
+            textures.push_back(new Point(float(i+1)/float(slices), float(j) * heightAux + 0.375f, 0));
 
             points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
             normals.push_back(new Point( sin(theta * (i+1)), 0, cos(theta * (i+1))));
-            textures.push_back(new Point());
+            textures.push_back(new Point(float(i+1)/float(slices), float(j+1) * heightAux + 0.375f, 0));
 
             points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
             normals.push_back(new Point( sin(theta * i), 0, cos(theta * i)));
-            textures.push_back(new Point());
+            textures.push_back(new Point(float(i)/float(slices), float(j+1) * heightAux + 0.375f, 0));
 
             //Lower base
             if (!j) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * j, r * cos(theta * (i + 1))));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
-                textures.push_back(new Point());
+                textures.push_back(new Point(0.8125 + 0.1875 * sin(theta * (i + 1)),0.1875 + 0.1875 * cos(theta * (i + 1)),0));
 
                 points.push_back(new Point(r * sin(theta * i), heightShift * j, r * cos(theta * i)));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
-                textures.push_back(new Point());
+                textures.push_back(new Point(0.8125 + 0.1875 * sin(theta * i),0.1875 + 0.1875 * cos(theta * i),0));
 
                 points.push_back(new Point(0.0f, 0.0f, 0.0f));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
-                textures.push_back(new Point());
+                textures.push_back(new Point(0.8125,0.1875,0));
             }
 
             //Upper base
@@ -314,14 +315,15 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
                 npoints += 3;
                 points.push_back(new Point(r * sin(theta * i), heightShift * (j + 1), r * cos(theta * i)));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
-                textures.push_back(new Point());
+                textures.push_back(new Point(0.4375 + 0.1875 * sin(theta * i),0.1875 + 0.1875 * cos(theta * i),0));
 
                 points.push_back(new Point(r * sin(theta * (i + 1)), heightShift * (j + 1), r * cos(theta * (i + 1))));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
-                textures.push_back(new Point());
+                textures.push_back(new Point(0.4375 + 0.1875 * sin(theta * (i + 1)),0.1875 + 0.1875 * cos(theta * (i + 1)),0));
                 
                 points.push_back(new Point(0.0f, height, 0.0f));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point(0.4375, 0.1875, 0))
             }
         }
     }
