@@ -66,7 +66,7 @@ void printfile(string filename, vector<Point*> points, vector<Point*> textures, 
 }
 
 int main(int argc, char* argv[]) {
-    char* filename;
+    string filename;
     Figure* f = new Figure();
 
 
