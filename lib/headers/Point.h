@@ -14,7 +14,6 @@ class Point {
     float X(){ return x; }
     float Y(){ return y; }
     float Z(){ return z; }
-    Point* normalizeBox();
     Point* normalizeSphere(float radius);
 };
 #endif
