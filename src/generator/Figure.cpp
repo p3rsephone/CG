@@ -226,8 +226,8 @@ void Figure::createSphere(float radius, int slices, int stacks){
     float fiShift = M_PI*2 / slices;
     float thetaShift = M_PI / stacks;
 
-    float uShift = 1/stacks;
-    float vShift = 1/slices;
+    float uShift = 1/slices;
+    float vShift = 1/stacks;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
