@@ -1,61 +1,103 @@
 #include "headers/Model.h"
+using namespace std;
 Model::Model(){
 }
 
-Model::Model(string name, int size){
+Model::Model(string name, int size_points, string texture_file){
   this->name = name;
-  this->point_array = new float[size];
-  this->buffer = new GLuint[1];
-  this->state = 0;
-  this->size = size;
+
+
+  this->points_array = new float*[3];
+  for(int i= 0 ; i < 3; i++)
+    this->points_array[i] = new float[size_points];
+
+  this->buffer = new GLuint[3];
+
+  this->state = new int[3];
+  for(int i= 0 ; i < 3 ; i++)
+    this->state[i] = 0;
+
+  this->size = size_points;
+  this->loadTexture(texture_file);
 }
 
-void Model::addElement(float point){
-  this->point_array[state] = point;
-  state++;
+void Model::addElementPoint(float point){
+  this->points_array[0][this->state[0]++] = point;
+}
+
+void Model::addElementTexture(float point){
+  this->points_array[1][this->state[1]++] = point;
+}
+
+void Model::addElementNormal(float point){
+  this->points_array[2][this->state[2]++] = point;
 }
 
 float* Model::model(){
-  return this->point_array;
+  return this->points_array[0];
+}
+
+float* Model::textures(){
+  return this->points_array[1];
+}
+
+float* Model::normal(){
+  return this->points_array[2];
+}
+
+void Model::setTexture(GLuint t){
+	texture = t;
+}
+
+void Model::setColourComponent(Material* c){
+  colour_component = c;
 }
 
 
 void Model::prepare(){
-  glGenBuffers(1,(this)->buffer);
-  glBindBuffer(GL_ARRAY_BUFFER, *(this)->buffer);
-  glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->point_array,GL_STATIC_DRAW);
+  glGenBuffers(3,(this)->buffer);
+  for(int i=0; i< 3; i++){
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
+    glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->points_array[i],GL_STATIC_DRAW);
+  }
+
+}
+
+void Model::loadTexture(string texture_file){
+
+	unsigned int t,tw,th;
+	unsigned char *texData;
+
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+	ilGenImages(1, &t);
+	ilBindImage(t);
+	ilLoadImage((ILstring) texture_file.c_str());
+	tw = ilGetInteger(IL_IMAGE_WIDTH);
+	th = ilGetInteger(IL_IMAGE_HEIGHT);
+	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+	texData = ilGetData();
+
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Model::draw(){
-  glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-
-  if(!strcmp(this->name.c_str(),"sun.3d")){
-    glColor3ub(255,140,0);
-  }else if(!strcmp(this->name.c_str(),"mercury.3d")){
-      glColor3ub(139,0,0);
-  }else if(!strcmp(this->name.c_str(),"venus.3d")){
-      glColor3ub(249,194,26);
-  }else if(!strcmp(this->name.c_str(),"earth.3d")){
-      glColor3ub(30,144,255);
-  }else if(!strcmp(this->name.c_str(),"moon.3d")){
-      glColor3ub(176,196,222);
-  }else if(!strcmp(this->name.c_str(),"mars.3d")){
-      glColor3ub(205,92,92);
-  }else if(!strcmp(this->name.c_str(),"jupiter.3d")){
-      glColor3ub(227,220,203);
-  }else if(!strcmp(this->name.c_str(),"saturn.3d")){
-      glColor3ub(216,202,157);
-  }else if(!strcmp(this->name.c_str(),"neptune.3d")){
-      glColor3ub(65,105,225);
-  }else if(!strcmp(this->name.c_str(),"uranus.3d")){
-      glColor3ub(100,149,237);
-  }else if(!strcmp(this->name.c_str(),"pluto.3d")){
-      glColor3ub(245,245,220);
-  }else{
-      glColor3ub(102,255,102);
+  for(int i=0; i< 3; i++){
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
+    glVertexPointer(3, GL_FLOAT, 0, 0);
   }
 
+
+  glEnable(GL_LIGHTING);
   glDrawArrays(GL_TRIANGLES,0,(this->size)-1);
+  glDisable(GL_LIGHTING);
+  glBindTexture(GL_TEXTURE_2D,0);
 }
 

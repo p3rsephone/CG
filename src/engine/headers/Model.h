@@ -7,10 +7,12 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #endif
-
+#include <IL/il.h>
 #include <string>
 #include <string.h>
 #include <math.h>
+#include "Material.h"
+
 using namespace std;
 /**
  *@brief Class that defines a geometric
@@ -18,12 +20,14 @@ using namespace std;
  */
   class  Model{
       //Name of the object
+      Material *colour_component;
       string name;
       GLuint *buffer;
     //vector of triangles that compose a Model
       int size;
-      float* point_array;
-      int state;
+      float** points_array;
+      int* state;
+      GLuint texture;
     public:
 /**
  *@brief Contructor of empty model with no name
@@ -36,7 +40,7 @@ using namespace std;
  *
  *@return void
  */
-      Model(string name, int size);
+      Model(string name, int size_points, string texture_file);
 /**
  *@brief Method that add a Triangle to a Model
  *
@@ -44,24 +48,33 @@ using namespace std;
  *
  *@return void
  */
-      void addElement(float point);
+      void addElementPoint(float point);
+      void addElementTexture(float point);
+      void addElementNormal(float point);
 /**
  *@brief Method that returns the vector triangle_vector
  *
  *@return vector of Triangles that compose Model
  */
       float* model();
+      float* textures();
+      float* normal();
 /**
  *@brief Method that draws a model
  *
  *@return void
  */
+      void loadTexture(string texture_file);
       void draw();
 /**
  *@brief Method tu test a model
  *
  *@return void
  */
+      void setTexture(GLuint t);
+
+      void setColourComponent(Material* c);
+
       void test();
 
       void prepare();
