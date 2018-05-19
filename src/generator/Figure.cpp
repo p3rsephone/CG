@@ -84,7 +84,7 @@ void Figure::createBox(float x, float y, float z, int d){
             //Base
             points.push_back(new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j));
             textures.push_back(new Point(startingBase->X() - baseTopUShift * i,startingBase->Y() - baseTopVShift * j,0));
-            normals.push_back(new Point(0,-1,0);
+            normals.push_back(new Point(0,-1,0));
             points.push_back(new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1)));
             textures.push_back(new Point(startingBase->X() - baseTopUShift * (i+1),startingBase->Y() - baseTopVShift * (j+1),0));
             normals.push_back(new Point(0,-1,0));
