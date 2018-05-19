@@ -44,7 +44,8 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
 
                         Model* model = new Model(s, size);
 
-                        while (getline(infile, line))
+                        int coord = 0;
+                        while (getline(infile, line) && (coord<sizep))
                         {
                             vector<string> v;
                             istringstream buf(line);
@@ -61,14 +62,118 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
                                 it++;
                             }
 
-                            model->addElement(x);
-                            model->addElement(y);
-                            model->addElement(z);
+                            model->addElementP(x);
+                            model->addElementP(y);
+                            model->addElementP(z);
+                            coord+=3;
+                        }
+
+                        coord=0;
+
+                        while (getline(infile, line) && (coord<sizen))
+                        {
+                            vector<string> v;
+                            istringstream buf(line);
+                            for(string word; buf >> word; )
+                                v.push_back(word);
+                            int it = 0;
+                            float x;
+                            float y;
+                            float z;
+                            for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                                if(it==0) x=stof(*i);
+                                if(it==1) y=stof(*i);
+                                if(it==2) z=stof(*i);
+                                it++;
+                            }
+
+                            model->addElementN(x);
+                            model->addElementN(y);
+                            model->addElementN(z);
+                            coord+=3;
+                        }
+
+                        coord=0;
+
+                        while (getline(infile, line) && (coord<sizen))
+                        {
+                            vector<string> v;
+                            istringstream buf(line);
+                            for(string word; buf >> word; )
+                                v.push_back(word);
+                            int it = 0;
+                            float x;
+                            float y;
+                            float z;
+                            for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                                if(it==0) x=stof(*i);
+                                if(it==1) y=stof(*i);
+                                if(it==2) z=stof(*i);
+                                it++;
+                            }
+
+                            model->addElementT(x);
+                            model->addElementT(y);
+                            model->addElementT(z);
+                            coord+=3;
                         }
 
                         group->addModel(model);
                     }
                 }
+
+                if(pElement->Attribute("texture")){
+
+                }
+
+                if(pElement->Attribute("diffR")){
+
+                }
+
+                if(pElement->Attribute("diffG")){
+
+                }
+
+                if(pElement->Attribute("diffB")){
+
+                }
+
+                if(pElement->Attribute("ambR")){
+
+                }
+
+                if(pElement->Attribute("ambG")){
+
+                }
+
+                if(pElement->Attribute("ambB")){
+
+                }
+
+                if(pElement->Attribute("emiR")){
+
+                }
+
+                if(pElement->Attribute("emiG")){
+
+                }
+
+                if(pElement->Attribute("emiB")){
+
+                }
+
+                if(pElement->Attribute("specR")){
+
+                }
+
+                if(pElement->Attribute("specG")){
+
+                }
+
+                if(pElement->Attribute("specB")){
+
+                }
+
             } else
 
             if(strcmp(pElement->Name(),"translate") == 0){
