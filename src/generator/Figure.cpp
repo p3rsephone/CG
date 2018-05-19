@@ -35,7 +35,7 @@ void Figure::createPlane(float size){
  * @param  z Size of the box in the Z axis
  * @param  d Amount of divisions in each axis
  */
-void Figure::createBox(float x, float y, float z, int d, int imageHeight, int imageWidth){
+void Figure::createBox(float x, float y, float z, int d){
 
     //npoints = 8+6*(d^2)+12*d;
 
@@ -51,7 +51,32 @@ void Figure::createBox(float x, float y, float z, int d, int imageHeight, int im
     float shiftY = y/d;
     float shiftZ = z/d;
 
+    //Calculate the box's deconstructed width and height
+    float boxHeight = y + 2*z;
+    float boxWidth = 2*x + 2*z;
 
+    //Get the ratio between each box's part height and width and the image's height/width
+    float baseTopWidth = x/boxWidth;
+    float baseTopHeight = y/boxHeight;
+    float leftRightWidth = baseTopWidth;
+    float leftRightHeight = z/boxHeight;
+    float frontBackWidth = z/boxWidth;
+    float frontBackHeight = baseTopHeight;
+
+    //Get the starting point for each part of the box's iteration
+    Point* startingBase = new Point(baseTopWidth*2+leftRightWidth,leftRightHeight+baseTopHeight,0);
+    Point* startingTop = new Point(0,leftRightHeight+baseTopHeight,0);
+    Point* startingFront = new Point(baseTopWidth+frontBackWidth,leftRightHeight+baseTopHeight,0);
+    Point* startingBack = new Point(baseTopWidth*2+leftRightWidth,leftRightHeight+baseTopHeight,0);
+    Point* startingLeft = new Point(baseTopWidth*2+leftRightWidth,leftRightHeight+baseTopHeight,0);
+    Point* startingRight = new Point(baseTopWidth*2+leftRightWidth,leftRightHeight,0);
+
+    float baseTopUShift = baseTopWidth/d;
+    float baseTopVShift = baseTopHeight/d;
+    float leftRightUShift = leftRightWidth/d;
+    float leftRightVShift = leftRightHeight/d;
+    float frontBackUShift = frontBackWidth/d;
+    float frontBackVShift = frontBackHeight/d;
 
     for(int i = 0; i < d ; i++){
         for(int j = 0; j < d ; j++){
@@ -61,92 +86,164 @@ void Figure::createBox(float x, float y, float z, int d, int imageHeight, int im
             //Base
             p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * i,startingBase->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * (i+1),startingBase->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * i,startingBase->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(-realX + shiftX * i, -realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * i,startingBase->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * (i+1),startingBase->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingBase->X() - baseTopUShift * (i+1),startingBase->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             //Top
             p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * i,startingTop->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * i,startingTop->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * (i+1),startingTop->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(-realX + shiftX * i, realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * i,startingTop->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * (i+1),startingTop->Y() - baseTopVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), realY, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingTop->X() + baseTopUShift * (i+1),startingTop->Y() - baseTopVShift * j,0));
+            normals.push_back(p->normalizeBox());
 
             //Front face
             p = new Point(-realX + shiftX * i, -realY + shiftY * j, realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * i,startingFront->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * (i+1),startingFront->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * i,startingFront->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * (i+1),startingFront->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * (i+1),startingFront->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingFront->X() - frontBackUShift * i,startingFront->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             //Back Face
             p = new Point(-realX + shiftX * i, -realY + shiftY * j, -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * i,startingBack->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * i,startingBack->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * (i+1),startingBack->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * j, -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * (i+1),startingBack->Y() - frontBackVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * i, -realY + shiftY * (j+1), -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * i,startingBack->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX + shiftX * (i+1), -realY + shiftY * (j+1), -realZ);
             points.push_back(p);
+            textures.push_back(new Point(startingBack->X() + frontBackUShift * (i+1),startingBack->Y() - frontBackVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             //Left Face
             p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * i,startingLeft->Y() + leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * i,startingLeft->Y() + leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * (i+1),startingLeft->Y() + leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * (i+1),startingLeft->Y() + leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * i,startingLeft->Y() + leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(-realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingLeft->X() - leftRightUShift * (i+1),startingLeft->Y() + leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             //Right Face
             p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * i,startingRight->Y() - leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * (i+1),startingRight->Y() - leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * i,startingRight->Y() - leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
 
             p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * j);
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * (i+1),startingRight->Y() - leftRightVShift * j,0));
+            normals.push_back(p->normalizeBox());
             p = new Point(realX, -realY + shiftY * (i+1), -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * (i+1),startingRight->Y() - leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
             p = new Point(realX, -realY + shiftY * i, -realZ + shiftZ * (j+1));
             points.push_back(p);
+            textures.push_back(new Point(startingRight->X() - leftRightUShift * i,startingRight->Y() - leftRightVShift * (j+1),0));
+            normals.push_back(p->normalizeBox());
         }
     }
 }
@@ -158,7 +255,7 @@ void Figure::createBox(float x, float y, float z, int d, int imageHeight, int im
  * @param  slices   Number of slices in the sphere
  * @param  stacks   Number of stacks in the sphere
  */
-void Figure::createSphere(float radius, int slices, int stacks, int imageHeight, int imageWidth){
+void Figure::createSphere(float radius, int slices, int stacks){
 
     //npoints = 2 + slices * stacks;
 
@@ -167,8 +264,8 @@ void Figure::createSphere(float radius, int slices, int stacks, int imageHeight,
     float fiShift = M_PI*2 / slices;
     float thetaShift = M_PI / stacks;
 
-    float uShift = imageHeight/stacks;
-    float vShift = imageWidth/slices;
+    float uShift = 1/stacks;
+    float vShift = 1/slices;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
