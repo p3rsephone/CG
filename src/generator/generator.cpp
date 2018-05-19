@@ -69,6 +69,7 @@ int main(int argc, char* argv[]) {
     string filename;
     Figure* f = new Figure();
 
+
     if ((argc == 4) && strcmp(argv[1],"plane") == 0){
         float size = atof(argv[2]);
         if (size<=0) {
@@ -90,10 +91,11 @@ int main(int argc, char* argv[]) {
         f->createBox(x, y, z, d);
     }
 
-    else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
+    else if ((argc == 6) && (strcmp(argv[1],"sphere") == 0)){
         float radius = atof(argv[2]);
         int slices = (int) stoi(argv[3]);
         int stacks = (int) stoi(argv[4]);
+
         filename = argv[5];
 
         f->createSphere(radius, slices, stacks);
