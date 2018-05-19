@@ -60,12 +60,10 @@ void printfile(string filename, vector<Point*> points, vector<Point*> textures, 
         file << points.size()*3 << endl;
         for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
             file << (*i)->toString();
-        
-        file << "Normals:" << endl << normals.size()*3 << endl;
+
         for (vector<Point*>::iterator i = normals.begin(); i!= normals.end(); i++)
             file << (*i)->toString();
 
-        file << "Textures:" << endl << textures.size()*3 << endl;
         for (vector<Point*>::iterator i = textures.begin(); i!= textures.end(); i++)
             file << (*i)->toString();
         
