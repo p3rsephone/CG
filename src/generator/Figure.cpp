@@ -4,6 +4,11 @@ Figure::Figure(){
 }
 
 Figure::Figure(vector<Point*> v,vector<Point*> t,vector<Point*> n) : points(v), textures(t), normals(n) {};
+
+void Figure::setImage(float w, float h) {
+    imageHeight = h;
+    imageWidth = w;
+}
 /**
  * @brief Creates vertice points for a square in the XZ plane
  * Usage: generator plane 2 plane.3d
@@ -202,6 +207,9 @@ void Figure::createCone(float r, float height, int slices, int stacks){
     float h = sqrt(pow(r,2) + pow(height,2))/stacks;
     float beta = r/slices;
 
+    float vShift = 1/stacks;
+    float uShift = 1/slices;
+
     for (int i = 0; i < stacks; i++) {
         for (int j = 0; j<slices; j++) {
 
@@ -210,39 +218,59 @@ void Figure::createCone(float r, float height, int slices, int stacks){
                 // Base
                 points.push_back(new Point(0.0f,0.0f,0.0f));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point((j+0.5)* uShift,i*vShift,0));
+
                 points.push_back(new Point(r * sin(alpha * (j+1)), 0, r * cos(alpha * (j + 1))));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point(j* uShift,(i+1)*vShift,0));
+
                 points.push_back(new Point(r * sin(alpha * j), 0, r * cos(alpha * j)));
                 normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                textures.push_back(new Point((j+1)* uShift,(i+1)*vShift,0));
             }
 
             if (i == stacks-1) {
                 
                 // Top
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
-                normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point((j+1)* uShift,(i+1)*vShift,0));
+
                 points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
-                normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point(j* uShift,(i+1)*vShift,0));
+
                 points.push_back(new Point(0, (i + 1) * h, 0));
-                normals.push_back(new Point(0.0f,-1.0f,0.0f));
+                normals.push_back(new Point(0.0f,1.0f,0.0f));
+                textures.push_back(new Point((j+0.5)* uShift,i*vShift,0));
 
             } else {
                 
                 // Side
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
                 normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
+                textures.push_back(new Point((j+1)* uShift,i*vShift,0));
+
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
                 normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
+                textures.push_back(new Point(j* uShift,(i+1)*vShift,0));
+
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * j), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * j)));
                 normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
+                textures.push_back(new Point((j+1)* uShift,(i+1)*vShift,0));
 
 
                 points.push_back(new Point((r - beta * i) * sin(alpha * j), i * h, (r - beta * i) * cos(alpha * j)));
                 normals.push_back(new Point(sin(alpha * j), h, cos(alpha * j)));
+                textures.push_back(new Point((j+1)* uShift,i*vShift,0));
+
                 points.push_back(new Point((r - beta * i) * sin(alpha * (j + 1)), i * h, (r - beta * i) * cos(alpha * (j + 1))));
                 normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
+                textures.push_back(new Point(j* uShift,i*vShift,0));
+
                 points.push_back(new Point((r - beta * (i + 1)) * sin(alpha * (j + 1)), (i + 1) * h, (r - beta * (i + 1)) * cos(alpha * (j + 1))));
                 normals.push_back(new Point( sin(alpha * (j + 1)), h, cos(alpha * (j + 1))));
+                textures.push_back(new Point(j* uShift,(i+1)*vShift,0));
             }
         }
     }
@@ -323,7 +351,7 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
                 
                 points.push_back(new Point(0.0f, height, 0.0f));
                 normals.push_back(new Point(0.0f,1.0f,0.0f));
-                textures.push_back(new Point(0.4375, 0.1875, 0))
+                textures.push_back(new Point(0.4375, 0.1875, 0));
             }
         }
     }

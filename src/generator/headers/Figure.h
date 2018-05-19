@@ -17,6 +17,7 @@ class Figure {
     public:
         Figure();
         Figure(vector<Point*>,vector<Point*>,vector<Point*>);
+        void setImage(float, float);
         long getNPoints(){ return npoints; };
         vector<Point*> getPoints(){ return points; };
         vector<Point*> getTextures(){ return textures; };
