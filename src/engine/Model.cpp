@@ -21,6 +21,23 @@ Model::Model(string name, int size_points, string texture_file){
   this->loadTexture(texture_file);
 }
 
+Model::Model(string name, int size_points){
+  this->name = name;
+
+
+  this->points_array = new float*[3];
+  for(int i= 0 ; i < 3; i++)
+    this->points_array[i] = new float[size_points];
+
+  this->buffer = new GLuint[3];
+
+  this->state = new int[3];
+  for(int i= 0 ; i < 3 ; i++)
+    this->state[i] = 0;
+
+  this->size = size_points;
+}
+
 void Model::addElementPoint(float point){
   this->points_array[0][this->state[0]++] = point;
 }
