@@ -26,7 +26,6 @@ class Material{
 		Material();
 		Material(Colour*, Colour*, Colour*, Colour*, float);
 		void draw();
-		virtual ~Material();
 
 };
 

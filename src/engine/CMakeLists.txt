@@ -33,6 +33,6 @@ endif(NOT DevIL_FOUND)
 
 include_directories(${globalProject_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../../bin")
-add_executable(engine main.cpp Model.cpp tinyxml2.cpp Parser.cpp  Engine.cpp Transformation.cpp Group.cpp)
+add_executable(engine main.cpp Model.cpp tinyxml2.cpp Parser.cpp  Engine.cpp Transformation.cpp Group.cpp Colour.cpp Material.cpp)
 set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
 target_link_libraries(engine  lib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${IL_LIBRARIES} )
