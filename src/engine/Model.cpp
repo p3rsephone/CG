@@ -75,7 +75,7 @@ void Model::setColourComponent(Material* c){
 void Model::prepare(){
   glGenBuffers(3,(this)->buffer);
   for(int i=0; i< 3; i++){
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
     glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->points_array[i],GL_STATIC_DRAW);
   }
 
@@ -90,14 +90,17 @@ void Model::loadTexture(string texture_file){
 	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 	ilGenImages(1, &t);
 	ilBindImage(t);
-	ilLoadImage((ILstring) texture_file.c_str());
+    if (!ilLoadImage((ILstring) texture_file.c_str())) {
+        std::cout << ilGetError() << std::endl;
+        exit(1);
+    }
 	this->image_width = ilGetInteger(IL_IMAGE_WIDTH);
 	this->image_height = ilGetInteger(IL_IMAGE_HEIGHT);
 	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 	texData = ilGetData();
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glGenTextures(1, &this->texture);
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
