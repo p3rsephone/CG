@@ -1,5 +1,6 @@
 #include "headers/Model.h"
 using namespace std;
+
 Model::Model(){
 }
 
@@ -106,9 +107,9 @@ void Model::loadTexture(string texture_file){
 }
 
 void Model::draw(){
-  for(int i=0; i< 3; i++){
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
-    glVertexPointer(3, GL_FLOAT, 0, 0);
+  for(int i=0; i< 3; i++) {
+      glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
+      glVertexPointer(3, GL_FLOAT, 0, 0);
   }
 
   glEnable(GL_LIGHTING);

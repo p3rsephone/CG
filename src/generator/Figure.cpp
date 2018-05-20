@@ -242,8 +242,8 @@ void Figure::createSphere(float radius, int slices, int stacks){
     float fiShift = M_PI*2 / slices;
     float thetaShift = M_PI / stacks;
 
-    float uShift = 1/slices;
-    float vShift = 1/stacks;
+    float uShift = (float)1/slices;
+    float vShift = (float)1/stacks;
 
     //Using spheric coordinates
     //x = radius * sin(theta) * cos(fi);
@@ -353,8 +353,8 @@ void Figure::createCone(float r, float height, int slices, int stacks){
     float h = sqrt(pow(r,2) + pow(height,2))/stacks;
     float beta = r/slices;
 
-    float vShift = 1/stacks;
-    float uShift = 1/slices;
+    float vShift = (float)1/stacks;
+    float uShift = (float)1/slices;
 
     for (int i = 0; i < stacks; i++) {
         for (int j = 0; j<slices; j++) {
@@ -437,8 +437,8 @@ void Figure::createCylinder(float r, float height, int slices, int stacks) {
     float theta = (2 * M_PI) / slices;
     float heightShift = height / stacks;
     
-    float vShift = 0.625/stacks;
-    float uShift = 1/slices;
+    float vShift = (float)0.625/stacks;
+    float uShift = (float)1/slices;
 
     for (int i = 0; i < slices; i++) {
         for (int j = 0; j < stacks; j++) {
