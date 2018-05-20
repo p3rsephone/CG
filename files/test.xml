@@ -1,7 +1,10 @@
 <scene>
     <group>
+        <lights>
+            <light type="POINT" X="0" Y="0" Z="0"/>
+        </lights>
         <models>
-            <model file="sun.3d" texture="sunmap.jpg"/>
+            <model file="sun.3d" texture="sunmap.jpg" diffR="0.8" diffG="0.8" diffB="0.15"/>
         </models>
     </group>
 </scene>

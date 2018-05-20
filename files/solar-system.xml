@@ -1,8 +1,11 @@
 <scene>
   <group>
     <group>
+        <lights>
+            <light type="POINT" X="0" Y="0" Z="0"/>
+        </lights>
       <models>
-        <model file="sun.3d"/>
+          <model file="sun.3d" texture="sunmap.jpg" diffR="0.8" diffG="0.8" diffB="0.15"/>
       </models>
     </group>
 
@@ -172,5 +175,29 @@
             <model file="pluto.3d"/>
         </models>
     </group>
+      <group>
+          <rotate angle="270" time="20" axisY="1"/>
+          <translate time="200">
+              <point X="40" Y="0" Z="-80" />
+              <point X="36.9552" Y="0" Z="-39.8182" />
+              <point X="28.2843" Y="0" Z="-5.75379" />
+              <point X="15.3073" Y="0" Z="17.0074" />
+              <point X="2.44929e-15" Y="0" Z="25" />
+              <point X="-15.3073" Y="0" Z="17.0074" />
+              <point X="-28.2843" Y="0" Z="-5.75379" />
+              <point X="-36.9552" Y="0" Z="-39.8182" />
+              <point X="-40" Y="0" Z="-80" />
+              <point X="-36.9552" Y="0" Z="-120.182" />
+              <point X="-28.2843" Y="0" Z="-154.246" />
+              <point X="-15.3073" Y="0" Z="-177.007" />
+              <point X="-7.34788e-15" Y="0" Z="-185" />
+              <point X="15.3073" Y="0" Z="-177.007" />
+              <point X="28.2843" Y="0" Z="-154.246" />
+              <point X="36.9552" Y="0" Z="-120.182" />
+          </translate>
+          <models>
+              <model file="teapot.3d"/>
+          </models>
+      </group>
   </group>
 </scene>

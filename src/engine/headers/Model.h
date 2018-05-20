@@ -81,5 +81,9 @@ using namespace std;
       void test();
 
       void prepare();
+
+      string getName(){return this->name;};
+
+
 };
 #endif

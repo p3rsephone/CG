@@ -85,14 +85,12 @@ void Model::loadTexture(string texture_file){
 
 	unsigned int t;
 	unsigned char *texData;
-    ILenum devilError;
 
     ilInit();
     ilEnable(IL_ORIGIN_SET);
     ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 	ilGenImages(1, &t);
 	ilBindImage(t);
-    cout << texture_file.c_str()<<endl;
     if (!ilLoadImage((ILstring) texture_file.c_str())) {
         std::cout << ilGetError() << std::endl;
         exit(1);
@@ -113,14 +111,22 @@ void Model::loadTexture(string texture_file){
 }
 
 void Model::draw(){
-  for(int i=0; i< 3; i++) {
-      glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
-      glVertexPointer(3, GL_FLOAT, 0, 0);
-  }
+    colour_component->draw();
 
-  glEnable(GL_LIGHTING);
-  glDrawArrays(GL_TRIANGLES,0,(this->size)-1);
-  glDisable(GL_LIGHTING);
-  glBindTexture(GL_TEXTURE_2D,0);
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
+    glVertexPointer(3, GL_FLOAT, 0, 0);
+
+
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[1]);
+    glTexCoordPointer(2,GL_FLOAT,0,0);
+    glBindTexture(GL_TEXTURE_2D,this->texture);
+
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[2]);
+    glNormalPointer(GL_FLOAT, 0, 0);
+
+    glEnable(GL_LIGHTING);
+    glDrawArrays(GL_TRIANGLES,0,((this->size)-1) * 3);
+    glDisable(GL_LIGHTING);
+    glBindTexture(GL_TEXTURE_2D,0);
 }
 
