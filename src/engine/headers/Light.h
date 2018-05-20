@@ -8,15 +8,19 @@
 #include <GL/glut.h>
 #endif
 #include <iostream>
+#include <string>
+#include <string.h>
 
+using namespace std;
 
 class Light{
 
+  string type;
   float x,y,z;
 
 	public:
 		Light();
-		Light(float x, float y, float z);
+		Light(string type, float x, float y, float z);
 		void draw();
 };
 
