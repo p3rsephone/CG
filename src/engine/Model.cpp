@@ -37,6 +37,7 @@ Model::Model(string name, int size_points){
 
   this->size = size_points;
 }
+
 void Model::addElementPoint(float point){
   this->points_array[0][this->state[0]++] = point;
 }

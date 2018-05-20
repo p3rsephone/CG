@@ -61,6 +61,12 @@ void printfile(string filename, vector<Point*> points, vector<Point*> textures, 
         for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
             file << (*i)->toString();
 
+        for (vector<Point*>::iterator i = normals.begin(); i!= normals.end(); i++)
+            file << (*i)->toString();
+
+        for (vector<Point*>::iterator i = textures.begin(); i!= textures.end(); i++)
+            file << (*i)->toString();
+        
         file.close();
     }
 }
@@ -68,6 +74,7 @@ void printfile(string filename, vector<Point*> points, vector<Point*> textures, 
 int main(int argc, char* argv[]) {
     string filename;
     Figure* f = new Figure();
+
 
     if ((argc == 4) && strcmp(argv[1],"plane") == 0){
         float size = atof(argv[2]);
@@ -90,10 +97,11 @@ int main(int argc, char* argv[]) {
         f->createBox(x, y, z, d);
     }
 
-    else if (argc == 6 && (strcmp(argv[1],"sphere") == 0)){
+    else if ((argc == 6) && (strcmp(argv[1],"sphere") == 0)){
         float radius = atof(argv[2]);
         int slices = (int) stoi(argv[3]);
         int stacks = (int) stoi(argv[4]);
+
         filename = argv[5];
 
         f->createSphere(radius, slices, stacks);
