@@ -41,6 +41,7 @@ using namespace std;
  *@return void
  */
       Model(string name, int size_points, string texture_file);
+      Model(string name, int size_points );
 /**
  *@brief Method that add a Triangle to a Model
  *
