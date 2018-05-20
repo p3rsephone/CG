@@ -7,8 +7,8 @@
 #include <GL/glut.h>
 #endif
 #include <math.h>
-#include <vector>
 #include <headers/Point.h>
+#include <vector>
 using std::vector;
 
 class Transformation {
@@ -38,6 +38,10 @@ public:
 
     void setAngle(double angle) {
         this->angle = angle;
+    }
+
+    void setTime(double time) {
+        this->time = time;
     }
 
     void setX(int x) {
