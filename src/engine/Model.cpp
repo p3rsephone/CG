@@ -82,7 +82,7 @@ void Model::prepare(){
 
 void Model::loadTexture(string texture_file){
 
-	unsigned int t,tw,th;
+	unsigned int t;
 	unsigned char *texData;
 
 	ilEnable(IL_ORIGIN_SET);
@@ -90,8 +90,8 @@ void Model::loadTexture(string texture_file){
 	ilGenImages(1, &t);
 	ilBindImage(t);
 	ilLoadImage((ILstring) texture_file.c_str());
-	tw = ilGetInteger(IL_IMAGE_WIDTH);
-	th = ilGetInteger(IL_IMAGE_HEIGHT);
+	this->image_width = ilGetInteger(IL_IMAGE_WIDTH);
+	this->image_height = ilGetInteger(IL_IMAGE_HEIGHT);
 	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 	texData = ilGetData();
 
@@ -101,7 +101,7 @@ void Model::loadTexture(string texture_file){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->image_width, this->image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

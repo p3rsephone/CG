@@ -15,6 +15,10 @@ void Group::addGroup(Group* g){
     groups.push_back(g);
 }
 
+void Group::addLight(Light* l){
+    lights.push_back(l);
+}
+
 vector<Transformation*> Group::getTransformations(){
     return transformations;
 }
@@ -27,6 +31,9 @@ vector<Group*> Group::getGroups(){
     return groups;
 }
 
+vector<Group*> Group::getLight(){
+    return lights;
+}
 
 void Group::prepare(){
   vector <Model*>::iterator mIt;
@@ -54,13 +61,21 @@ void Group::draw(){
     (*mIt)->draw();
   }
 
+  vector <Light*>::iterator lIt;
+  for(lIt = this->groups.begin(); lIt != this->groups.end(); lIt++){
+    glPushMatrix();
+    (*lIt)->draw();
+  }
+
   vector <Group*>::iterator gIt;
   for(gIt = this->groups.begin(); gIt != this->groups.end(); gIt++){
     glPushMatrix();
     (*gIt)->draw();
-
     glPopMatrix();
   }
+
+
+
 }
 
 void Group::transformation(Transformation* t){
