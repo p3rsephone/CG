@@ -85,11 +85,14 @@ void Model::loadTexture(string texture_file){
 
 	unsigned int t;
 	unsigned char *texData;
+    ILenum devilError;
 
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+    ilInit();
+    ilEnable(IL_ORIGIN_SET);
+    ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 	ilGenImages(1, &t);
 	ilBindImage(t);
+    cout << texture_file.c_str()<<endl;
     if (!ilLoadImage((ILstring) texture_file.c_str())) {
         std::cout << ilGetError() << std::endl;
         exit(1);
