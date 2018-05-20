@@ -26,3 +26,5 @@ files/*
 !files/venus.3d
 !files/solar-system.xml
 !files/teapot.3d
+!files/sunmap.jpg
+!files/test.xml

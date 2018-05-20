@@ -81,12 +81,13 @@ Model* Parser::Parse3d(XMLElement* pElement){
             string line;
 
             getline(infile, line);
-            int size = stof(line);
+            int size = stoi(line);
 
             int tex;
 
             if(pElement->Attribute("texture")){
                 string textura = pElement->Attribute("texture");
+                textura = "files/"+ textura;
                 model = new Model(s, size, textura);
                 tex=1;
             }

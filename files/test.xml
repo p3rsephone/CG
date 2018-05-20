@@ -1,0 +1,7 @@
+<scene>
+    <group>
+        <models>
+            <model file="sun.3d" texture="sunmap.jpg"/>
+        </models>
+    </group>
+</scene>
