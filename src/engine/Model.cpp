@@ -111,7 +111,6 @@ void Model::draw(){
     glVertexPointer(3, GL_FLOAT, 0, 0);
   }
 
-
   glEnable(GL_LIGHTING);
   glDrawArrays(GL_TRIANGLES,0,(this->size)-1);
   glDisable(GL_LIGHTING);

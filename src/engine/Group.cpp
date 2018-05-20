@@ -31,7 +31,7 @@ vector<Group*> Group::getGroups(){
     return groups;
 }
 
-vector<Group*> Group::getLight(){
+vector<Light*> Group::getLight(){
     return lights;
 }
 
@@ -62,7 +62,7 @@ void Group::draw(){
   }
 
   vector <Light*>::iterator lIt;
-  for(lIt = this->groups.begin(); lIt != this->groups.end(); lIt++){
+  for(lIt = this->lights.begin(); lIt != this->lights.end(); lIt++){
     (*lIt)->draw();
   }
 
