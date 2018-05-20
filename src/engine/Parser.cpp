@@ -88,7 +88,7 @@ Model* Parser::Parse3d(XMLElement* pElement){
                 model = new Model(s, size, textura);
             }
             else{
-                model = new Model(s, size, "");
+                model = new Model(s, size);
             }
 
             int coord = 3;
@@ -114,8 +114,8 @@ Model* Parser::Parse3d(XMLElement* pElement){
                 model->addElementPoint(z);
                 coord+=3;
             }
-            coord=3;
 
+            coord=3;
             while (getline(infile, line) && (coord<size))
             {
                 vector<string> v;
@@ -137,6 +137,7 @@ Model* Parser::Parse3d(XMLElement* pElement){
                 model->addElementNormal(z);
                 coord+=3;
             }
+
             coord=0;
 
             while (getline(infile, line) && (coord<size))
@@ -155,6 +156,7 @@ Model* Parser::Parse3d(XMLElement* pElement){
                     if(it==2) z=stof(*i);
                     it++;
                 }
+
                 model->addElementTexture(x);
                 model->addElementTexture(y);
                 model->addElementTexture(z);
