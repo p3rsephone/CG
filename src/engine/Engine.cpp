@@ -194,12 +194,16 @@ void Engine::initGL(int argc, char **argv){
 
 // put GLUT init here
   glutInit(&argc,argv);
-  glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGB| GLUT_MULTISAMPLE);
-  glEnable(GL_MULTISAMPLE);
-    glEnable( GL_LINE_SMOOTH );
-    glEnable( GL_POLYGON_SMOOTH );
-    glHint( GL_LINE_SMOOTH_HINT, GL_NICEST );
-    glHint( GL_POLYGON_SMOOTH_HINT, GL_NICEST );
+  glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
+//  OpenGL settings
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_TEXTURE_2D);
 
 // put callback registration here
   glutInitWindowPosition(100,100);
@@ -219,11 +223,6 @@ void Engine::initGL(int argc, char **argv){
 	glewInit();
 #endif
 
-//  OpenGL settings
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glClearColor(0.0f,0.0f,1.0f,0.0f);
-	glPolygonMode(GL_FRONT, GL_LINE);
 
   prepareWrapper();
 // enter GLUT's main loop
