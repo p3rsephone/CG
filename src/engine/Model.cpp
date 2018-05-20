@@ -75,7 +75,7 @@ void Model::setColourComponent(Material* c){
 void Model::prepare(){
   glGenBuffers(3,(this)->buffer);
   for(int i=0; i< 3; i++){
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
     glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->points_array[i],GL_STATIC_DRAW);
   }
 
