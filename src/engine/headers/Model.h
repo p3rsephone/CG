@@ -27,10 +27,10 @@ using namespace std;
       int size;
       float** points_array;
       int* state;
-      int image_width;
-      int image_height;
       GLuint texture;
     public:
+      int image_width;
+      int image_height;
 /**
  *@brief Contructor of empty model with no name
  *

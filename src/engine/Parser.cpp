@@ -83,12 +83,16 @@ Model* Parser::Parse3d(XMLElement* pElement){
             getline(infile, line);
             int size = stof(line);
 
+            int tex;
+
             if(pElement->Attribute("texture")){
                 string textura = pElement->Attribute("texture");
                 model = new Model(s, size, textura);
+                tex=1;
             }
             else{
                 model = new Model(s, size);
+                tex=0;
             }
 
             int coord = 3;
@@ -139,28 +143,29 @@ Model* Parser::Parse3d(XMLElement* pElement){
             }
 
             coord=0;
+            if(tex){
+                while (getline(infile, line) && (coord<size))
+                {
+                    vector<string> v;
+                    istringstream buf(line);
+                    for(string word; buf >> word; )
+                        v.push_back(word);
+                    int it = 0;
+                    float x;
+                    float y;
+                    float z;
+                    for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                        if(it==0) x=stof(*i);
+                        if(it==1) y=stof(*i);
+                        if(it==2) z=stof(*i);
+                        it++;
+                    }
 
-            while (getline(infile, line) && (coord<size))
-            {
-                vector<string> v;
-                istringstream buf(line);
-                for(string word; buf >> word; )
-                    v.push_back(word);
-                int it = 0;
-                float x;
-                float y;
-                float z;
-                for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
-                    if(it==0) x=stof(*i);
-                    if(it==1) y=stof(*i);
-                    if(it==2) z=stof(*i);
-                    it++;
+                    model->addElementTexture(x * model->image_width);
+                    model->addElementTexture(y * model->image_height);
+                    model->addElementTexture(z);
+                    coord+=3;
                 }
-
-                model->addElementTexture(x);
-                model->addElementTexture(y);
-                model->addElementTexture(z);
-                coord+=3;
             }
         }
     }
