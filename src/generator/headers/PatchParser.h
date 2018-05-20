@@ -15,9 +15,14 @@ class PatchParser {
         string filename;
         string patchfile;
         vector<Patch*> patches;
-        void printfile(vector<Point*>);
-        vector<Point*> applyTessellation();
+        vector<Point*> points;
+        vector<Point*> normals;
+        vector<Point*> textures;
+        void printfile(vector<Point*>, vector<Point*>, vector<Point*>);
+        void applyTessellationNormals();
         Point* getBezierPoint(float, float, vector<Point*>);
+        Point* getBezierNormal(float, float, vector<Point*>);
+        float getBezierTangent(float, float, float points[4][4], int);
         Point* bezierForm(float, Point*, Point*, Point*, Point*);
         string lineNo(int, string);
     public:

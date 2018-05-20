@@ -43,7 +43,8 @@ void PatchParser::parsePatch() {
       }
     }
     patch.close();
-    printfile(applyTessellation());
+    applyTessellationNormals();
+    printfile(points, normals, textures);
   } else {
     cout << "Error while opening file " << patchfile << endl;
   }
@@ -53,7 +54,7 @@ void PatchParser::parsePatch() {
  * @brief Makes the .3d file
  * @param points Points to print
  */
-void PatchParser::printfile(vector<Point*> points) {
+void PatchParser::printfile(vector<Point*> points, vector<Point*> normals, vector<Point*> textures) {
   ofstream file;
   string fileDir = "files/" + filename;
   file.open(fileDir, ios_base::trunc);
@@ -63,6 +64,12 @@ void PatchParser::printfile(vector<Point*> points) {
     file << points.size()*3 << endl;
     for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
         file << (*i)->toString();
+
+    for (vector<Point*>::iterator i = normals.begin(); i!= normals.end(); i++)
+        file << (*i)->toString();
+    
+    for (vector<Point*>::iterator i = textures.begin(); i!= textures.end(); i++)
+        file << (*i)->toString();
     
     file.close();
   }
@@ -70,13 +77,13 @@ void PatchParser::printfile(vector<Point*> points) {
 
 /**
  * @brief Applies tessellation to the Bezier patch
- * @return Tessellated points
  */
-vector<Point*> PatchParser::applyTessellation(){
+void PatchParser::applyTessellationNormals(){
   vector<Point*> tPoints;  // Tesselated points
   vector<Point*> ctrl;  // Control Points
   float u,v,uNext,vNext;  // U and V for the Bezier Curve
   float shift = 1.0/tessellation;
+
 
   for (vector<Patch*>::iterator it = patches.begin();it!=patches.end();it++){
     ctrl = (*it)->getControlPoints();
@@ -93,18 +100,34 @@ vector<Point*> PatchParser::applyTessellation(){
 				Point* p2 = getBezierPoint(uNext, v, ctrl);
         Point* p3 = getBezierPoint(uNext, vNext, ctrl);
 
-        tPoints.push_back(p0);
-        tPoints.push_back(p2);
-        tPoints.push_back(p3);
+        // Apply normals
+        Point* n0 = getBezierNormal(u, v, ctrl);
+        Point* n1 = getBezierNormal(u, vNext, ctrl);
+        Point* n2 = getBezierNormal(uNext, v, ctrl);
+        Point* n3 = getBezierNormal(uNext, vNext, ctrl);
 
-        tPoints.push_back(p0);
-        tPoints.push_back(p3);
-        tPoints.push_back(p1);
+        points.push_back(p0);
+        normals.push_back(n0);
+        textures.push_back(new Point(u,v,0.0f));
+        points.push_back(p2);
+        normals.push_back(n2);
+        textures.push_back(new Point(uNext,v,0.0f));
+        points.push_back(p3);
+        normals.push_back(n3);
+        textures.push_back(new Point(uNext,vNext,0.0f));        
+
+        points.push_back(p0);
+        normals.push_back(n0);
+        textures.push_back(new Point(u,v,0.0f));
+        points.push_back(p3);
+        normals.push_back(n3);
+        textures.push_back(new Point(uNext,vNext,0.0f));
+        points.push_back(p1);
+        normals.push_back(n1);
+        textures.push_back(new Point(u,vNext,0.0f));
       }
     }
   }
-
-  return tPoints;
 }
 
 /**
@@ -170,4 +193,84 @@ string PatchParser::lineNo(int lineNumber, string filename) {
     for (int i=0; i<lineNumber; i++) getline(patch,line);
   else cout << "Error while opening file " << patchfile << endl;
   return line;
+}
+
+/**
+ * @brief Calculates normal points for bezier patchfile
+ * @return Normal points
+ */
+Point* PatchParser::getBezierNormal(float u, float v, vector<Point*> ctrl) {
+  float pointsX[4][4];
+  float pointsY[4][4];
+  float pointsZ[4][4];
+  int indice =0;
+  Point *pu, *pv;
+  float x,y,z;
+
+  for(int i = 0; i < 4; i++){ 
+    for(int j = 0; j < 4; j++, indice++){ 
+  		pointsX[i][j] = ctrl[indice]->X();
+   		pointsY[i][j] = ctrl[indice]->Y();
+    	pointsZ[i][j] = ctrl[indice]->Z();
+   	}
+  }
+
+  pu = (new Point(getBezierTangent(u,v,pointsX,0), getBezierTangent(u,v,pointsY,0), getBezierTangent(u,v,pointsZ,0)))->normalizeBezier();
+  pv = (new Point(getBezierTangent(u,v,pointsX,1), getBezierTangent(u,v,pointsY,1), getBezierTangent(u,v,pointsZ,1)))->normalizeBezier();
+
+  x = pv->Y() * pu->Z() - pv->Z() * pu->Y();
+  y = pv->Z() * pu->X() - pv->X() * pu->Z();
+  z = pv->X() * pu->Y() - pv->Y() * pu->X();
+
+  return new Point(x,y,z);
+}
+
+/**
+ * @brief Calculates tangents using u and v
+ * @return Tangent 
+ */
+float PatchParser::getBezierTangent(float u, float v, float points[4][4], int derivate) {
+  float res=0;
+  float m[4][4] = {{-1, 3, -3, 1},  //Matrix for derivates
+                   {3, -6, 3, 0 },
+                   {-3, 3, 0, 0},
+                   {1, 0, 0, 0}};
+  float aux[4], segAux[4];
+  int i;
+  
+  // Derivate u
+  // bu*M
+  if (derivate) {
+    for(i = 0; i<4; i++){
+      aux[i] = (powf(u,3.0)*m[0][i]) + (powf(u,2.0)*m[1][i]) + (u*m[2][i]) + m[3][i];
+    }
+  } else {
+    for(i = 0; i<4; i++){
+      aux[i] = (3 * powf(u,2.0)*m[0][i]) + (2*u*m[1][i]) + (1*m[2][i]);
+    }
+  }
+
+  // (bu*M)*P
+  for(i = 0; i<4; i++){
+    segAux[i] = (aux[0]*points[0][i]) + (aux[1]*points[1][i]) + (aux[2]*points[2][i]) + (aux[3]*points[3][i]);
+  }
+
+  // ((bu*M)*P)*MT
+  for(i = 0; i<4; i++){
+    aux[i] = (segAux[0]*m[0][i]) + (segAux[1]*m[1][i]) + (segAux[2]*m[2][i]) + (segAux[3]*m[3][i]);
+  }
+
+// Derivate v
+// (((bu*M)*P)*MT)*bv
+  if(derivate) {
+    res = aux[0] * (3 * powf(v,2.0));
+    res += aux[1] * (2 * v);
+    res += aux[2];
+  } else {
+    res = aux[0] * powf(v,3.0);
+    res += aux[1] * powf(v,2.0);
+    res += aux[2] * v;
+    res += aux[3];
+  }
+  return res;
 }
