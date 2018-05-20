@@ -63,7 +63,6 @@ void Group::draw(){
 
   vector <Light*>::iterator lIt;
   for(lIt = this->groups.begin(); lIt != this->groups.end(); lIt++){
-    glPushMatrix();
     (*lIt)->draw();
   }
 
