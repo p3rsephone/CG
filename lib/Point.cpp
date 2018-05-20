@@ -28,3 +28,16 @@ Point* Point::normalizeSphere(float radius){
 
     return p;
 }
+
+Point * Point::normalizeBezier(){
+    float l = sqrt(powf(x,2) + powf(y,2) + powf(z,2));
+    if(l!=0) {
+        x = x/l;
+        y = y/l;
+        z = z/l;
+    } else {
+        x = 0;
+        y = 0;
+        z = 0;
+    }
+}
