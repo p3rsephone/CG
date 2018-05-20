@@ -198,6 +198,30 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
 
             } else
 
+            if(strcmp(pElement->Name(),"light") == 0){
+                string type = "";
+                float x=0;
+                float y=0;
+                float z=0;
+
+                if(pElement->Attribute("type")) {
+                    type = stof(pElement->Attribute("type"));
+                }
+                if(pElement->Attribute("posX")) {
+                    x = stof(pElement->Attribute("posX"));
+                }
+                if(pElement->Attribute("posY")) {
+                    y = stof(pElement->Attribute("posY"));
+                }
+                if(pElement->Attribute("posZ")){
+                    z = stof(pElement->Attribute("posZ"));
+                }
+
+                Light* light = new Light(type,x,y,z);
+
+                group->addLight(light);
+            } else
+
             if(strcmp(pElement->Name(),"translate") == 0){
                 float ti=10;
                 if(pElement->Attribute("time")) {

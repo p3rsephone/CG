@@ -56,14 +56,14 @@ void Group::draw(){
     this->transformation(*tIt);
   }
 
+    vector <Light*>::iterator lIt;
+    for(lIt = this->lights.begin(); lIt != this->lights.end(); lIt++){
+        (*lIt)->draw();
+    }
+
   vector <Model*>::iterator mIt;
   for(mIt = this->models.begin(); mIt != this->models.end(); mIt++){
     (*mIt)->draw();
-  }
-
-  vector <Light*>::iterator lIt;
-  for(lIt = this->lights.begin(); lIt != this->lights.end(); lIt++){
-    (*lIt)->draw();
   }
 
   vector <Group*>::iterator gIt;
