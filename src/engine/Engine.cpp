@@ -222,12 +222,13 @@ void Engine::initGL(int argc, char **argv){
 //  OpenGL settings
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glClearColor(0.0f,0.0f,0.0f,0.0f);
+	glClearColor(0.0f,0.0f,1.0f,0.0f);
 	glPolygonMode(GL_FRONT, GL_LINE);
 
   prepareWrapper();
 // enter GLUT's main loop
 	glutMainLoop();
+
 
 }
 

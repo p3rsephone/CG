@@ -87,7 +87,8 @@ Model* Parser::Parse3d(XMLElement* pElement){
 
             if(pElement->Attribute("texture")){
                 string textura = pElement->Attribute("texture");
-                textura = "files/"+ textura;
+                textura = "./files/"+ textura;
+
                 model = new Model(s, size, textura);
                 tex=1;
             }
