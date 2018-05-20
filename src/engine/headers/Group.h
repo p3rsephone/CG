@@ -7,6 +7,7 @@
 #include <string>
 #include "Transformation.h"
 #include "Model.h"
+#include "Light.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ private:
     vector<Transformation*> transformations;
     vector<Model*> models;
     vector<Group*> groups;
+    vector<Light*> lights;
     float position;
 public:
     Group();
@@ -24,6 +26,8 @@ public:
     void addModel(Model* m);
 
     void addGroup(Group* g);
+
+    void addLight(Light* l);
 
     void prepare();
 
@@ -36,5 +40,7 @@ public:
     vector<Model*> getModels();
 
     vector<Group*> getGroups();
+
+    vector<Light*> getLight();
 };
 #endif
