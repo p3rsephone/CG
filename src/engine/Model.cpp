@@ -116,7 +116,6 @@ void Model::draw(){
     glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
     glVertexPointer(3, GL_FLOAT, 0, 0);
 
-
     glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[1]);
     glTexCoordPointer(2,GL_FLOAT,0,0);
     glBindTexture(GL_TEXTURE_2D,this->texture);
