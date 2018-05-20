@@ -7,6 +7,8 @@
 
 #include "Model.h"
 #include "Group.h"
+#include "Material.h"
+#include "Colour.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -23,6 +25,8 @@ using namespace tinyxml2;
     class Parser{
         public:
             Parser();
+            void ColourComp(Model*, XMLElement*);
+            Model* Parse3d(XMLElement*);
             void ParseRow(XMLNode*, Group*);
             void ReadXML(Group*, char*);
 };

@@ -9,6 +9,167 @@ using namespace std;
 Parser::Parser(){
 }
 
+void Parser::ColourComp(Model* model, XMLElement* pElement){
+    Colour* diffuse = new Colour(0.7f,0.7f,0.7f);
+    Colour* ambient = new Colour(0.3f,0.3f,0.3f);
+    Colour* emission = new Colour(0,0,0);
+    Colour* specular = new Colour(0,0,0);
+    float shine = 0;
+
+    if(pElement->Attribute("diffR")){
+        diffuse->setR(stof(pElement->Attribute("diffR")));
+    }
+    if(pElement->Attribute("diffG")){
+        diffuse->setG(stof(pElement->Attribute("diffG")));
+    }
+    if(pElement->Attribute("diffB")){
+        diffuse->setB(stof(pElement->Attribute("diffB")));
+    }   
+
+    if(pElement->Attribute("ambR")){
+        ambient->setR(stof(pElement->Attribute("ambR")));
+    }
+    if(pElement->Attribute("ambG")){
+        ambient->setG(stof(pElement->Attribute("ambG")));
+    }
+    if(pElement->Attribute("ambB")){
+        ambient->setB(stof(pElement->Attribute("ambB")));
+    }
+
+    if(pElement->Attribute("emiR")){
+        emission->setR(stof(pElement->Attribute("emiR")));
+    }
+    if(pElement->Attribute("emiG")){
+        emission->setG(stof(pElement->Attribute("emiG")));
+    }
+    if(pElement->Attribute("emiB")){
+        emission->setB(stof(pElement->Attribute("emiB")));
+    }
+
+    if(pElement->Attribute("specR")){
+        specular->setR(stof(pElement->Attribute("specR")));
+    }
+    if(pElement->Attribute("specG")){
+        specular->setG(stof(pElement->Attribute("specG")));
+    }
+    if(pElement->Attribute("specB")){
+        specular->setB(stof(pElement->Attribute("specB")));
+    }
+
+    if(pElement->Attribute("shine")){
+        shine = stof(pElement->Attribute("specB"));
+    }
+
+    Material* mat = new Material(diffuse, ambient, specular, emission, shine);
+
+    model->setColourComponent(mat);
+}
+
+Model* Parser::Parse3d(XMLElement* pElement){
+    Model* model;
+    string s;
+    if(pElement->Attribute("file")){
+        s =pElement->Attribute("file");
+
+        string fileDir = "files/" + s;
+        ifstream infile(fileDir);
+
+        if(!infile) {
+            cout << "Cannot open input file.\n";
+        }
+        else {
+            string line;
+
+            getline(infile, line);
+            int size = stof(line);
+
+            if(pElement->Attribute("texture")){
+                string textura = pElement->Attribute("texture");
+                model = new Model(s, size, textura);
+            }
+            else{
+                model = new Model(s, size, "");
+            }
+
+            int coord = 0;
+            while (getline(infile, line) && (coord<size))
+            {
+                vector<string> v;
+                istringstream buf(line);
+                for(string word; buf >> word; )
+                    v.push_back(word);
+                int it = 0;
+                float x;
+                float y;
+                float z;
+                for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                    if(it==0) x=stof(*i);
+                    if(it==1) y=stof(*i);
+                    if(it==2) z=stof(*i);
+                    it++;
+                }
+
+                model->addElementPoint(x);
+                model->addElementPoint(y);
+                model->addElementPoint(z);
+                coord+=3;
+            }
+
+            coord=0;
+
+            while (getline(infile, line) && (coord<size))
+            {
+                vector<string> v;
+                istringstream buf(line);
+                for(string word; buf >> word; )
+                    v.push_back(word);
+                int it = 0;
+                float x;
+                float y;
+                float z;
+                for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                    if(it==0) x=stof(*i);
+                    if(it==1) y=stof(*i);
+                    if(it==2) z=stof(*i);
+                    it++;
+                }
+
+                model->addElementNormal(x);
+                model->addElementNormal(y);
+                model->addElementNormal(z);
+                coord+=3;
+            }
+
+            coord=0;
+
+            while (getline(infile, line) && (coord<size))
+            {
+                vector<string> v;
+                istringstream buf(line);
+                for(string word; buf >> word; )
+                    v.push_back(word);
+                int it = 0;
+                float x;
+                float y;
+                float z;
+                for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
+                    if(it==0) x=stof(*i);
+                    if(it==1) y=stof(*i);
+                    if(it==2) z=stof(*i);
+                    it++;
+                }
+
+                model->addElementTexture(x);
+                model->addElementTexture(y);
+                model->addElementTexture(z);
+                coord+=3;
+            }
+        }
+    }
+
+    return model;
+}
+
 void Parser::ParseRow(XMLNode* pRoot, Group* group){
     XMLNode * pNode = pRoot->FirstChild();
     if (pNode == nullptr){
@@ -18,161 +179,17 @@ void Parser::ParseRow(XMLNode* pRoot, Group* group){
 
     }
     else{
-
-        string s;
         float speed = 0;
         for(;pNode; pNode=pNode->NextSibling()){
 
             XMLElement* pElement = pNode->ToElement();
 
             if(strcmp(pElement->Name(),"model") == 0){
+                Model* model = Parse3d(pElement);
 
-                if(pElement->Attribute("file")){
-                    s =pElement->Attribute("file");
+                ColourComp(model, pElement);
 
-                    string fileDir = "files/" + s;
-                    ifstream infile(fileDir);
-
-                    if(!infile) {
-                        cout << "Cannot open input file.\n";
-                    }
-                    else {
-                        string line;
-
-                        getline(infile, line);
-                        int size = stof(line);
-
-                        Model* model = new Model(s, size);
-
-                        int coord = 0;
-                        while (getline(infile, line) && (coord<sizep))
-                        {
-                            vector<string> v;
-                            istringstream buf(line);
-                            for(string word; buf >> word; )
-                                v.push_back(word);
-                            int it = 0;
-                            float x;
-                            float y;
-                            float z;
-                            for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
-                                if(it==0) x=stof(*i);
-                                if(it==1) y=stof(*i);
-                                if(it==2) z=stof(*i);
-                                it++;
-                            }
-
-                            model->addElementP(x);
-                            model->addElementP(y);
-                            model->addElementP(z);
-                            coord+=3;
-                        }
-
-                        coord=0;
-
-                        while (getline(infile, line) && (coord<sizen))
-                        {
-                            vector<string> v;
-                            istringstream buf(line);
-                            for(string word; buf >> word; )
-                                v.push_back(word);
-                            int it = 0;
-                            float x;
-                            float y;
-                            float z;
-                            for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
-                                if(it==0) x=stof(*i);
-                                if(it==1) y=stof(*i);
-                                if(it==2) z=stof(*i);
-                                it++;
-                            }
-
-                            model->addElementN(x);
-                            model->addElementN(y);
-                            model->addElementN(z);
-                            coord+=3;
-                        }
-
-                        coord=0;
-
-                        while (getline(infile, line) && (coord<sizen))
-                        {
-                            vector<string> v;
-                            istringstream buf(line);
-                            for(string word; buf >> word; )
-                                v.push_back(word);
-                            int it = 0;
-                            float x;
-                            float y;
-                            float z;
-                            for(vector<string>::const_iterator i = v.begin(); i != v.end(); ++i) {
-                                if(it==0) x=stof(*i);
-                                if(it==1) y=stof(*i);
-                                if(it==2) z=stof(*i);
-                                it++;
-                            }
-
-                            model->addElementT(x);
-                            model->addElementT(y);
-                            model->addElementT(z);
-                            coord+=3;
-                        }
-
-                        group->addModel(model);
-                    }
-                }
-
-                if(pElement->Attribute("texture")){
-
-                }
-
-                if(pElement->Attribute("diffR")){
-
-                }
-
-                if(pElement->Attribute("diffG")){
-
-                }
-
-                if(pElement->Attribute("diffB")){
-
-                }
-
-                if(pElement->Attribute("ambR")){
-
-                }
-
-                if(pElement->Attribute("ambG")){
-
-                }
-
-                if(pElement->Attribute("ambB")){
-
-                }
-
-                if(pElement->Attribute("emiR")){
-
-                }
-
-                if(pElement->Attribute("emiG")){
-
-                }
-
-                if(pElement->Attribute("emiB")){
-
-                }
-
-                if(pElement->Attribute("specR")){
-
-                }
-
-                if(pElement->Attribute("specG")){
-
-                }
-
-                if(pElement->Attribute("specB")){
-
-                }
+                group->addModel(model);
 
             } else
 
