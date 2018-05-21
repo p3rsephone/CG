@@ -195,15 +195,6 @@ void Engine::initGL(int argc, char **argv){
 // put GLUT init here
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_DEPTH|GLUT_DOUBLE|GLUT_RGBA);
-//  OpenGL settings
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_TEXTURE_2D);
 
 // put callback registration here
   glutInitWindowPosition(100,100);
@@ -217,16 +208,22 @@ void Engine::initGL(int argc, char **argv){
 // event handler
   glutKeyboardFunc(processKeysWrapper);
 	glutSpecialFunc(specialKeysWrapper);
-	glEnableClientState(GL_VERTEX_ARRAY);
+
+
 
 #ifndef __APPLE__
 	glewInit();
 #endif
+	//  OpenGL settings
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_TEXTURE_2D);
 
-
-  prepareWrapper();
-// enter GLUT's main loop
-	glutMainLoop();
 
 
 }
@@ -234,8 +231,12 @@ void Engine::initGL(int argc, char **argv){
 
 void Engine::parse(int argc, char **argv){
   if(argc == 2 && (strcmp(argv[1],"-h"))) {
-    Parser().ReadXML(group, argv[1]);
     initGL(argc,argv);
+   	
+	Parser().ReadXML(group, argv[1]);
+  prepareWrapper();
+// enter GLUT's main loop
+	glutMainLoop();
   }else{
     usage();
   }
