@@ -5,7 +5,7 @@
             <light type="POINT" X="0" Y="0" Z="0"/>
         </lights>
       <models>
-          <model file="sun.3d" texture="sunmap.jpg" diffR="1.0" diffG="1.0" diffB="1.0"/>
+          <model file="sun.3d" texture="sunmap.jpg" diffR="1.0" diffG="0.5" diffB="0.0"/>
       </models>
     </group>
 
