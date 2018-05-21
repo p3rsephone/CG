@@ -17,5 +17,6 @@ class Point {
     float Z(){ return z; }
     Point* normalizeBezier();
     Point* normalizeSphere(float radius);
+    Point* normalizeInverseSphere(float radius);
 };
 #endif

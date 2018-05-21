@@ -30,6 +30,12 @@ Point* Point::normalizeSphere(float radius){
     return p;
 }
 
+Point* Point::normalizeInverseSphere(float radius){
+    Point* p = new Point(-this->x/radius,-this->y/radius,-this->z/radius);
+
+    return p;
+}
+
 Point * Point::normalizeBezier(){
     float l = sqrt(powf(x,2) + powf(y,2) + powf(z,2));
     float px,py,pz;

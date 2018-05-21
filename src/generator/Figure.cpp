@@ -338,6 +338,118 @@ void Figure::createSphere(float radius, int slices, int stacks){
 }
 
 /**
+ * @brief Creates vertice points for an inversed sphere with a certain radius, slices and stacks
+ * Usage: generator sphere 1 20 20 sphere.3d
+ * @param  radius   Radius of the sphere
+ * @param  slices   Number of slices in the sphere
+ * @param  stacks   Number of stacks in the sphere
+ */
+void Figure::createInverseSphere(float radius, int slices, int stacks){
+
+    //npoints = 2 + slices * stacks;
+
+    Point* p = NULL;
+
+    float fiShift = M_PI*2 / slices;
+    float thetaShift = M_PI / stacks;
+
+    float uShift = (float)1/slices;
+    float vShift = (float)1/stacks;
+
+    //Using spheric coordinates
+    //x = radius * sin(theta) * cos(fi);
+    //y = radius * sin(theta) * sin(fi);
+    //z = radius * cos(theta);
+    for(float fi = 0; fi < slices ; fi++){
+        for(float theta = 0; theta < stacks ; theta ++){
+
+            float rtheta = theta * thetaShift;
+            float rfi = fi * fiShift;
+
+            //Triangular ends of the sphere
+            if(theta == 0){
+                npoints += 3;
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point((fi+0.5)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(theta+thetaShift) ,radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+            }
+
+            else if(theta == stacks - 1){
+                npoints += 3;
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+0.5)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+            }
+
+                //Rectangles within the sphere
+            else {
+                npoints += 6;
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi));
+                points.push_back(p);
+                textures.push_back(new Point(fi*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta) * sin(rfi+fiShift), radius * cos(rtheta), radius * sin(rtheta) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,theta*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+                p = new Point(radius * sin(rtheta+thetaShift) * sin(rfi+fiShift), radius * cos(rtheta+thetaShift), radius * sin(rtheta+thetaShift) * cos(rfi+fiShift));
+                points.push_back(p);
+                textures.push_back(new Point((fi+1)*uShift,(theta+1)*vShift,0));
+                normals.push_back(p->normalizeInverseSphere(radius));
+
+            }
+
+        }
+    }
+
+
+
+}
+
+/**
  * @brief Creates vertice points for a cone with a certain radius, slices and stacks
  * Usage: generator cone 1 1 20 20 cone.3d
  * @param  r        Radius of the base
