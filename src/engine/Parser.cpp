@@ -82,6 +82,13 @@ Model* Parser::Parse3d(XMLElement* pElement){
 
             getline(infile, line);
             int size = stoi(line);
+            int tex;
+            if(pElement->Attribute("texture")){
+                tex=1;
+            }
+            else{
+                tex=0;
+            }
 
             vector<Point*> vertex_list; 
 			vector<Point*> normal_list;
@@ -127,7 +134,7 @@ Model* Parser::Parse3d(XMLElement* pElement){
                 normal_list.push_back(new Point(x,y,z));
             }
 
-
+            if(tex){
                 while (getline(infile, line))
                 {
                     vector<string> v;
@@ -147,6 +154,7 @@ Model* Parser::Parse3d(XMLElement* pElement){
                     
                     texture_list.push_back(new Point(x,y,z));
                 }
+            }
             
             if(pElement->Attribute("texture")){
                 string textura = pElement->Attribute("texture");
