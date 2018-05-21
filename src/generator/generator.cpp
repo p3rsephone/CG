@@ -110,6 +110,16 @@ int main(int argc, char* argv[]) {
         f->createSphere(radius, slices, stacks);
     }
 
+    else if ((argc == 6) && (strcmp(argv[1],"invsphere") == 0)){
+        float radius = atof(argv[2]);
+        int slices = (int) stoi(argv[3]);
+        int stacks = (int) stoi(argv[4]);
+
+        filename = argv[5];
+
+        f->createInverseSphere(radius, slices, stacks);
+    }
+
     else if (argc == 7 && (strcmp(argv[1],"cone") == 0)){
         float radius = atof(argv[2]);
         float height = atof(argv[3]);

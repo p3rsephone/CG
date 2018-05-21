@@ -24,6 +24,7 @@ class Figure {
         void createPlane(float size);
         void createBox(float x, float y, float z, int d);
         void createSphere(float radius, int slices, int stacks);
+        void createInverseSphere(float radius, int slices, int stacks);
         void createCone(float base, float height, int slices, int stacks);
         void createCylinder(float r, float height, int slices, int stacks);
 };
