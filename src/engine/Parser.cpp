@@ -83,22 +83,12 @@ Model* Parser::Parse3d(XMLElement* pElement){
             getline(infile, line);
             int size = stoi(line);
 
-            int tex;
+            vector<Point*> vertex_list; 
+			vector<Point*> normal_list;
+            vector<Point*> texture_list;
 
-            if(pElement->Attribute("texture")){
-                string textura = pElement->Attribute("texture");
-                textura = "./files/"+ textura;
-
-                model = new Model(s, size, textura);
-                tex=1;
-            }
-            else{
-                model = new Model(s, size);
-                tex=0;
-            }
-
-            int coord = 3;
-            while (getline(infile, line) && (coord<size))
+            getline(infile, line);
+            while (getline(infile, line) && (line!="Normals:"))
             {
                 vector<string> v;
                 istringstream buf(line);
@@ -115,14 +105,10 @@ Model* Parser::Parse3d(XMLElement* pElement){
                     it++;
                 }
 
-                model->addElementPoint(x);
-                model->addElementPoint(y);
-                model->addElementPoint(z);
-                coord+=3;
+                vertex_list.push_back(new Point(x,y,z)); // adicionar vértice ao vector
             }
 
-            coord=3;
-            while (getline(infile, line) && (coord<size))
+            while (getline(infile, line) && (line!="Textures:"))
             {
                 vector<string> v;
                 istringstream buf(line);
@@ -138,15 +124,11 @@ Model* Parser::Parse3d(XMLElement* pElement){
                     if(it==2) z=stof(*i);
                     it++;
                 }
-                model->addElementNormal(x);
-                model->addElementNormal(y);
-                model->addElementNormal(z);
-                coord+=3;
+                normal_list.push_back(new Point(x,y,z));
             }
 
-            coord=0;
-            if(tex){
-                while (getline(infile, line) && (coord<size))
+
+                while (getline(infile, line))
                 {
                     vector<string> v;
                     istringstream buf(line);
@@ -162,12 +144,18 @@ Model* Parser::Parse3d(XMLElement* pElement){
                         if(it==2) z=stof(*i);
                         it++;
                     }
-
-                    model->addElementTexture(x * model->image_width);
-                    model->addElementTexture(y * model->image_height);
-                    model->addElementTexture(z);
-                    coord+=3;
+                    
+                    texture_list.push_back(new Point(x,y,z));
                 }
+            
+            if(pElement->Attribute("texture")){
+                string textura = pElement->Attribute("texture");
+                textura = "./files/"+ textura;
+
+                model = new Model(s, textura, vertex_list, normal_list, texture_list);
+            }
+            else{
+                model = new Model(s);
             }
         }
     }
