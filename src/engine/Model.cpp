@@ -6,64 +6,50 @@ Model::Model(){
   texture=0;
 }
 
-Model::Model(string name, int size_points, string texture_file){
+Model::Model(string name, string texture_file,  vector<Point*> v_list, vector<Point*> n_list, vector<Point*> t_list){
   this->name = name;
-
-
-  this->points_array = new float*[3];
-  for(int i= 0 ; i < 3; i++)
-    this->points_array[i] = new float[size_points];
-
-  this->buffer = new GLuint[3];
-
-  this->state = new int[3];
-  for(int i= 0 ; i < 3 ; i++)
-    this->state[i] = 0;
-
-  this->size = size_points;
-  this->loadTexture(texture_file);
+  buffers_size[0] = v_list.size();
+	buffers_size[1] = n_list.size();
+	buffers_size[2] = t_list.size();
+	prepare(v_list, n_list, t_list);
+  loadTexture(texture_file);
 }
 
-Model::Model(string name, int size_points){
+Model::Model(string name){
   texture = 0;
   this->name = name;
 
+  //this->buffer = new GLuint[3];
 
-  this->points_array = new float*[3];
-  for(int i= 0 ; i < 3; i++)
-    this->points_array[i] = new float[size_points];
+  //this->state = new int[3];
+  //for(int i= 0 ; i < 3 ; i++)
+  //  this->state[i] = 0;
 
-  this->buffer = new GLuint[3];
-
-  this->state = new int[3];
-  for(int i= 0 ; i < 3 ; i++)
-    this->state[i] = 0;
-
-  this->size = size_points;
+  //this->size = size_points;
 }
 
 void Model::addElementPoint(float point){
-  this->points_array[0][this->state[0]++] = point;
-}
-
-void Model::addElementTexture(float point){
-  this->points_array[1][this->state[1]++] = point;
+  //this->points_array[this->state[0]++] = point;
 }
 
 void Model::addElementNormal(float point){
-  this->points_array[2][this->state[2]++] = point;
+  //this->normals_array[this->state[2]++] = point;
+}
+
+void Model::addElementTexture(float point){
+ // this->texture_array[this->state[1]++] = point;
 }
 
 float* Model::model(){
-  return this->points_array[0];
+  //return this->points_array;
 }
 
 float* Model::textures(){
-  return this->points_array[1];
+  //return this->texture_array;
 }
 
 float* Model::normal(){
-  return this->points_array[2];
+  //return this->normals_array;
 }
 
 void Model::setTexture(GLuint t){
@@ -75,13 +61,45 @@ void Model::setColourComponent(Material* c){
 }
 
 
-void Model::prepare(){
-  glGenBuffers(3,(this)->buffer);
-  for(int i=0; i< 3; i++){
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[i]);
-    glBufferData(GL_ARRAY_BUFFER,this->size * sizeof(float),this->points_array[i],GL_STATIC_DRAW);
-  }
+void Model::prepare(vector<Point*> vertex_list, vector<Point*> normal_list, vector<Point*> texture_list){
+  int index = 0;
+	float* vertex_array = (float*) malloc(sizeof(float) * vertex_list.size() * 3);
+	float* normal_array = (float*) malloc(sizeof(float) * normal_list.size() * 3);
+	float* texture_array = (float*) malloc(sizeof(float) * texture_list.size() * 2);
 
+	for(vector<Point*>::const_iterator vertex_it = vertex_list.begin(); vertex_it != vertex_list.end(); ++vertex_it){					
+		vertex_array[index] = (*vertex_it)->X();
+		vertex_array[index+1] = (*vertex_it)->Y();
+		vertex_array[index+2] = (*vertex_it)->Z();
+		index+=3;
+	}
+
+	index = 0;
+	for(vector<Point*>::const_iterator normal_it = normal_list.begin(); normal_it != normal_list.end(); ++normal_it){					
+		normal_array[index] = (*normal_it)->X();
+		normal_array[index+1] = (*normal_it)->Y();
+		normal_array[index+2] = (*normal_it)->Z();
+		index+=3;
+	}
+
+	index = 0;
+	for(vector<Point*>::const_iterator texture_it = texture_list.begin(); texture_it != texture_list.end(); ++texture_it){					
+		texture_array[index] = (*texture_it)->X();
+		texture_array[index+1] = (*texture_it)->Y();
+		index+=2;
+	}
+
+	glGenBuffers(3, buffer); 
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffers_size[0] * 3, vertex_array, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffers_size[1] * 3, normal_array, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffers_size[2] * 2, texture_array, GL_STATIC_DRAW);
+
+	free(vertex_array);
+	free(normal_array);
+  free(texture_array);
 }
 
 void Model::loadTexture(string texture_file){
@@ -120,29 +138,24 @@ void Model::loadTexture(string texture_file){
 
 void Model::draw(){
     colour_component->draw();
-    int k = glGetError();
-    glEnable(GL_TEXTURE_2D);
-       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
-    glVertexPointer(3, GL_FLOAT, 0, 0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[1]);
-    glTexCoordPointer(2,GL_FLOAT,0,0);
-    glBindTexture(GL_TEXTURE_2D,this->texture);
-    printf("id tex: %d\n",texture);
-
-
-    glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[2]);
-    glNormalPointer(GL_FLOAT, 0, 0);
-
-    glEnable(GL_LIGHTING);
-    glDrawArrays(GL_TRIANGLES,0,((this->size)-1) * 3);
-    glDisable(GL_LIGHTING);
-    glBindTexture(GL_TEXTURE_2D,0);
-    k = glGetError();
-    printf("Error: %d\n", k);
     
+  glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	if(buffers_size[1]){
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+		glNormalPointer(GL_FLOAT, 0, 0);
+	}
+
+	if(buffers_size[2]){
+		glBindBuffer(GL_ARRAY_BUFFER, buffer[2]);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0); 
+		glBindTexture(GL_TEXTURE_2D, texture);
+	}
+	
+	glEnable(GL_LIGHTING);
+	glDrawArrays(GL_TRIANGLES, 0, buffers_size[0] * 3);
+	glDisable(GL_LIGHTING);
+  glBindTexture(GL_TEXTURE_2D, 0);
 }
 

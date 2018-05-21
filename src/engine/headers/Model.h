@@ -9,6 +9,8 @@
 #endif
 #include <IL/il.h>
 #include <string>
+#include <vector>
+#include <headers/Point.h>
 #include <string.h>
 #include <math.h>
 #include "Material.h"
@@ -22,10 +24,10 @@ using namespace std;
       //Name of the object
       Material *colour_component;
       string name;
-      GLuint *buffer;
+      GLuint buffer[3];
+      GLuint buffers_size[3];
     //vector of triangles that compose a Model
       int size;
-      float** points_array;
       int* state;
       GLuint texture;
     public:
@@ -42,8 +44,8 @@ using namespace std;
  *
  *@return void
  */
-      Model(string name, int size_points, string texture_file);
-      Model(string name, int size_points );
+      Model(string name, string texture_file,  vector<Point*> v_list, vector<Point*> n_list, vector<Point*> t_list);
+      Model(string name);
 /**
  *@brief Method that add a Triangle to a Model
  *
@@ -80,7 +82,7 @@ using namespace std;
 
       void test();
 
-      void prepare();
+      void prepare(vector<Point*> vertex_list, vector<Point*> normal_list, vector<Point*> texture_list);
 
       string getName(){return this->name;};
 

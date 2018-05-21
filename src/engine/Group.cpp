@@ -38,7 +38,7 @@ vector<Light*> Group::getLight(){
 void Group::prepare(){
   vector <Model*>::iterator mIt;
   for(mIt = this->models.begin(); mIt != this->models.end(); mIt++){
-    (*mIt)->prepare();
+    //(*mIt)->prepare();
   }
 
   vector <Group*>::iterator gIt;

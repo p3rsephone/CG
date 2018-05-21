@@ -10,6 +10,7 @@ class Point {
   public:
     Point();
     Point(float, float, float);
+    Point(float, float);
     std::string toString();
     float X(){ return x; }
     float Y(){ return y; }
