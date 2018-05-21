@@ -5,13 +5,13 @@
             <light type="POINT" X="0" Y="0" Z="0"/>
         </lights>
       <models>
-          <model file="sun.3d" texture="sunmap.jpg" diffR="0.8" diffG="0.8" diffB="0.15"/>
+          <model file="sun.3d" texture="sunmap.jpg" diffR="1.0" diffG="1.0" diffB="1.0"/>
       </models>
     </group>
 
     <group>
         <rotate angle="50" time="100" axisY="1"/>
-        <translate time="60"> 
+        <translate time="60">
 			<point X="29.8775" Y="0" Z="0"/>
  			<point X="21.1266" Y="0" Z="21.1266"/>
  			<point X="0" Y="0" Z="29.8775"/>
@@ -29,7 +29,7 @@
 
     <group>
         <rotate angle="80" time="150" axisY="1"/>
-        <translate time="90"> 
+        <translate time="90">
   			<point X="33.9233" Y="0" Z="0"/>
   			<point X="23.98740" Y="0" Z="23.98740"/>
  			<point X="0" Y="0" Z="33.9233"/>
@@ -76,7 +76,7 @@
 
     <group>
         <rotate angle="150" time="40" axisY="1"/>
-        <translate time="170"> 
+        <translate time="170">
 			<point X="60.9523" Y="0" Z="0"/>
  			<point X="44.51400" Y="0" Z="44.51400"/>
  			<point X="0" Y="0" Z="60.9523"/>
@@ -93,7 +93,7 @@
 
     <group>
         <rotate angle="10" time="20" axisY="1"/>
-        <translate time="240"> 
+        <translate time="240">
 			<point X="88.12987" Y="0" Z="0"/>
     		<point X="62.31723" Y="0" Z="62.31723"/>
  			<point X="0" Y="0" Z="88.12987"/>
@@ -110,7 +110,7 @@
 
     <group>
         <rotate angle="290" time="25" axisY="1"/>
-        <translate time="300"> 
+        <translate time="300">
 			<point X="120.5005" Y="0" Z="0"/>
  			<point X="85.20672" Y="0" Z="85.20672"/>
  			<point X="0" Y="0" Z="120.5005"/>
@@ -127,7 +127,7 @@
 
     <group>
         <rotate angle="120" time="15" axisY="1"/>
-        <translate time="375"> 
+        <translate time="375">
 			<point X="158.0747" Y="0" Z="0"/>
 			<point X="111.77569" Y="0" Z="111.77569"/>
 			<point X="0" Y="0" Z="158.0747"/>

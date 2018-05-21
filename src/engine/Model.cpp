@@ -1,7 +1,9 @@
 #include "headers/Model.h"
+#include <cassert>
 using namespace std;
 
 Model::Model(){
+  texture=0;
 }
 
 Model::Model(string name, int size_points, string texture_file){
@@ -23,6 +25,7 @@ Model::Model(string name, int size_points, string texture_file){
 }
 
 Model::Model(string name, int size_points){
+  texture = 0;
   this->name = name;
 
 
@@ -97,11 +100,16 @@ void Model::loadTexture(string texture_file){
     }
 	this->image_width = ilGetInteger(IL_IMAGE_WIDTH);
 	this->image_height = ilGetInteger(IL_IMAGE_HEIGHT);
+  assert(image_width>0 && image_height>0);
+   printf("id tex: %d %d\n", image_width, image_height);
+
 	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 	texData = ilGetData();
 
 	glGenTextures(1, &this->texture);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
+      printf("id tex: %d\n",texture);
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -112,6 +120,10 @@ void Model::loadTexture(string texture_file){
 
 void Model::draw(){
     colour_component->draw();
+    int k = glGetError();
+    glEnable(GL_TEXTURE_2D);
+       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[0]);
     glVertexPointer(3, GL_FLOAT, 0, 0);
@@ -119,6 +131,8 @@ void Model::draw(){
     glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[1]);
     glTexCoordPointer(2,GL_FLOAT,0,0);
     glBindTexture(GL_TEXTURE_2D,this->texture);
+    printf("id tex: %d\n",texture);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, (this)->buffer[2]);
     glNormalPointer(GL_FLOAT, 0, 0);
@@ -127,5 +141,8 @@ void Model::draw(){
     glDrawArrays(GL_TRIANGLES,0,((this->size)-1) * 3);
     glDisable(GL_LIGHTING);
     glBindTexture(GL_TEXTURE_2D,0);
+    k = glGetError();
+    printf("Error: %d\n", k);
+    
 }
 
