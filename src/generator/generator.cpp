@@ -21,6 +21,10 @@ void usage(){
 	cout << "|      Creates a sphere with the radius, number of slices and    |" << endl;
 	cout << "|      stacks given.                                             |" << endl;
 	cout << "|                                                                |" << endl;
+    cout << "| - invsphere [RADIUS] [SLICE] [STACK]                           |" << endl;
+    cout << "|      Creates an inverse sphere with the radius, number of      |" << endl;
+    cout << "|      slices and stacks given.                                  |" << endl;
+    cout << "|                                                                |" << endl;
 	cout << "| - cone [RADIUS] [HEIGHT] [SLICE] [STACK]                       |" << endl;
 	cout << "|      Creates a cone with the radius, height, number of slices  |" << endl;
 	cout << "|      and stacks given.                                         |" << endl;
