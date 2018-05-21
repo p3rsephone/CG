@@ -62,12 +62,15 @@ void PatchParser::printfile(vector<Point*> points, vector<Point*> normals, vecto
     cout << "Error while opening file " << filename << endl;
   } else {
     file << points.size()*3 << endl;
+    file << "Points:" << endl;
     for (vector<Point*>::iterator i = points.begin(); i!= points.end(); i++)
         file << (*i)->toString();
 
+    file << "Normals:" << endl;
     for (vector<Point*>::iterator i = normals.begin(); i!= normals.end(); i++)
         file << (*i)->toString();
     
+    file << "Textures:" << endl;
     for (vector<Point*>::iterator i = textures.begin(); i!= textures.end(); i++)
         file << (*i)->toString();
     

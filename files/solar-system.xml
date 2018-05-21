@@ -22,7 +22,7 @@
  	    	<point X="21.1266" Y="0" Z="-21.1266"/>
         </translate>
         <models>
-            <model file="mercury.3d"/>
+            <model file="mercury.3d" texture="mercurio.jpg"/>
         </models>
     </group>
 
@@ -40,7 +40,7 @@
 			<point X="23.98740" Y="0" Z="-23.98740"/>
         </translate>
         <models>
-            <model file="venus.3d"/>
+            <model file="venus.3d" texture="venus.jpg"/>
         </models>
     </group>
 
@@ -57,7 +57,7 @@
  			<point X="31.68270" Y="0" Z="-31.68270"/>
         </translate>
         <models>
-            <model file="earth.3d"/>
+            <model file="earth.3d" texture="terra.jpg"/>
         </models>
 
         <group>
@@ -69,7 +69,7 @@
         	<point X="-3" Y="1" Z="-3" />
           </translate>
           <models>
-            <model file="moon.3d"/>
+            <model file="moon.3d" texture="lua.jpg"/>
           </models>
         </group>
     </group>
@@ -87,7 +87,7 @@
  			<point X="44.51400" Y="0" Z="-44.51400"/>
         </translate>
         <models>
-            <model file="mars.3d"/>
+            <model file="mars.3d" texture="marte.jpg"/>
         </models>
     </group>
 
@@ -104,7 +104,7 @@
  			<point X="62.31723" Y="0" Z="-62.31723"/>
         </translate>
         <models>
-            <model file="jupiter.3d"/>
+            <model file="jupiter.3d" texture="jupiter.jpg"/>
         </models>
     </group>
 
@@ -121,7 +121,7 @@
  			<point X="85.20672" Y="0" Z="-85.20672"/>
         </translate>
         <models>
-            <model file="saturn.3d"/>
+            <model file="saturn.3d" texture="saturno.jpg"/>
         </models>
     </group>
 
@@ -138,7 +138,7 @@
 			<point X="111.77569" Y="0" Z="-111.77569"/>
         </translate>
         <models>
-            <model file="uranus.3d"/>
+            <model file="uranus.3d" texture="urano.jpg"/>
         </models>
     </group>
 
@@ -155,7 +155,7 @@
 			<point X="142.37969" Y="0" Z="-142.37969"/>
         </translate>
         <models>
-            <model file="neptune.3d"/>
+            <model file="neptune.3d" texture="neptuno.jpg"/>
         </models>
     </group>
 
@@ -172,7 +172,7 @@
 				<point X="160.37969" Y="0" Z="-160.37969"/>
         </translate>
         <models>
-            <model file="pluto.3d"/>
+            <model file="pluto.3d" texture="pluto.jpg"/>
         </models>
     </group>
       <group>
@@ -196,7 +196,7 @@
               <point X="36.9552" Y="0" Z="-120.182" />
           </translate>
           <models>
-              <model file="teapot.3d"/>
+              <model file="teapot.3d" texture="wood1.jpg"/>
           </models>
       </group>
   </group>
